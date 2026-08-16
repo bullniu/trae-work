@@ -2108,7 +2108,7 @@
           });
 
           // ============ (0) 封面 ============
-          const coverSection = new docx.Section({
+          const coverSection = ({
             properties: {
               page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } }
             },
@@ -2152,7 +2152,7 @@
           });
 
           // ============ (1) 目录 ============
-          const tocSection = new docx.Section({
+          const tocSection = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 }, pageNumbers:{ start:1 } } },
             headers: { default: header('目 录') },
             footers: { default: footer() },
@@ -2178,7 +2178,7 @@
           const jointNotesPars = pqrForm.grooveNotes ? pqrForm.grooveNotes.split(/\r?\n/).filter(s=>s.trim()).map(s=>newLineP(s, 18)) : [newLineP('—',18)];
           const diagramPars = pqrForm.jointDiagram ? pqrForm.jointDiagram.split(/\r?\n/).filter(s=>s.trim()).map(s=>newLineP(s, 20)) : [newLineP('（简图由设计图纸/工艺卡补充）', 20, false, docx.AlignmentType.CENTER)];
 
-          const pwpsPage1Section = new docx.Section({
+          const pwpsPage1Section = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } } },
             headers: { default: header('预焊接工艺规程 PWPS 第 1 页') },
             footers: { default: footer() },
@@ -2271,7 +2271,7 @@
             ]);
           });
 
-          const pwpsPage2Section = new docx.Section({
+          const pwpsPage2Section = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } } },
             headers: { default: header('预焊接工艺规程 PWPS 第 2 页') },
             footers: { default: footer() },
@@ -2358,7 +2358,7 @@
           });
 
           // ============ (4) PQR 第1页 ============
-          const pqrPage1Section = new docx.Section({
+          const pqrPage1Section = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } } },
             headers: { default: header('焊接工艺评定报告 PQR 第 1 页') },
             footers: { default: footer() },
@@ -2478,7 +2478,7 @@
             _tc(_num(r.akv3),{w:charpyCols[8]})
           ]));
 
-          const pqrPage2Section = new docx.Section({
+          const pqrPage2Section = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } } },
             headers: { default: header('焊接工艺评定报告 PQR 第 2 页') },
             footers: { default: footer() },
@@ -2557,7 +2557,7 @@
             _tc(_num(p.weldSpeed),{w:1300}),
             _tc(calcPassHeatInput(p),{w:1600})
           ]));
-          const weldRecordSection = new docx.Section({
+          const weldRecordSection = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } } },
             headers: { default: header('焊接工艺评定施焊记录') },
             footers: { default: footer() },
@@ -2626,7 +2626,7 @@
           });
 
           // ============ (7) 无损检测报告 ============
-          const ndtSection = new docx.Section({
+          const ndtSection = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } } },
             headers: { default: header('无损检测报告') },
             footers: { default: footer() },
@@ -2667,7 +2667,7 @@
 
           // ============ (8) 性能试验报告 ============
           // 硬度表（可选，HV10/HRC 默认 —）
-          const perfSection = new docx.Section({
+          const perfSection = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } } },
             headers: { default: header('性能试验报告') },
             footers: { default: footer() },
@@ -2726,7 +2726,7 @@
           // ============ (9) 母材质量证明书 ============
           const matElements = ['C','Si','Mn','P','S','Cr','Ni','Mo','V','Ti','Cu'];
           const bmQC = ['0.17','0.30','0.55','0.025','0.020','/','/','/','/','/','0.20'];
-          const bmQCSection = new docx.Section({
+          const bmQCSection = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } } },
             headers: { default: header('母材质量证明书') },
             footers: { default: footer() },
@@ -2786,7 +2786,7 @@
 
           // ============ (10) 焊材质量证明书 ============
           const consQC = ['0.08','0.40','1.10','0.018','0.012','/','/','/','/','/','/'];
-          const consQCSection = new docx.Section({
+          const consQCSection = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } } },
             headers: { default: header('焊材质量证明书') },
             footers: { default: footer() },
@@ -2899,7 +2899,7 @@
         // 记录模块
         recordSearch, filteredRecords, defaultRecordForm, recordDialog, recordFormRef, recordRules,
         stopwatch, formatStopwatch, swStart, swPause, swStop, swReset, stopwatchWriteTo, onRowClick, selectAsTargetAndFill,
-        addPass, deletePass, fillDefaultPasses, passSummary, passRowClass, autoCalcAllPassSpeed,
+        addPass, deletePass, fillDefaultPasses, passSummary, passRowClass, autoCalcPassSpeed, autoCalcAllPassSpeed,
         openRecordDialog, saveRecord, deleteRecord, exportRecordsJSON, useRecordForPqr,
         // 知识库
         defaultBaseMetal, defaultConsumable, kbDialog, kbFormRef, kbRules,
