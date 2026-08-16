@@ -2157,15 +2157,15 @@
             headers: { default: header('目 录') },
             footers: { default: footer() },
             children: [
-              _hPara('目    录', 1, { align: docx.AlignmentType.CENTER }),
+              _hPara('目      录', 1, { align: docx.AlignmentType.CENTER }),
               _blankP(120),
-              _p('1.  预焊接工艺规程 PWPS  ——  第 3 ~ 4 页'),
-              _p('2.  焊接工艺评定报告 PQR  ——  第 5 ~ 6 页'),
-              _p('3.  焊接工艺评定施焊记录  ——  第 7 页'),
-              _p('4.  无损检测报告  ——  第 8 页'),
-              _p('5.  性能试验报告  ——  第 9 页'),
-              _p('6.  母材质量证明书  ——  第 10 页'),
-              _p('7.  焊材质量证明书  ——  第 11 页')
+              _p('1.  预焊接工艺规程                  1份 2页', { size: 22 }),
+              _p('2.  焊接工艺评定报告                1份 2页', { size: 22 }),
+              _p('3.  焊接工艺评定施焊记录表          1份 1页', { size: 22 }),
+              _p('4.  无损检测报告                    1份 2页', { size: 22 }),
+              _p('5.  焊接工艺评定性能试验报告        1份 1页', { size: 22 }),
+              _p('6.  母材质量证明书                  1份 1页', { size: 22 }),
+              _p('7.  焊材质量证明书                  1份 2页', { size: 22 })
             ]
           });
 
@@ -2252,22 +2252,21 @@
 
           // ============ PWPS 第2页 ============
           // 多层多道明细
-          const passTableWidths = [900, 1400, 2400, 2300, 1400, 1600, 2000, 2000];
-          const passTableHeaders = ['焊道/焊层','焊接方法','填充材料(牌号-直径)','焊接电源-极性-电流(A)','电弧电压(V)','焊接速度(cm/min)','热输入(kJ/cm)',''];
+          const passTableWidths = [1100, 1400, 2400, 2300, 1400, 1700, 2100];
+          const passTableHeaders = ['焊道/焊层','焊接方法','填充材料(牌号/直径)','焊接电源(极性/电流(A))','电弧电压(V)','焊接速度(cm/min)','热输入(kJ/cm)'];
           const passHeaderRow = newTableRow(passTableHeaders.map((t,i)=>_tc(t,{w:passTableWidths[i], bold:true, shading:shadeHead})));
           const passRowsData = passes.length ? passes : [{ layer:1, passNo:1, weldMethod:R.weldMethod, consumable:C.brand||C.grade, consumableSpec:C.depositSize||C.depositSpec, current:null, voltage:null, weldSpeed:null, efficiency:0.75, weldTime:0 }];
           const passRows = passRowsData.map(p => {
             const weldSpeed = p.weldSpeed ? (typeof p.weldSpeed === 'number' ? p.weldSpeed.toFixed(1) : p.weldSpeed) : '—';
             const heatIn = calcPassHeatInput(p);
             return newTableRow([
-              _tc(`L${p.layer}-${p.passNo}`,{w:900}),
+              _tc(`L${p.layer}-${p.passNo}`,{w:1100}),
               _tc(p.weldMethod || R.weldMethod || '—',{w:1400}),
-              _tc(`${_(p.consumable, C.brand||C.grade)} - ${_(p.consumableSpec, C.depositSize||C.depositSpec)}`,{w:2400}),
-              _tc(`${_(pqrForm.currentType,'DC')} ${_(pqrForm.polarity,'DCEP')}  ${p.current||'—'}`,{w:2300}),
+              _tc(`${_(p.consumable, C.brand||C.grade)} / ${_(p.consumableSpec, C.depositSize||C.depositSpec)}`,{w:2400}),
+              _tc(`${_(pqrForm.polarity,'DCEP')} / ${p.current||'—'}`,{w:2300}),
               _tc(p.voltage ? String(p.voltage) : '—',{w:1400}),
-              _tc(String(weldSpeed),{w:1600}),
-              _tc(String(heatIn),{w:2000}),
-              _tc('—',{w:2000})
+              _tc(String(weldSpeed),{w:1700}),
+              _tc(String(heatIn),{w:2100})
             ]);
           });
 
@@ -2431,23 +2430,22 @@
 
           // ============ (5) PQR 第2页：检验结果 + 签字 ============
           // 拉伸行
-          const tensileCols = [900,1000,1000,1100,1600,1200,2200];
-          const tensileHdrs = ['编号','宽W(mm)','厚T(mm)','面积(mm²)','断裂载荷(kN)','Rm(MPa)','断裂位置'];
+          const tensileCols = [1500,1600,1300,1500,1500,2600];
+          const tensileHdrs = ['试样编号','截面尺寸mm×mm','横截面积mm²','断裂载荷kN','抗拉强度MPa','断裂部位和特征'];
           const tensileRowFill = [
             ...pqrForm.tensileRows.filter(r => r.no || r.sizeW || r.rm),
             ...Array.from({length: Math.max(0, 3 - (pqrForm.tensileRows||[]).filter(r=>r.no).length)}, ()=>({no:'',sizeW:null,sizeT:null,area:null,fractureLoad:null,rm:null,fracturePos:''}))
           ].slice(0,6);
           const tensileBody = tensileRowFill.map(r => newTableRow([
             _tc(_(r.no,'—'),{w:tensileCols[0]}),
-            _tc(_num(r.sizeW),{w:tensileCols[1]}),
-            _tc(_num(r.sizeT),{w:tensileCols[2]}),
-            _tc(_num(r.area),{w:tensileCols[3]}),
-            _tc(_num(r.fractureLoad),{w:tensileCols[4]}),
-            _tc(_num(r.rm),{w:tensileCols[5]}),
-            _tc(_(r.fracturePos),{w:tensileCols[6]})
+            _tc(`${_num(r.sizeW)} × ${_num(r.sizeT)}`,{w:tensileCols[1]}),
+            _tc(_num(r.area),{w:tensileCols[2]}),
+            _tc(_num(r.fractureLoad),{w:tensileCols[3]}),
+            _tc(_num(r.rm),{w:tensileCols[4]}),
+            _tc(_(r.fracturePos),{w:tensileCols[5]})
           ]));
-          const bendCols = [900,1800,1200,1400,1200,1500];
-          const bendHdrs = ['编号','类型×数量','厚度(mm)','弯芯直径(mm)','弯曲角度(°)','结果'];
+          const bendCols = [1200,1800,1300,1500,1400,1800];
+          const bendHdrs = ['试样编号','试样类型及件数','试样厚度mm','弯心直径mm','弯曲角度°','试验结果'];
           const bendRowFill = [
             ...(pqrForm.bendRows || []).filter(r => r.no || r.thickness),
             ...Array.from({length: Math.max(0, 4 - (pqrForm.bendRows||[]).filter(r=>r.no).length)}, ()=>({no:'',typeAndCount:'',thickness:null,mandrelDia:null,angle:null,result:''}))
@@ -2460,22 +2458,23 @@
             _tc(_num(r.angle),{w:bendCols[4]}),
             _tc(_(r.result,'—'),{w:bendCols[5]})
           ]));
-          const charpyCols = [900,900,900,1200,1600,1100,1100,1100,1100];
-          const charpyHdrs = ['编号','宽W','厚T','缺口类型','缺口位置','试验温度(℃)','AkV1(J)','AkV2(J)','AkV3(J)'];
+          const charpyCols = [1100,1300,1200,1300,1200,1100,800,800,800,1100];
+          const charpyHdrs = ['试样编号','试样尺寸mm×mm','缺口类型','缺口位置','试验温度','冲击吸收功J','1','2','3','标准值'];
           const charpyRowFill = [
             ...(pqrForm.charpyRows || []).filter(r => r.no || r.testTemp != null),
             ...Array.from({length: Math.max(0, 3 - (pqrForm.charpyRows||[]).filter(r=>r.no).length)}, ()=>({no:'',sizeW:null,sizeT:null,notchType:'',notchPos:'',testTemp:null,akv1:null,akv2:null,akv3:null}))
           ].slice(0,6);
           const charpyBody = charpyRowFill.map(r => newTableRow([
             _tc(_(r.no,'—'),{w:charpyCols[0]}),
-            _tc(_num(r.sizeW),{w:charpyCols[1]}),
-            _tc(_num(r.sizeT),{w:charpyCols[2]}),
-            _tc(_(r.notchType),{w:charpyCols[3]}),
-            _tc(_(r.notchPos),{w:charpyCols[4]}),
-            _tc(_num(r.testTemp),{w:charpyCols[5]}),
+            _tc(`${_num(r.sizeW)} × ${_num(r.sizeT)}`,{w:charpyCols[1]}),
+            _tc(_(r.notchType),{w:charpyCols[2]}),
+            _tc(_(r.notchPos),{w:charpyCols[3]}),
+            _tc(_num(r.testTemp),{w:charpyCols[4]}),
+            _tc('—',{w:charpyCols[5]}),
             _tc(_num(r.akv1),{w:charpyCols[6]}),
             _tc(_num(r.akv2),{w:charpyCols[7]}),
-            _tc(_num(r.akv3),{w:charpyCols[8]})
+            _tc(_num(r.akv3),{w:charpyCols[8]}),
+            _tc('—',{w:charpyCols[9]})
           ]));
 
           const pqrPage2Section = ({
@@ -2546,16 +2545,15 @@
           });
 
           // ============ (6) 施焊记录 ============
-          const weldRecordCols = [900, 1800, 1600, 1400, 1400, 1300, 1600];
-          const weldRecordHdrs = ['层/道','焊接方法','填充材料(牌号/规格)','极性/电流(A)','电压(V)','速度(cm/min)','线能量(kJ/cm)'];
+          const weldRecordCols = [1200, 2400, 1500, 1500, 1500, 1800];
+          const weldRecordHdrs = ['焊接层次','焊材/规格mm','焊接电流A','电弧电压V','焊接速度cm/min','线能量kJ/cm'];
           const wrRows = (passes.length ? passes : [{layer:1,passNo:1,consumable:C.brand||C.grade,consumableSpec:C.depositSize,weldMethod:R.weldMethod,current:null,voltage:null,weldSpeed:null,efficiency:0.75}]).map(p=>newTableRow([
-            _tc(`L${p.layer}-${p.passNo}`,{w:900}),
-            _tc(p.weldMethod||R.weldMethod||'—',{w:1800}),
-            _tc(`${_(p.consumable)} / ${_(p.consumableSpec)}`,{w:1600}),
-            _tc(`${_(pqrForm.currentType)}${_(pqrForm.polarity?'/':'-')}${_(pqrForm.polarity)}  ${_(p.current)}`,{w:1400}),
-            _tc(_num(p.voltage),{w:1400}),
-            _tc(_num(p.weldSpeed),{w:1300}),
-            _tc(calcPassHeatInput(p),{w:1600})
+            _tc(`${p.layer}-${p.passNo}`,{w:1200}),
+            _tc(`${_(p.consumable,C.brand||C.grade)} / ${_(p.consumableSpec,C.depositSize||C.depositSpec)}`,{w:2400}),
+            _tc(_num(p.current),{w:1500}),
+            _tc(_num(p.voltage),{w:1500}),
+            _tc(_num(p.weldSpeed),{w:1500}),
+            _tc(calcPassHeatInput(p),{w:1800})
           ]));
           const weldRecordSection = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } } },
