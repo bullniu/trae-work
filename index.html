@@ -1317,14 +1317,55 @@
       const req = indexedDB.open(DB_NAME, DB_VERSION);
       req.onupgradeneeded = (e) => {
         const db = e.target.result;
-        Object.values(STORES).forEach(s => { if (!db.objectStoreNames.contains(s)) db.createObjectStore(s, { keyPath: 'id', autoIncrement: true }); });
+        const tx = e.target.transaction;
+        Object.values(STORES).forEach(s => {
+          if (!db.objectStoreNames.contains(s)) {
+            db.createObjectStore(s, { keyPath: 'id', autoIncrement: true });
+          } else {
+            // 旧版 store 若存在但 keyPath/autoIncrement 不符，需重建（删后重建会丢数据，仅最后一次 fallback）
+            // 这里不主动重建以保护数据；若确实需要可在控制台 indexedDB.deleteDatabase('WeldingPQRDB') 后重试
+          }
+        });
       };
-      req.onsuccess = () => resolve(req.result);
+      req.onsuccess = () => {
+        const db = req.result;
+        // 若 store 实际不存在（版本未提升的边缘情况），关库再以更高版本重开
+        const missing = Object.values(STORES).some(s => !db.objectStoreNames.contains(s));
+        if (missing) {
+          db.close();
+          const req2 = indexedDB.open(DB_NAME, DB_VERSION + 1);
+          req2.onupgradeneeded = (e2) => {
+            const db2 = e2.target.result;
+            Object.values(STORES).forEach(s => { if (!db2.objectStoreNames.contains(s)) db2.createObjectStore(s, { keyPath: 'id', autoIncrement: true }); });
+          };
+          req2.onsuccess = () => resolve(req2.result);
+          req2.onerror = () => reject(req2.error);
+        } else {
+          resolve(db);
+        }
+      };
       req.onerror = () => reject(req.error);
     });
   }
-  async function dbAdd(store, item) { const db = await openDB(); return new Promise((r,e)=>{ const t = db.transaction(store,'readwrite'); const os = t.objectStore(store); const q = os.add({...item, createdAt: Date.now(), updatedAt: Date.now()}); q.onsuccess = ()=>r(q.result); q.onerror = ()=>e(q.error); }); }
-  async function dbPut(store, item) { const db = await openDB(); return new Promise((r,e)=>{ const t = db.transaction(store,'readwrite'); const os = t.objectStore(store); item.updatedAt = Date.now(); const q = os.put(item); q.onsuccess = ()=>r(q.result); q.onerror = ()=>e(q.error); }); }
+  // 深拷贝（去除 Vue reactive proxy，避免 IndexedDB structured clone 抛 DataCloneError）
+  const plainCopy = (obj) => {
+    if (obj === null || typeof obj !== 'object') return obj;
+    try { return JSON.parse(JSON.stringify(obj)); }
+    catch (e) { return obj; }
+  };
+  async function dbAdd(store, item) {
+    const db = await openDB();
+    const data = plainCopy(item);
+    if (data && !data.id) delete data.id;
+    data.createdAt = Date.now(); data.updatedAt = Date.now();
+    return new Promise((r,e)=>{ const t = db.transaction(store,'readwrite'); const os = t.objectStore(store); const q = os.add(data); q.onsuccess = ()=>r(q.result); q.onerror = ()=>e(q.error); });
+  }
+  async function dbPut(store, item) {
+    const db = await openDB();
+    const data = plainCopy(item);
+    data.updatedAt = Date.now();
+    return new Promise((r,e)=>{ const t = db.transaction(store,'readwrite'); const os = t.objectStore(store); const q = os.put(data); q.onsuccess = ()=>r(q.result); q.onerror = ()=>e(q.error); });
+  }
   async function dbGetAll(store) { const db = await openDB(); return new Promise((r,e)=>{ const t = db.transaction(store,'readonly'); const os = t.objectStore(store); const q = os.getAll(); q.onsuccess = ()=>r(q.result); q.onerror = ()=>e(q.error); }); }
   async function dbDelete(store, id) { const db = await openDB(); return new Promise((r,e)=>{ const t = db.transaction(store,'readwrite'); const os = t.objectStore(store); const q = os.delete(id); q.onsuccess = ()=>r(); q.onerror = ()=>e(q.error); }); }
 
@@ -1569,7 +1610,14 @@
           if (recordDialog.mode === 'add') { await dbAdd(STORES.records, recordDialog.form); ElementPlus.ElMessage.success('新增成功'); }
           else { await dbPut(STORES.records, recordDialog.form); ElementPlus.ElMessage.success('修改成功'); }
           recordDialog.visible = false; loadAllData();
-        } catch (e) {}
+        } catch (e) {
+          console.error('saveRecord error', e);
+          if (e && (e.name === 'ValidationError' || (e.errors && e.errors.length))) {
+            ElementPlus.ElMessage.warning('请检查必填项：' + (e.errors || []).map(x => x.message).join('；'));
+          } else {
+            ElementPlus.ElMessage.error('保存失败：' + (e && e.message ? e.message : String(e)));
+          }
+        }
       };
       const deleteRecord = (row) => {
         ElementPlus.ElMessageBox.confirm(`确认删除焊接记录 "${row.weldNo}" 吗？`, '确认', { type:'warning' }).then(async () => {
@@ -1628,7 +1676,14 @@
           if (kbDialog.mode === 'add') { await dbAdd(store, f); ElementPlus.ElMessage.success('新增成功'); }
           else { await dbPut(store, f); ElementPlus.ElMessage.success('修改成功'); }
           kbDialog.visible = false; loadAllData();
-        } catch(e) {}
+        } catch(e) {
+          console.error('saveKbItem error', e);
+          if (e && (e.name === 'ValidationError' || (e.errors && e.errors.length))) {
+            ElementPlus.ElMessage.warning('请检查必填项：' + (e.errors || []).map(x => x.message).join('；'));
+          } else {
+            ElementPlus.ElMessage.error('保存失败：' + (e && e.message ? e.message : String(e)));
+          }
+        }
       };
       const deleteKbItem = (type, row) => {
         ElementPlus.ElMessageBox.confirm(`确认删除"${row.grade || row.brand}"吗？`, '确认', { type:'warning' }).then(async () => {
