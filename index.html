@@ -122,53 +122,101 @@
     .el-table .el-input-number--small { width: 100% !important; }
     .el-table .el-input-number.is-without-controls .el-input__inner { text-align: center; }
 
-    /* ============ 秒表相关 ============ */
-    /* 全局秒表控制条 */
-    .stopwatch-bar {
+    /* ============ 秒表面板样式 ============ */
+    .sw-panel {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border: 2px solid #0ea5e9;
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.12);
+    }
+    .sw-panel__header {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 12px 18px; margin-bottom: 12px;
-      background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
-      border: 2px solid #f59e0b; border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
-      animation: sw-pulse 2s ease-in-out infinite;
+      flex-wrap: wrap; gap: 10px; margin-bottom: 12px;
     }
-    @keyframes sw-pulse {
-      0%, 100% { box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15); }
-      50% { box-shadow: 0 2px 16px rgba(245, 158, 11, 0.35); }
+    .sw-panel__title {
+      font-size: 16px; font-weight: 800; color: #0c4a6e;
+      display: flex; align-items: center; gap: 6px;
     }
-    .stopwatch-display { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .stopwatch-label { font-size: 14px; color: #92400e; font-weight: 600; }
-    .stopwatch-time {
-      font-size: 28px; font-weight: 900; color: #dc2626;
-      font-family: Consolas, 'Courier New', monospace;
-      letter-spacing: 1px;
+    .sw-panel__target { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .sw-panel__label { font-size: 13px; color: #334155; font-weight: 600; }
+    .sw-panel__saved {
+      font-size: 12px; color: #065f46; background: #d1fae5; padding: 3px 10px; border-radius: 12px;
+      border: 1px solid #6ee7b7;
     }
-    /* 表格内秒表按钮 - 原生button避免事件被 Element Plus 拦截 */
-    .sw-cell-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 30px; height: 28px; border: 1px solid #1677ff;
-      border-radius: 6px; background: #fff; color: #1677ff;
-      font-size: 14px; cursor: pointer; line-height: 1;
-      transition: all 0.15s ease; -webkit-tap-highlight-color: transparent;
-      user-select: none; flex-shrink: 0;
+    .sw-panel__body {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 14px;
+      background: #fff; padding: 14px 18px; border-radius: 10px;
+      border: 1px solid #bae6fd;
     }
-    .sw-cell-btn:hover { background: #e6f4ff; transform: scale(1.08); }
-    .sw-cell-btn:active { transform: scale(0.92); }
-    .sw-cell-btn--active {
-      background: #dc2626; border-color: #dc2626; color: #fff;
+    .sw-panel__time {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 42px; font-weight: 900; color: #0369a1;
+      letter-spacing: 2px; line-height: 1;
+      font-variant-numeric: tabular-nums;
+      padding: 4px 10px; border-radius: 8px;
+      background: linear-gradient(135deg, #f0f9ff, #ecfeff);
+      border: 2px dashed #7dd3fc;
+      transition: all 0.3s ease;
+    }
+    .sw-panel__time--running {
+      color: #dc2626; border-color: #fca5a5; background: linear-gradient(135deg, #fef2f2, #fff7ed);
       animation: sw-blink 1s ease-in-out infinite;
     }
-    .sw-cell-btn--active:hover { background: #b91c1c; border-color: #b91c1c; color: #fff; }
-    @keyframes sw-blink {
-      0%, 100% { opacity: 1; } 50% { opacity: 0.6; }
+    .sw-panel__time--paused {
+      color: #92400e; border-color: #fcd34d; background: linear-gradient(135deg, #fffbeb, #fef3c7);
     }
-    .sw-cell-btn--small { width: 24px; height: 24px; font-size: 11px; }
-    .sw-cell-btn--calc { border-color: #059669; color: #059669; }
-    .sw-cell-btn--calc:hover { background: #ecfdf5; }
+    @keyframes sw-blink {
+      0%, 100% { box-shadow: 0 0 0 rgba(239, 68, 68, 0.3); }
+      50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.55); }
+    }
+    .sw-panel__btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .sw-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 16px; border: none; border-radius: 10px;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+      transition: all 0.15s ease; user-select: none;
+      min-width: 92px; justify-content: center;
+    }
+    .sw-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; filter: grayscale(0.5); }
+    .sw-btn:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.12); }
+    .sw-btn:not(:disabled):active { transform: translateY(0); }
+    .sw-btn__icon { font-size: 16px; font-weight: 900; line-height: 1; }
+    .sw-btn--start { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+    .sw-btn--start:not(:disabled):hover { background: linear-gradient(135deg, #34d399, #10b981); }
+    .sw-btn--pause { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
+    .sw-btn--pause:not(:disabled):hover { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+    .sw-btn--stop  { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
+    .sw-btn--stop:not(:disabled):hover  { background: linear-gradient(135deg, #f87171, #ef4444); }
+    .sw-btn--reset { background: linear-gradient(135deg, #64748b, #475569); color: #fff; }
+    .sw-btn--reset:not(:disabled):hover { background: linear-gradient(135deg, #94a3b8, #64748b); }
+    .sw-panel__foot {
+      margin-top: 10px; padding-top: 10px; border-top: 1px dashed #7dd3fc;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+      font-size: 12px;
+    }
 
-    /* 选中行高亮 */
-    :deep(.el-table__row.selected-row > td),
-    .el-table__body tr.selected-row td { background: #eff6ff !important; }
+    /* 表格目标道高亮 */
+    :deep(.el-table__body tr.current-row > td),
+    :deep(.el-table--enable-row-hover .el-table__body tr.current-row:hover > td) {
+      background: #dbeafe !important;
+    }
+    .el-table__body tr.current-row td {
+      background: #dbeafe !important;
+    }
+
+    /* 移动端秒表面板 */
+    @media (max-width: 768px) {
+      .sw-panel { padding: 12px 10px; }
+      .sw-panel__title { font-size: 14px; }
+      .sw-panel__time { font-size: 30px; padding: 6px 8px; }
+      .sw-panel__body { padding: 10px; flex-direction: column; align-items: stretch; }
+      .sw-btn { flex: 1; min-width: 70px; padding: 10px 8px; font-size: 13px; }
+      .sw-panel__btns { justify-content: space-between; }
+      .sw-panel__foot { flex-direction: column; align-items: flex-start; }
+    }
 
     /* 汉堡按钮（仅手机端显示） */
     .hamburger-btn {
@@ -820,27 +868,66 @@
         <el-col :span="12"><el-form-item label="焊材规格(默认)"><el-input v-model="recordDialog.form.consumableSpec" placeholder="如：Φ1.2 / Φ4.0" /></el-form-item></el-col>
       </el-row>
       <el-divider content-position="left">多层多道焊接参数（每道热输入自动计算）</el-divider>
-      <!-- 全局秒表控制条 -->
-      <div class="stopwatch-bar" v-if="stopwatch.activeIdx>=0 || stopwatch.standaloneTime>0">
-        <div class="stopwatch-display">
-          <span class="stopwatch-label">⏱ 计时中：</span>
-          <span class="stopwatch-time">{{ formatStopwatch(stopwatch.activeIdx>=0 ? stopwatch.elapsed : stopwatch.standaloneTime) }}</span>
-          <el-tag v-if="stopwatch.activeIdx>=0" type="warning" size="small" effect="dark" style="margin-left:10px;">第 {{ recordDialog.form.passes[stopwatch.activeIdx]?.layer }}层-第{{ recordDialog.form.passes[stopwatch.activeIdx]?.passNo }}道</el-tag>
+      <!-- ============================================ -->
+      <!-- 秒表控制面板（在表格外，避免 el-table slot 渲染问题） -->
+      <!-- ============================================ -->
+      <div class="sw-panel">
+        <div class="sw-panel__header">
+          <div class="sw-panel__title">⏱ 秒表计时工具</div>
+          <div class="sw-panel__target">
+            <span class="sw-panel__label">当前目标道：</span>
+            <el-select v-model="stopwatch.targetIdx" size="default" @change="stopwatchWriteTo(stopwatch.targetIdx, true)" style="min-width:170px;">
+              <el-option v-for="(p, i) in recordDialog.form.passes" :key="i"
+                :value="i" :label="`第${p.layer}层-第${p.passNo}道 (序号${i+1})`" />
+            </el-select>
+            <span v-if="recordDialog.form.passes[stopwatch.targetIdx]?.weldTime" class="sw-panel__saved">
+              已保存: <b>{{ recordDialog.form.passes[stopwatch.targetIdx].weldTime }}</b> 秒
+            </span>
+          </div>
         </div>
-        <div style="display:flex; gap:8px;">
-          <el-button type="danger" @click="stopStopwatch" v-if="stopwatch.activeIdx>=0">⏸ 停止并写入</el-button>
-          <el-button type="warning" plain @click="resetStopwatch" v-if="stopwatch.standaloneTime>0 || stopwatch.activeIdx>=0">↺ 重置</el-button>
-          <el-button type="success" plain @click="stopwatchWriteTo(stopwatch.writeTargetIdx)" v-if="stopwatch.standaloneTime>0" :disabled="stopwatch.writeTargetIdx<0">✍ 写入到所选道</el-button>
+        <div class="sw-panel__body">
+          <div class="sw-panel__time" :class="{'sw-panel__time--running': stopwatch.state==='running', 'sw-panel__time--paused': stopwatch.state==='paused'}">
+            {{ formatStopwatch(stopwatch.time) }}
+          </div>
+          <div class="sw-panel__btns">
+            <!-- 开始（=启动或重新运行） -->
+            <button type="button" class="sw-btn sw-btn--start" @click="swStart">
+              <span class="sw-btn__icon">▶</span>
+              <span class="sw-btn__text">{{ stopwatch.state === 'running' ? '运行中' : (stopwatch.state === 'paused' ? '继续' : '开始') }}</span>
+            </button>
+            <!-- 暂停 -->
+            <button type="button" class="sw-btn sw-btn--pause" @click="swPause" :disabled="stopwatch.state !== 'running'">
+              <span class="sw-btn__icon">⏸</span>
+              <span class="sw-btn__text">暂停</span>
+            </button>
+            <!-- 停止 -->
+            <button type="button" class="sw-btn sw-btn--stop" @click="swStop" :disabled="stopwatch.state === 'idle' && stopwatch.time <= 0">
+              <span class="sw-btn__icon">⏹</span>
+              <span class="sw-btn__text">停止并写入</span>
+            </button>
+            <!-- 重置 -->
+            <button type="button" class="sw-btn sw-btn--reset" @click="swReset">
+              <span class="sw-btn__icon">↺</span>
+              <span class="sw-btn__text">重置</span>
+            </button>
+          </div>
+        </div>
+        <div class="sw-panel__foot">
+          <span>状态：<el-tag size="small" :type="stopwatch.state==='running' ? 'danger' : (stopwatch.state==='paused' ? 'warning' : 'success')" effect="dark" style="margin-left:4px;">
+            {{ stopwatch.state==='running' ? '计时中' : (stopwatch.state==='paused' ? '已暂停' : '就绪') }}
+          </el-tag></span>
+          <span style="color:#6b7280; font-size:12px;">① 选择目标道 → ② 点「开始」 → ③ 可「暂停/继续」 → ④ 点「停止并写入」自动填时间 + 算焊速</span>
         </div>
       </div>
+
       <div style="margin-bottom: 12px; display:flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap:8px;">
-        <span style="font-size:13px; color:#6b7280;">共 <b style="color:#1677ff;">{{ recordDialog.form.passes.length }}</b> 道焊缝 · 点击 ⏱ 开始计时</span>
+        <span style="font-size:13px; color:#6b7280;">共 <b style="color:#1677ff;">{{ recordDialog.form.passes.length }}</b> 道焊缝 · 点击行可选为秒表目标道</span>
         <div style="display:flex; gap:8px;">
           <el-button size="small" type="primary" plain @click="addPass">+ 添加焊道</el-button>
           <el-button size="small" @click="fillDefaultPasses" v-if="!recordDialog.form.passes.length">一键填充示例</el-button>
         </div>
       </div>
-      <el-table :data="recordDialog.form.passes" border size="small" :row-class-name="passRowClass" style="width:100%;" @row-click="onRowClick">
+      <el-table :data="recordDialog.form.passes" border size="small" :row-class-name="passRowClass" style="width:100%;" @row-click="onRowClick" highlight-current-row>
         <el-table-column label="层号" width="58" align="center">
           <template #default="{row}"><el-input-number v-model="row.layer" :min="1" :max="99" :controls="false" style="width:42px;" @click.stop /></template>
         </el-table-column>
@@ -859,23 +946,16 @@
         <el-table-column label="电压 U (V)" width="84">
           <template #default="{row}"><el-input-number v-model="row.voltage" :min="0" :precision="1" :step="1" :controls="false" style="width:100%;" @click.stop /></template>
         </el-table-column>
-        <el-table-column label="计时(秒)" width="108" align="center">
+        <el-table-column label="计时(秒)" width="110" align="center">
           <template #default="{row, $index}">
-            <div style="display:flex; align-items:center; justify-content:center; gap:3px;">
-              <el-input-number v-model="row.weldTime" :min="0" :precision="1" :step="1" :controls="false" style="width:56px;" @change="autoCalcPassSpeed($index)" @click.stop />
-              <button type="button" class="sw-cell-btn"
-                :class="stopwatch.activeIdx===$index ? 'sw-cell-btn--active' : ''"
-                @click.stop.prevent="toggleStopwatch($index)"
-                :title="stopwatch.activeIdx===$index ? '停止计时' : '开始计时'">⏱</button>
-            </div>
-            <div v-if="stopwatch.activeIdx===$index" style="font-size:11px; color:#dc2626; text-align:center; margin-top:2px; font-family: Consolas, monospace; font-weight:700;">{{ formatStopwatch(stopwatch.elapsed) }}</div>
+            <el-input-number v-model="row.weldTime" :min="0" :precision="1" :step="1" :controls="false" style="width:100%;" @change="autoCalcPassSpeed($index)" @click.stop />
           </template>
         </el-table-column>
-        <el-table-column label="焊速 v (cm/min)" width="112">
+        <el-table-column label="焊速 v (cm/min)" width="120" align="center">
           <template #default="{row, $index}">
-            <div style="display:flex; align-items:center; justify-content:center; gap:3px;">
-              <el-input-number v-model="row.weldSpeed" :min="0.1" :precision="1" :step="1" :controls="false" style="width:66px;" @click.stop />
-              <button type="button" class="sw-cell-btn sw-cell-btn--small sw-cell-btn--calc" @click.stop.prevent="autoCalcPassSpeed($index)" title="按焊缝长度÷时间计算">⚡</button>
+            <div style="display:flex; align-items:center; justify-content:center; gap:4px;">
+              <el-input-number v-model="row.weldSpeed" :min="0" :precision="1" :step="1" :controls="false" style="width:70px;" @click.stop />
+              <el-button size="small" type="success" plain @click.stop="autoCalcPassSpeed($index)">算</el-button>
             </div>
           </template>
         </el-table-column>
@@ -897,9 +977,12 @@
             <span style="color:#047857; font-weight:700; font-family: Consolas, monospace;">{{ calcPassHeatInput(row) }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="52" align="center" fixed="right">
-          <template #default="{$index}">
-            <el-button size="small" type="danger" link @click.stop="deletePass($index)" :disabled="recordDialog.form.passes.length<=1">删</el-button>
+        <el-table-column label="操作" width="64" align="center" fixed="right">
+          <template #default="{row, $index}">
+            <div style="display:flex; gap:2px; justify-content:center;">
+              <el-button size="small" type="primary" link @click.stop="selectAsTargetAndFill($index)" :title="设为目标道并填入当前秒表时间">选</el-button>
+              <el-button size="small" type="danger" link @click.stop="deletePass($index)" :disabled="recordDialog.form.passes.length<=1">删</el-button>
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -1122,88 +1205,124 @@
         weldMethod: [{ required:true, message:'请选择焊接方法', trigger:'change' }]
       };
 
-      // 秒表计时器（standalone = 独立运行模式，结束后可选写入某道）
-      const stopwatch = reactive({ activeIdx:-1, elapsed:0, timerId:null, startTime:0, standaloneTime:0, writeTargetIdx:-1 });
+      // ============== 秒表计时器：三态 (idle / running / paused) ==============
+      // state: 'idle' | 'running' | 'paused'
+      // time: 当前累积秒数（暂停后保留，继续后累加）
+      const stopwatch = reactive({
+        state: /** @type {'idle'|'running'|'paused'} */ ('idle'),
+        time: 0,           // 当前秒数（始终反映已计时累积值）
+        _timerId: null,    // interval id
+        _startTick: 0,     // 当前running段开始的 Date.now()
+        _baseTime: 0,      // 运行开始前已累积的秒数（从 paused -> running 用）
+        targetIdx: 0       // 当前要写入哪一道（recordDialog.form.passes 的下标）
+      });
+      const swClearTimer = () => {
+        if (stopwatch._timerId) { clearInterval(stopwatch._timerId); stopwatch._timerId = null; }
+      };
       const formatStopwatch = (sec) => {
         if (sec === null || sec === undefined || isNaN(sec) || sec < 0) sec = 0;
-        const m = Math.floor(sec/60), s = (sec%60).toFixed(1);
+        const m = Math.floor(sec/60);
+        const s = (sec%60).toFixed(1);
+        const h = Math.floor(m/60);
+        if (h > 0) {
+          const mm = m % 60;
+          return `${String(h).padStart(2,'0')}:${String(mm).padStart(2,'0')}:${s.padStart(4,'0')}`;
+        }
         return `${String(m).padStart(2,'0')}:${s.padStart(4,'0')}`;
       };
-      const clearTimer = () => {
-        if (stopwatch.timerId) { clearInterval(stopwatch.timerId); stopwatch.timerId = null; }
-      };
-      const tickStart = () => {
-        clearTimer();
-        stopwatch.startTime = Date.now();
-        stopwatch.timerId = setInterval(() => {
-          const now = (Date.now() - stopwatch.startTime) / 1000;
-          if (stopwatch.activeIdx >= 0) stopwatch.elapsed = now;
-          stopwatch.standaloneTime = now;
+      // ▶ 开始 / 继续
+      const swStart = () => {
+        if (stopwatch.state === 'running') return;
+        // 确保目标道合法
+        if (stopwatch.targetIdx < 0 || stopwatch.targetIdx >= recordDialog.form.passes.length) {
+          stopwatch.targetIdx = recordDialog.form.passes.length ? 0 : -1;
+        }
+        swClearTimer();
+        stopwatch._baseTime = stopwatch.time;
+        stopwatch._startTick = Date.now();
+        stopwatch.state = 'running';
+        stopwatch._timerId = setInterval(() => {
+          const now = (Date.now() - stopwatch._startTick) / 1000;
+          stopwatch.time = Math.round((stopwatch._baseTime + now) * 10) / 10;
         }, 100);
       };
-      // 开始/停止指定道的秒表
-      const toggleStopwatch = (idx) => {
-        if (stopwatch.activeIdx === idx && stopwatch.timerId) {
-          // 停止：写入该道时间
-          const t = (Date.now() - stopwatch.startTime) / 1000;
-          clearTimer();
-          stopwatch.elapsed = t;
-          stopwatch.standaloneTime = t;
-          const pass = recordDialog.form.passes[idx];
-          if (pass && t > 0) {
-            pass.weldTime = Math.round(t * 10) / 10;
-            autoCalcPassSpeed(idx);
-          }
-          stopwatch.activeIdx = -1;
-          stopwatch.writeTargetIdx = idx;
-          return;
-        }
-        // 启动前先清理之前的计时
-        clearTimer();
-        stopwatch.activeIdx = idx;
-        stopwatch.writeTargetIdx = idx;
-        tickStart();
+      // ⏸ 暂停
+      const swPause = () => {
+        if (stopwatch.state !== 'running') return;
+        const now = (Date.now() - stopwatch._startTick) / 1000;
+        swClearTimer();
+        stopwatch.time = Math.round((stopwatch._baseTime + now) * 10) / 10;
+        stopwatch._baseTime = stopwatch.time;
+        stopwatch.state = 'paused';
       };
-      const stopStopwatch = () => {
-        if (stopwatch.activeIdx >= 0) {
-          const idx = stopwatch.activeIdx;
-          const t = (Date.now() - stopwatch.startTime) / 1000;
-          clearTimer();
-          stopwatch.elapsed = t;
-          stopwatch.standaloneTime = t;
-          const pass = recordDialog.form.passes[idx];
-          if (pass && t > 0) {
-            pass.weldTime = Math.round(t * 10) / 10;
-            autoCalcPassSpeed(idx);
-          }
-          stopwatch.activeIdx = -1;
-          stopwatch.writeTargetIdx = idx;
-        } else {
-          clearTimer();
-          stopwatch.activeIdx = -1;
+      // ⏹ 停止并写入目标道
+      const swStop = () => {
+        // 如果还在 running，先结算当前时间
+        if (stopwatch.state === 'running') {
+          const now = (Date.now() - stopwatch._startTick) / 1000;
+          stopwatch.time = Math.round((stopwatch._baseTime + now) * 10) / 10;
+        }
+        swClearTimer();
+        const finalTime = stopwatch.time;
+        stopwatch.state = 'idle';
+        stopwatch._baseTime = 0;
+        // 写入目标道
+        const idx = stopwatch.targetIdx;
+        if (idx >= 0 && idx < recordDialog.form.passes.length && finalTime > 0) {
+          recordDialog.form.passes[idx].weldTime = finalTime;
+          autoCalcPassSpeed(idx);
         }
       };
-      const resetStopwatch = () => {
-        clearTimer();
-        stopwatch.activeIdx = -1;
-        stopwatch.elapsed = 0;
-        stopwatch.standaloneTime = 0;
-        stopwatch.writeTargetIdx = -1;
+      // ↺ 重置
+      const swReset = () => {
+        swClearTimer();
+        stopwatch.state = 'idle';
+        stopwatch.time = 0;
+        stopwatch._baseTime = 0;
+        stopwatch._startTick = 0;
       };
-      const stopwatchWriteTo = (idx) => {
-        if (idx < 0 || stopwatch.standaloneTime <= 0) return;
-        const pass = recordDialog.form.passes[idx];
-        if (!pass) return;
-        pass.weldTime = Math.round(stopwatch.standaloneTime * 10) / 10;
-        autoCalcPassSpeed(idx);
-        stopwatch.writeTargetIdx = idx;
+      // 把当前秒表时间写入某道（手动选择）
+      const stopwatchWriteTo = (idx, onlyIfNonZero = false) => {
+        if (idx < 0 || idx >= recordDialog.form.passes.length) return;
+        stopwatch.targetIdx = idx;
+        if (onlyIfNonZero && stopwatch.time <= 0) return;
+        if (stopwatch.time > 0) {
+          recordDialog.form.passes[idx].weldTime = Math.round(stopwatch.time * 10) / 10;
+          autoCalcPassSpeed(idx);
+        }
       };
+      // 行点击 → 设为目标道
       const onRowClick = (row) => {
         const idx = recordDialog.form.passes.indexOf(row);
-        if (idx >= 0) stopwatch.writeTargetIdx = idx;
+        if (idx >= 0) stopwatch.targetIdx = idx;
       };
-      // 弹窗关闭时停止计时器
-      watch(() => recordDialog.visible, (v) => { if (!v) resetStopwatch(); });
+      const selectAsTargetAndFill = (idx) => {
+        if (idx < 0) return;
+        stopwatch.targetIdx = idx;
+        if (stopwatch.time > 0) stopwatchWriteTo(idx);
+      };
+      // 弹窗打开时：默认目标道=0，重置秒表；弹窗关闭时清理计时器
+      watch(() => recordDialog.visible, (v) => {
+        if (v) {
+          // 打开弹窗 - 重置秒表目标道
+          nextTick(() => {
+            if (recordDialog.form.passes && recordDialog.form.passes.length > 0) {
+              stopwatch.targetIdx = 0;
+            }
+            swReset();
+          });
+        } else {
+          // 关闭弹窗 - 清理定时器避免内存泄漏
+          swClearTimer();
+        }
+      }, { immediate: false });
+      // passes 长度变化 → 防止 targetIdx 越界
+      watch(() => recordDialog.form?.passes?.length, (n) => {
+        if (n === undefined) return;
+        if (n === 0) stopwatch.targetIdx = -1;
+        else if (stopwatch.targetIdx >= n) stopwatch.targetIdx = n - 1;
+        else if (stopwatch.targetIdx < 0) stopwatch.targetIdx = 0;
+      });
 
       // 根据焊缝长度(mm)和时间(秒)计算焊速(cm/min)
       // v (cm/min) = (L/10 cm) / (t/60 min) = 6L/t
@@ -1759,8 +1878,9 @@
         exportRecordsJSON, useRecordForPqr,
         calcPassHeatInput, calcRecordSummary, getRecordPasses,
         addPass, deletePass, fillDefaultPasses, passRowClass, passSummary,
-        stopwatch, formatStopwatch, toggleStopwatch, stopStopwatch,
-        resetStopwatch, stopwatchWriteTo, onRowClick,
+        stopwatch, formatStopwatch,
+        swStart, swPause, swStop, swReset, stopwatchWriteTo,
+        onRowClick, selectAsTargetAndFill,
         autoCalcPassSpeed, autoCalcAllPassSpeed,
         // 知识库模块
         kbDialog, kbFormRef, kbRules,
