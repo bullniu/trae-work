@@ -767,8 +767,9 @@
       <el-row :gutter="16">
         <el-col :span="12"><el-form-item label="母材牌号"><el-input v-model="recordDialog.form.baseMetal" placeholder="如：Q345R" /></el-form-item></el-col>
         <el-col :span="12"><el-form-item label="母材厚度 (mm)"><el-input-number v-model="recordDialog.form.baseThickness" :min="0.1" :precision="1" :step="1" style="width:100%;" /></el-form-item></el-col>
-        <el-col :span="12"><el-form-item label="焊材牌号"><el-input v-model="recordDialog.form.consumable" placeholder="如：ER50-6 / E5015" /></el-form-item></el-col>
-        <el-col :span="12"><el-form-item label="焊材规格 (mm)"><el-input v-model="recordDialog.form.consumableSpec" placeholder="如：Φ1.2 / Φ4.0" /></el-form-item></el-col>
+        <el-col :span="12"><el-form-item label="焊缝长度 (mm)"><el-input-number v-model="recordDialog.form.weldLength" :min="0" :precision="1" :step="10" style="width:100%;" @change="autoCalcAllPassSpeed" /><span style="font-size:11px;color:#6b7280;margin-left:6px;">用于自动计算各道焊速</span></el-form-item></el-col>
+        <el-col :span="12"><el-form-item label="焊材牌号(默认)"><el-input v-model="recordDialog.form.consumable" placeholder="如：ER50-6 / E5015" /></el-form-item></el-col>
+        <el-col :span="12"><el-form-item label="焊材规格(默认)"><el-input v-model="recordDialog.form.consumableSpec" placeholder="如：Φ1.2 / Φ4.0" /></el-form-item></el-col>
       </el-row>
       <el-divider content-position="left">多层多道焊接参数（每道热输入自动计算）</el-divider>
       <div style="margin-bottom: 12px; display:flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap:8px;">
@@ -779,22 +780,44 @@
         </div>
       </div>
       <el-table :data="recordDialog.form.passes" border size="small" :row-class-name="passRowClass" style="width:100%;">
-        <el-table-column label="层号" width="70" align="center">
-          <template #default="{row}"><el-input-number v-model="row.layer" :min="1" :max="99" :controls="false" style="width:50px;" /></template>
+        <el-table-column label="层号" width="60" align="center">
+          <template #default="{row}"><el-input-number v-model="row.layer" :min="1" :max="99" :controls="false" style="width:42px;" /></template>
         </el-table-column>
-        <el-table-column label="道号" width="70" align="center">
-          <template #default="{row}"><el-input-number v-model="row.passNo" :min="1" :max="99" :controls="false" style="width:50px;" /></template>
+        <el-table-column label="道号" width="60" align="center">
+          <template #default="{row}"><el-input-number v-model="row.passNo" :min="1" :max="99" :controls="false" style="width:42px;" /></template>
         </el-table-column>
-        <el-table-column label="电流 I (A)" width="120">
+        <el-table-column label="焊材牌号" width="130">
+          <template #default="{row}"><el-input v-model="row.consumable" size="small" placeholder="默认" /></template>
+        </el-table-column>
+        <el-table-column label="焊材规格" width="100">
+          <template #default="{row}"><el-input v-model="row.consumableSpec" size="small" placeholder="默认" /></template>
+        </el-table-column>
+        <el-table-column label="电流 I (A)" width="100">
           <template #default="{row}"><el-input-number v-model="row.current" :min="0" :precision="1" :step="10" :controls="false" style="width:100%;" /></template>
         </el-table-column>
-        <el-table-column label="电压 U (V)" width="110">
+        <el-table-column label="电压 U (V)" width="90">
           <template #default="{row}"><el-input-number v-model="row.voltage" :min="0" :precision="1" :step="1" :controls="false" style="width:100%;" /></template>
         </el-table-column>
-        <el-table-column label="焊速 v (cm/min)" width="130">
-          <template #default="{row}"><el-input-number v-model="row.weldSpeed" :min="0.1" :precision="1" :step="1" :controls="false" style="width:100%;" /></template>
+        <el-table-column label="计时(秒)" width="100" align="center">
+          <template #default="{row, $index}">
+            <div style="display:flex; align-items:center; gap:2px;">
+              <el-input-number v-model="row.weldTime" :min="0" :precision="1" :step="1" :controls="false" style="width:60px;" @change="autoCalcPassSpeed($index)" />
+              <el-button size="small" circle @click="toggleStopwatch($index)" :type="stopwatch.activeIdx===$index ? 'danger' : 'primary'" style="padding:4px; min-width:28px;" :title="stopwatch.activeIdx===$index ? '停止' : '计时'">
+                <span style="font-size:14px;">{{ stopwatch.activeIdx===$index ? '⏸' : '⏱' }}</span>
+              </el-button>
+            </div>
+            <div v-if="stopwatch.activeIdx===$index" style="font-size:11px; color:#dc2626; text-align:center; margin-top:2px; font-family: Consolas, monospace;">{{ formatStopwatch(stopwatch.elapsed) }}</div>
+          </template>
         </el-table-column>
-        <el-table-column label="效率 η" width="100">
+        <el-table-column label="焊速 v (cm/min)" width="120">
+          <template #default="{row}">
+            <div style="display:flex; align-items:center; gap:2px;">
+              <el-input-number v-model="row.weldSpeed" :min="0.1" :precision="1" :step="1" :controls="false" style="width:70px;" />
+              <el-button size="small" link type="primary" @click="autoCalcPassSpeed($index)" title="按焊缝长度÷时间计算" style="padding:2px;">⚡</el-button>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column label="效率 η" width="90">
           <template #default="{row}">
             <el-select v-model="row.efficiency" size="small" style="width:100%;">
               <el-option :label="'0.65'" :value="0.65" />
@@ -807,14 +830,14 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column label="热输入 (kJ/cm)" min-width="120" align="center">
+        <el-table-column label="热输入 (kJ/cm)" min-width="110" align="center">
           <template #default="{row}">
             <span style="color:#047857; font-weight:700; font-family: Consolas, monospace;">{{ calcPassHeatInput(row) }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="70" align="center" fixed="right">
+        <el-table-column label="操作" width="60" align="center" fixed="right">
           <template #default="{$index}">
-            <el-button size="small" type="danger" link @click="deletePass($index)" :disabled="recordDialog.form.passes.length<=1">删除</el-button>
+            <el-button size="small" type="danger" link @click="deletePass($index)" :disabled="recordDialog.form.passes.length<=1">删</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -1021,12 +1044,12 @@
 
       const defaultRecordForm = () => ({
         weldNo:'', weldMethod:'SMAW', jointForm:'对接', weldType:'V形坡口',
-        baseMetal:'', baseThickness:12,
+        baseMetal:'', baseThickness:12, weldLength:300,
         consumable:'', consumableSpec:'',
         passes: [
-          { layer:1, passNo:1, current:150, voltage:24, weldSpeed:10, efficiency:0.75 },
-          { layer:2, passNo:1, current:160, voltage:25, weldSpeed:12, efficiency:0.75 },
-          { layer:3, passNo:1, current:170, voltage:26, weldSpeed:14, efficiency:0.75 }
+          { layer:1, passNo:1, consumable:'', consumableSpec:'', current:150, voltage:24, weldTime:30, weldSpeed:0, efficiency:0.75 },
+          { layer:2, passNo:1, consumable:'', consumableSpec:'', current:160, voltage:25, weldTime:25, weldSpeed:0, efficiency:0.75 },
+          { layer:3, passNo:1, consumable:'', consumableSpec:'', current:170, voltage:26, weldTime:20, weldSpeed:0, efficiency:0.75 }
         ],
         preheatTemp:100, interpassTemp:150, remarks:''
       });
@@ -1035,6 +1058,58 @@
       const recordRules = {
         weldNo: [{ required:true, message:'请填写焊接编号', trigger:'blur' }],
         weldMethod: [{ required:true, message:'请选择焊接方法', trigger:'change' }]
+      };
+
+      // 秒表计时器
+      const stopwatch = reactive({ activeIdx:-1, elapsed:0, timerId:null, startTime:0 });
+      const formatStopwatch = (sec) => {
+        const m = Math.floor(sec/60), s = (sec%60).toFixed(1);
+        return `${String(m).padStart(2,'0')}:${s.padStart(4,'0')}`;
+      };
+      const toggleStopwatch = (idx) => {
+        if (stopwatch.activeIdx === idx) {
+          // 停止：写入时间到该道
+          stopStopwatch();
+        } else {
+          // 开始计时（先停掉之前的）
+          if (stopwatch.activeIdx !== -1) stopStopwatch();
+          stopwatch.activeIdx = idx;
+          stopwatch.elapsed = 0;
+          stopwatch.startTime = Date.now();
+          stopwatch.timerId = setInterval(() => {
+            stopwatch.elapsed = (Date.now() - stopwatch.startTime) / 1000;
+          }, 100);
+        }
+      };
+      const stopStopwatch = () => {
+        if (stopwatch.timerId) { clearInterval(stopwatch.timerId); stopwatch.timerId = null; }
+        if (stopwatch.activeIdx !== -1) {
+          // 把秒数写入该道的 weldTime
+          const pass = recordDialog.form.passes[stopwatch.activeIdx];
+          if (pass && stopwatch.elapsed > 0) {
+            pass.weldTime = Math.round(stopwatch.elapsed * 10) / 10;
+            autoCalcPassSpeed(stopwatch.activeIdx);
+          }
+        }
+        stopwatch.activeIdx = -1;
+        stopwatch.elapsed = 0;
+      };
+      // 弹窗关闭时停止计时器
+      watch(() => recordDialog.visible, (v) => { if (!v) stopStopwatch(); });
+
+      // 根据焊缝长度(mm)和时间(秒)计算焊速(cm/min)
+      // v (cm/min) = (L/10 cm) / (t/60 min) = 6L/t
+      const autoCalcPassSpeed = (idx) => {
+        const pass = recordDialog.form.passes[idx];
+        if (!pass) return;
+        const L = recordDialog.form.weldLength;
+        const t = pass.weldTime;
+        if (L && L > 0 && t && t > 0) {
+          pass.weldSpeed = Math.round((6 * L / t) * 10) / 10;
+        }
+      };
+      const autoCalcAllPassSpeed = () => {
+        recordDialog.form.passes.forEach((p, i) => autoCalcPassSpeed(i));
       };
 
       // 多层多道：添加/删除/填充
@@ -1046,22 +1121,29 @@
         const newPassNo = sameLayerPasses.length + 1;
         passes.push({
           layer: newLayer, passNo: newPassNo,
+          consumable: lastPass ? lastPass.consumable : '',
+          consumableSpec: lastPass ? lastPass.consumableSpec : '',
           current: lastPass ? lastPass.current : 150,
           voltage: lastPass ? lastPass.voltage : 24,
-          weldSpeed: lastPass ? lastPass.weldSpeed : 10,
+          weldTime: lastPass ? lastPass.weldTime : 0,
+          weldSpeed: lastPass ? lastPass.weldSpeed : 0,
           efficiency: lastPass ? lastPass.efficiency : 0.75
         });
+        // 自动计算新道焊速
+        autoCalcPassSpeed(passes.length - 1);
       };
       const deletePass = (index) => {
+        if (stopwatch.activeIdx === index) stopStopwatch();
         recordDialog.form.passes.splice(index, 1);
       };
       const fillDefaultPasses = () => {
         recordDialog.form.passes = [
-          { layer:1, passNo:1, current:140, voltage:22, weldSpeed:8, efficiency:0.75 },
-          { layer:2, passNo:1, current:155, voltage:24, weldSpeed:10, efficiency:0.75 },
-          { layer:3, passNo:1, current:165, voltage:25, weldSpeed:12, efficiency:0.75 },
-          { layer:3, passNo:2, current:170, voltage:26, weldSpeed:14, efficiency:0.75 }
+          { layer:1, passNo:1, consumable:'', consumableSpec:'', current:140, voltage:22, weldTime:30, weldSpeed:0, efficiency:0.75 },
+          { layer:2, passNo:1, consumable:'', consumableSpec:'', current:155, voltage:24, weldTime:25, weldSpeed:0, efficiency:0.75 },
+          { layer:3, passNo:1, consumable:'', consumableSpec:'', current:165, voltage:25, weldTime:20, weldSpeed:0, efficiency:0.75 },
+          { layer:3, passNo:2, consumable:'', consumableSpec:'', current:170, voltage:26, weldTime:18, weldSpeed:0, efficiency:0.75 }
         ];
+        autoCalcAllPassSpeed();
       };
       const passRowClass = ({ row }) => {
         if (row.layer % 2 === 0) return 'pass-row-even';
@@ -1072,17 +1154,28 @@
 
       const openRecordDialog = (mode, row) => {
         recordDialog.mode = mode;
-        if (mode === 'add') { recordDialog.form = defaultRecordForm(); recordDialog.editingId = null; }
+        if (mode === 'add') {
+          recordDialog.form = defaultRecordForm();
+          recordDialog.editingId = null;
+          nextTick(autoCalcAllPassSpeed);
+        }
         else {
           const formData = { ...row };
           // 兼容旧数据：若无 passes 数组但有顶层参数，自动转换
           if ((!formData.passes || !formData.passes.length) && formData.current && formData.voltage && formData.weldSpeed) {
-            formData.passes = [{ layer:1, passNo:1, current:formData.current, voltage:formData.voltage, weldSpeed:formData.weldSpeed, efficiency:formData.efficiency||0.75 }];
-            delete formData.current; delete formData.voltage; delete formData.weldSpeed; delete formData.efficiency;
+            formData.passes = [{ layer:1, passNo:1, consumable:formData.consumable||'', consumableSpec:formData.consumableSpec||'', current:formData.current, voltage:formData.voltage, weldTime:0, weldSpeed:formData.weldSpeed, efficiency:formData.efficiency||0.75 }];
           }
-          if (!formData.passes || !formData.passes.length) formData.passes = [{ layer:1, passNo:1, current:150, voltage:24, weldSpeed:10, efficiency:0.75 }];
+          if (!formData.passes || !formData.passes.length) formData.passes = [{ layer:1, passNo:1, consumable:'', consumableSpec:'', current:150, voltage:24, weldTime:0, weldSpeed:0, efficiency:0.75 }];
+          if (!formData.weldLength) formData.weldLength = 0;
+          // 为每道补充新字段
+          formData.passes.forEach(p => {
+            if (p.consumable === undefined) p.consumable = '';
+            if (p.consumableSpec === undefined) p.consumableSpec = '';
+            if (p.weldTime === undefined) p.weldTime = 0;
+          });
           recordDialog.form = formData;
           recordDialog.editingId = row.id;
+          nextTick(autoCalcAllPassSpeed);
         }
         recordDialog.visible = true;
       };
@@ -1329,16 +1422,20 @@
                 makeHeaderCell('焊缝形式', 18), makeCell(R.weldType || '—', 32)
               ]}),
               new TableRow({ children: [
-                makeHeaderCell('焊材牌号', 18), makeCell(R.consumable || C.grade, 32),
-                makeHeaderCell('焊材规格', 18), makeCell(R.consumableSpec || C.depositSpec || '—', 32)
+                makeHeaderCell('母材牌号', 18), makeCell(R.baseMetal || M.grade, 32),
+                makeHeaderCell('母材厚度', 18), makeCell((R.baseThickness ?? '—') + (R.baseThickness ? ' mm' : ''), 32, {center:true})
               ]}),
               new TableRow({ children: [
-                makeHeaderCell('预热温度', 18), makeCell((R.preheatTemp ?? '—') + (R.preheatTemp ? ' ℃' : ''), 32, {center:true}),
-                makeHeaderCell('层间温度', 18), makeCell((R.interpassTemp ?? '—') + (R.interpassTemp ? ' ℃' : ''), 32, {center:true})
+                makeHeaderCell('焊缝长度', 18), makeCell((R.weldLength ? R.weldLength + ' mm' : '—'), 32, {center:true}),
+                makeHeaderCell('焊材牌号(默认)', 18), makeCell(R.consumable || C.grade || '—', 32)
               ]}),
               new TableRow({ children: [
-                makeHeaderCell('焊道总数', 18), makeCell(String(recSummary.passCount), 32, {center:true, bold:true}),
-                makeHeaderCell('热效率 η', 18), makeCell(recPasses.length ? String(recPasses[0].efficiency || '0.75') : '—', 32, {center:true})
+                makeHeaderCell('焊材规格(默认)', 18), makeCell(R.consumableSpec || C.depositSpec || '—', 32),
+                makeHeaderCell('预热温度', 18), makeCell((R.preheatTemp ?? '—') + (R.preheatTemp ? ' ℃' : ''), 32, {center:true})
+              ]}),
+              new TableRow({ children: [
+                makeHeaderCell('层间温度', 18), makeCell((R.interpassTemp ?? '—') + (R.interpassTemp ? ' ℃' : ''), 32, {center:true}),
+                makeHeaderCell('焊道总数', 18), makeCell(String(recSummary.passCount), 32, {center:true, bold:true})
               ]})
             ]
           }));
@@ -1347,24 +1444,28 @@
           children.push(new Paragraph({ text: '四-1、多层多道焊接参数明细', heading: HeadingLevel.HEADING_3, spacing:{ before:200, after:100 } }));
           const passTableRows = [
             new TableRow({ tableHeader: true, children: [
-              makeHeaderCell('层号', 8), makeHeaderCell('道号', 8),
-              makeHeaderCell('电流 I (A)', 16), makeHeaderCell('电压 U (V)', 16),
-              makeHeaderCell('焊速 v (cm/min)', 18), makeHeaderCell('效率 η', 12),
-              makeHeaderCell('热输入 Q (kJ/cm)', 22)
+              makeHeaderCell('层号', 5), makeHeaderCell('道号', 5),
+              makeHeaderCell('焊材牌号', 12), makeHeaderCell('焊材规格', 10),
+              makeHeaderCell('电流 I (A)', 10), makeHeaderCell('电压 U (V)', 10),
+              makeHeaderCell('计时(秒)', 10), makeHeaderCell('焊速 v (cm/min)', 12),
+              makeHeaderCell('效率 η', 8), makeHeaderCell('热输入 Q (kJ/cm)', 18)
             ]})
           ];
           recPasses.forEach((p, idx) => {
             passTableRows.push(new TableRow({ children: [
-              makeCell(String(p.layer||1), 8, {center:true}),
-              makeCell(String(p.passNo||1), 8, {center:true}),
-              makeCell(String(p.current||'—'), 16, {center:true, bold:true}),
-              makeCell(String(p.voltage||'—'), 16, {center:true, bold:true}),
-              makeCell(String(p.weldSpeed||'—'), 18, {center:true}),
-              makeCell(String(p.efficiency||'—'), 12, {center:true}),
+              makeCell(String(p.layer||1), 5, {center:true}),
+              makeCell(String(p.passNo||1), 5, {center:true}),
+              makeCell(p.consumable || R.consumable || C.grade || '—', 12, {center:true}),
+              makeCell(p.consumableSpec || R.consumableSpec || C.depositSpec || '—', 10, {center:true}),
+              makeCell(String(p.current||'—'), 10, {center:true, bold:true}),
+              makeCell(String(p.voltage||'—'), 10, {center:true, bold:true}),
+              makeCell(p.weldTime ? String(p.weldTime) : '—', 10, {center:true}),
+              makeCell(String(p.weldSpeed||'—'), 12, {center:true}),
+              makeCell(String(p.efficiency||'—'), 8, {center:true}),
               new TableCell({
                 children: [new Paragraph({ children:[new TextRun({ text: calcPassHeatInput(p)+' kJ/cm', bold:true, size:20, font:'微软雅黑', color:'047857' })], alignment:AlignmentType.CENTER })],
                 verticalAlign: VerticalAlign.CENTER,
-                width: { size:22, type: WidthType.PERCENTAGE },
+                width: { size:18, type: WidthType.PERCENTAGE },
                 borders: allBorders,
                 shading: { type: ShadingType.SOLID, color: idx % 2 === 0 ? 'F0FDF4' : 'ECFDF5' }
               })
@@ -1374,12 +1475,12 @@
           passTableRows.push(new TableRow({ children: [
             new TableCell({
               children: [new Paragraph({ children:[new TextRun({ text:'热输入汇总', bold:true, size:20, font:'微软雅黑' })], alignment:AlignmentType.CENTER })],
-              verticalAlign: VerticalAlign.CENTER, columnSpan: 2, width: { size:16, type:WidthType.PERCENTAGE },
+              verticalAlign: VerticalAlign.CENTER, columnSpan: 2, width: { size:10, type:WidthType.PERCENTAGE },
               borders: allBorders, shading: cellShading
             }),
             new TableCell({
               children: [new Paragraph({ children:[new TextRun({ text:`范围：${recSummary.rangeStr} | 最大：${recSummary.max} | 平均：${recSummary.avg} kJ/cm`, bold:true, size:20, font:'微软雅黑', color:'047857' })], alignment:AlignmentType.CENTER })],
-              verticalAlign: VerticalAlign.CENTER, columnSpan: 5, width: { size:84, type:WidthType.PERCENTAGE },
+              verticalAlign: VerticalAlign.CENTER, columnSpan: 8, width: { size:90, type:WidthType.PERCENTAGE },
               borders: allBorders,
               shading: { type: ShadingType.SOLID, color: 'D1FAE5' }
             })
@@ -1390,8 +1491,12 @@
           }));
           // 计算公式说明
           children.push(new Paragraph({
-            spacing: { before: 80, after: 120 },
-            children: [new TextRun({ text:'计算公式：Q (kJ/cm) = I(A) × U(V) × η × 60 / (v(cm/min) × 1000)', italics:true, size:18, font:'微软雅黑', color:'6B7280' })]
+            spacing: { before: 80, after: 60 },
+            children: [new TextRun({ text:'热输入公式：Q (kJ/cm) = I(A) × U(V) × η × 60 / (v(cm/min) × 1000)', italics:true, size:18, font:'微软雅黑', color:'6B7280' })]
+          }));
+          children.push(new Paragraph({
+            spacing: { before: 0, after: 120 },
+            children: [new TextRun({ text:'焊速公式：v (cm/min) = 焊缝长度(mm) × 6 / 计时(秒)', italics:true, size:18, font:'微软雅黑', color:'6B7280' })]
           }));
 
           // 检验结果
@@ -1546,6 +1651,8 @@
         exportRecordsJSON, useRecordForPqr,
         calcPassHeatInput, calcRecordSummary, getRecordPasses,
         addPass, deletePass, fillDefaultPasses, passRowClass, passSummary,
+        stopwatch, formatStopwatch, toggleStopwatch, stopStopwatch,
+        autoCalcPassSpeed, autoCalcAllPassSpeed,
         // 知识库模块
         kbDialog, kbFormRef, kbRules,
         openKbDialog, saveKbItem, deleteKbItem,
