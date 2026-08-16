@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>焊接工艺管理系统 - Welding Process Management</title>
-  <script src="https://unpkg.com/vue@3.4.38/dist/vue.global.prod.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/element-plus@2.8.4/dist/index.css" />
-  <script src="https://unpkg.com/element-plus@2.8.4/dist/index.full.min.js"></script>
-  <script src="https://unpkg.com/@element-plus/icons-vue@2.3.1/dist/index.iife.min.js"></script>
-  <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
-  <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+  <script src="libs/vue.global.prod.js"></script>
+  <link rel="stylesheet" href="libs/element-plus.css" />
+  <script src="libs/element-plus.full.min.js"></script>
+  <script src="libs/element-plus-icons.iife.min.js"></script>
+  <script src="libs/docx.umd.js"></script>
+  <script src="libs/FileSaver.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body, #app { height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
@@ -1232,7 +1232,7 @@
           <el-col :span="8"><el-form-item label="厚度范围(原字段兼容)"><el-input v-model="kbDialog.form.thicknessRange" placeholder="可选：min~max" /></el-form-item></el-col>
           <el-col :span="8"><el-form-item label="抗拉(原tensileMin兼容)"><el-input v-model="kbDialog.form.tensileMin" /></el-form-item></el-col>
           <el-col :span="8"><el-form-item label="屈服(原yieldMin兼容)"><el-input v-model="kbDialog.form.yieldMin" /></el-form-item></el-col>
-          <el-col :span="24"><el-form-item label="备注"><el-input type="textarea" v-model="kbDialog.form.notes || kbDialog.form.remarks" :rows="2" /></el-form-item></el-col>
+          <el-col :span="24"><el-form-item label="备注"><el-input type="textarea" v-model="kbDialog.form.notes" :rows="2" /></el-form-item></el-col>
         </el-row>
       </template>
       <!-- ===== 焊材表单 ===== -->
@@ -1244,7 +1244,7 @@
             <el-option label="实心焊丝" value="实心焊丝"/><el-option label="药芯焊丝" value="药芯焊丝"/>
             <el-option label="焊剂" value="焊剂"/><el-option label="焊带" value="焊带"/>
           </el-select></el-form-item></el-col>
-          <el-col :span="6"><el-form-item label="焊材牌号" prop="grade"><el-input v-model="kbDialog.form.brand || kbDialog.form.grade" placeholder="如：E5015 / ER50-6" /></el-form-item></el-col>
+          <el-col :span="6"><el-form-item label="焊材牌号" prop="grade"><el-input v-model="kbDialog.form.brand" placeholder="如：E5015 / ER50-6" /></el-form-item></el-col>
           <el-col :span="6"><el-form-item label="焊材型号"><el-input v-model="kbDialog.form.modelNo" placeholder="如：E5015 / ER50-6 / F5A2-E5015" /></el-form-item></el-col>
           <el-col :span="6"><el-form-item label="标准号" prop="standard"><el-input v-model="kbDialog.form.standard" placeholder="如：GB/T 5117" /></el-form-item></el-col>
           <el-col :span="8"><el-form-item label="焊材类别" prop="category"><el-input v-model="kbDialog.form.category" placeholder="如：F3A2-0CrMnSi" /></el-form-item></el-col>
@@ -1253,7 +1253,7 @@
         </el-row>
         <el-divider content-position="left">规格与焊缝金属厚度覆盖范围</el-divider>
         <el-row :gutter="12">
-          <el-col :span="8"><el-form-item label="熔敷规格(直径)"><el-input v-model="kbDialog.form.depositSize || kbDialog.form.depositSpec" placeholder="如：3.2/4.0/5.0" /></el-form-item></el-col>
+          <el-col :span="8"><el-form-item label="熔敷规格(直径)"><el-input v-model="kbDialog.form.depositSize" placeholder="如：3.2/4.0/5.0" /></el-form-item></el-col>
           <el-col :span="8"><el-form-item label="对接焊缝金属厚度范围"><el-input v-model="kbDialog.form.buttWeldMetalRange" placeholder="如：0.5~38 mm" /></el-form-item></el-col>
           <el-col :span="8"><el-form-item label="角焊缝金属厚度范围"><el-input v-model="kbDialog.form.filletWeldMetalRange" /></el-form-item></el-col>
           <el-col :span="8"><el-form-item label="原熔敷厚度范围(兼容)"><el-input v-model="kbDialog.form.depositThicknessRange" placeholder="min~max 可选" /></el-form-item></el-col>
@@ -1271,7 +1271,7 @@
           <el-col :span="6"><el-form-item label="Rp (MPa)"><el-input v-model="kbDialog.form.rpDeposit" /></el-form-item></el-col>
           <el-col :span="6"><el-form-item label="A (%)"><el-input v-model="kbDialog.form.elongationDeposit" /></el-form-item></el-col>
           <el-col :span="6"><el-form-item label="Akv (J,规定温度)"><el-input v-model="kbDialog.form.akvDeposit" placeholder="如：47(-30℃)" /></el-form-item></el-col>
-          <el-col :span="24"><el-form-item label="备注"><el-input type="textarea" v-model="kbDialog.form.notes || kbDialog.form.remarks" :rows="2" /></el-form-item></el-col>
+          <el-col :span="24"><el-form-item label="备注"><el-input type="textarea" v-model="kbDialog.form.notes" :rows="2" /></el-form-item></el-col>
         </el-row>
       </template>
     </el-form>
