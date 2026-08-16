@@ -2098,9 +2098,9 @@
                 border:{ top:{ style: docx.BorderStyle.SINGLE, size:6, color:'BBBBBB' } },
                 children:[
                   new docx.TextRun({ text:'共 ', size:18, font:'微软雅黑', eastAsia:'微软雅黑' }),
-                  new docx.TextRun({ children:[docx.Field.NUM_PAGES], size:18, font:'Times New Roman' }),
+                  new docx.SimpleField('NUMPAGES'),
                   new docx.TextRun({ text:' 页，第 ', size:18, font:'微软雅黑', eastAsia:'微软雅黑' }),
-                  new docx.TextRun({ children:[docx.Field.PAGE], size:18, font:'Times New Roman' }),
+                  new docx.SimpleField('PAGE'),
                   new docx.TextRun({ text:' 页 | 焊接工艺评定（NB/T 47014-2023）', size:18, font:'微软雅黑', eastAsia:'微软雅黑' })
                 ]
               })
