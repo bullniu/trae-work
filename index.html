@@ -179,6 +179,21 @@
     .el-table__body tr.current-row td {
       background: #dbeafe !important;
     }
+    .pqr-float-btn { display: none; }
+    @media (max-width: 768px) {
+      .pqr-float-btn {
+        display: block;
+        position: fixed;
+        left: 0; right: 0; bottom: 0;
+        z-index: 90;
+        height: 56px;
+        box-shadow: 0 -3px 12px rgba(0,0,0,0.18);
+      }
+      .app-main { padding-bottom: 70px; }
+      /* PQR页面手机端卡片取消sticky，否则会和悬浮按钮打架 */
+      .pqr-float-btn ~ * .card-panel[style*="sticky"],
+      .app-main .card-panel[style*="sticky"] { position: static !important; }
+    }
     @media (max-width: 768px) {
       .sw-panel { padding: 12px 10px; }
       .sw-panel__title { font-size: 14px; }
@@ -574,7 +589,7 @@
             </div>
           </div>
           <el-row :gutter="16">
-            <el-col :span="16">
+            <el-col :xs="24" :sm="24" :md="16">
               <!-- Step 1: 基本信息扩展 -->
               <div class="card-panel">
                 <div class="card-title"><span class="pqr-section-tag">Step 1/7</span>基本信息（委托单位、PWPS、焊工、焊接方法）</div>
@@ -978,7 +993,7 @@
               </div>
             </el-col>
             <!-- 右侧：摘要 + 生成按钮 -->
-            <el-col :span="8">
+            <el-col :xs="24" :sm="24" :md="8">
               <div class="card-panel" style="position: sticky; top: 14px;">
                 <div class="card-title">📄 报告预览摘要（最终导出 10 页 Word）</div>
                 <div style="padding:10px; background:linear-gradient(180deg, #ecfdf5, #dcfce7); border:1px solid #86efac; border-radius:6px; margin-bottom:14px; font-size:12px; color:#14532d;">
@@ -1027,6 +1042,14 @@
               </div>
             </el-col>
           </el-row>
+          <!-- 手机端固定悬浮生成按钮 -->
+          <div class="pqr-float-btn" v-if="activeTab==='pqr'">
+            <el-button type="primary" size="large" @click="generatePqrWord" :disabled="!canGeneratePqr" style="width:100%; height:100%; border:none; border-radius:0;">
+              <el-icon style="margin-right:6px;"><Document /></el-icon>
+              <span v-if="canGeneratePqr">生成并导出 Word 文档 (10页)</span>
+              <span v-else>未满足生成条件（点此查看）</span>
+            </el-button>
+          </div>
         </div>
         <!-- WPS 工艺规程（占位） -->
         <div v-if="activeTab==='wps'">
