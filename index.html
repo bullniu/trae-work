@@ -106,6 +106,110 @@
       color: #6b7280; flex-shrink: 0; gap: 20px;
     }
     .footer-bar .dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block; margin-right: 6px; }
+
+    /* 汉堡按钮（仅手机端显示） */
+    .hamburger-btn {
+      display: none; width: 40px; height: 40px; flex-shrink: 0;
+      background: rgba(255,255,255,0.12); border-radius: 8px;
+      align-items: center; justify-content: center; cursor: pointer;
+      margin-right: 8px; -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .hamburger-btn:active { background: rgba(255,255,255,0.22); }
+    .hamburger-btn span { display:block; width: 20px; height: 2px; background:#fff; position:relative; }
+    .hamburger-btn span::before, .hamburger-btn span::after {
+      content:''; position:absolute; left:0; width:20px; height:2px; background:#fff;
+    }
+    .hamburger-btn span::before { top:-6px; } .hamburger-btn span::after { top:6px; }
+
+    /* 抽屉遮罩 */
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5); z-index: 98;
+      opacity: 0; transition: opacity 0.25s ease;
+    }
+    .sidebar-overlay.show { display: block; opacity: 1; }
+
+    /* 侧栏关闭按钮（仅移动端） */
+    .sidebar-close {
+      display: none; position: absolute; top: 10px; right: 12px;
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(255,255,255,0.08); color: #fff;
+      align-items: center; justify-content: center;
+      font-size: 22px; cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+    .sidebar-close:active { background: rgba(255,255,255,0.18); }
+
+    /* =============== 响应式断点：手机 & 平板 (<= 768px) =============== */
+    @media (max-width: 768px) {
+      .app-header { padding: 0 12px; height: 52px; }
+      .app-header .logo { font-size: 15px; }
+      .app-header .logo-icon { width: 28px; height: 28px; font-size: 15px; }
+      .app-header .header-right { display: none; }
+      .hamburger-btn { display: flex; }
+
+      .app-body { position: relative; }
+
+      /* 侧栏变为抽屉 */
+      .app-sidebar {
+        position: fixed; top: 0; left: 0; bottom: 0;
+        width: 260px; z-index: 99;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        padding-top: 58px;
+        box-shadow: 2px 0 12px rgba(0,0,0,0.18);
+      }
+      .app-sidebar.drawer-open { transform: translateX(0); }
+      .sidebar-close { display: flex; }
+
+      .app-main { padding: 14px 12px; }
+
+      /* 页面标题 */
+      .page-header { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+      .page-title { font-size: 18px; }
+      .page-header > div:last-child { width: 100%; display: flex; flex-wrap: wrap; gap: 8px; }
+      .page-header .el-button { flex: 1; min-width: 0; }
+
+      /* 卡片 */
+      .card-panel { padding: 14px; border-radius: 6px; }
+      .card-title { font-size: 14px; margin-bottom: 12px; }
+
+      /* 统计卡片 4列 -> 2列 */
+      [class*="el-col"] .stat-card { padding: 12px; gap: 10px; }
+      .stat-icon { width: 40px; height: 40px; font-size: 18px; border-radius: 8px; }
+      .stat-value { font-size: 18px; }
+      .stat-label { font-size: 12px; }
+
+      /* 表格：强制横向滚动 + 字号 */
+      .el-table { font-size: 12px; }
+      .el-table .cell { font-size: 12px; }
+      .el-table th, .el-table td { padding: 8px 6px !important; }
+
+      /* 表单 label 顶部对齐 */
+      :deep(.el-form--label-top .el-form-item__label) { padding-bottom: 4px; }
+
+      /* 热输入显示 */
+      .heat-input-display { padding: 8px 14px; }
+      .heat-input-display .value { font-size: 18px; }
+
+      /* Footer 状态栏 */
+      .footer-bar {
+        flex-wrap: wrap; height: auto; min-height: 28px;
+        padding: 6px 12px; gap: 6px 14px;
+        font-size: 11px;
+      }
+      .footer-bar span[style*="margin-left"] { margin-left: 0 !important; width: 100%; text-align: right; }
+    }
+
+    /* 小屏手机 (<= 480px) */
+    @media (max-width: 480px) {
+      .page-title { font-size: 16px; }
+      .page-subtitle { font-size: 12px; }
+      .stat-value { font-size: 16px; }
+      .card-panel { padding: 12px 10px; }
+      .app-main { padding: 10px 8px; }
+      .el-descriptions { font-size: 12px; }
+    }
   </style>
 </head>
 <body>
@@ -113,6 +217,9 @@
   <div class="app-layout">
     <!-- 顶部标题栏 -->
     <div class="app-header">
+      <button class="hamburger-btn" aria-label="菜单" @click="toggleSidebar" role="button">
+        <span></span>
+      </button>
       <div class="logo">
         <div class="logo-icon">⚙️</div>
         <div>焊接工艺管理系统 <span style="font-size:12px;opacity:0.7;margin-left:6px;">Welding PQR Manager</span></div>
@@ -124,28 +231,32 @@
       </div>
     </div>
 
+    <!-- 侧栏遮罩（移动端） -->
+    <div class="sidebar-overlay" :class="{show: sidebarOpen}" @click="closeSidebar"></div>
+
     <div class="app-body">
       <!-- 左侧导航 -->
-      <div class="app-sidebar">
+      <div class="app-sidebar" :class="{'drawer-open': sidebarOpen}">
+        <div class="sidebar-close" @click="closeSidebar" aria-label="关闭菜单">×</div>
         <div class="menu-title">主菜单</div>
-        <div class="menu-item" :class="{active: activeTab==='dashboard'}" @click="activeTab='dashboard'">
+        <div class="menu-item" :class="{active: activeTab==='dashboard'}" @click="switchTab('dashboard')">
           <span class="menu-icon">📊</span><span>工作台</span>
         </div>
-        <div class="menu-item" :class="{active: activeTab==='records'}" @click="activeTab='records'">
+        <div class="menu-item" :class="{active: activeTab==='records'}" @click="switchTab('records')">
           <span class="menu-icon">🔥</span><span>焊接参数记录</span>
         </div>
         <div class="menu-title">知识库</div>
-        <div class="menu-item" :class="{active: activeTab==='kb-material'}" @click="activeTab='kb-material'">
+        <div class="menu-item" :class="{active: activeTab==='kb-material'}" @click="switchTab('kb-material')">
           <span class="menu-icon">🧱</span><span>母材标准库</span>
         </div>
-        <div class="menu-item" :class="{active: activeTab==='kb-consumable'}" @click="activeTab='kb-consumable'">
+        <div class="menu-item" :class="{active: activeTab==='kb-consumable'}" @click="switchTab('kb-consumable')">
           <span class="menu-icon">🔩</span><span>焊材标准库</span>
         </div>
         <div class="menu-title">工艺评定</div>
-        <div class="menu-item" :class="{active: activeTab==='pqr'}" @click="activeTab='pqr'">
+        <div class="menu-item" :class="{active: activeTab==='pqr'}" @click="switchTab('pqr')">
           <span class="menu-icon">📄</span><span>PQR 报告生成</span>
         </div>
-        <div class="menu-item" :class="{active: activeTab==='wps'}" @click="activeTab='wps'">
+        <div class="menu-item" :class="{active: activeTab==='wps'}" @click="switchTab('wps')">
           <span class="menu-icon">📋</span><span>WPS 工艺规程</span>
         </div>
       </div>
@@ -607,7 +718,7 @@
   </div>
 
   <!-- ========= 焊接参数记录 弹窗 ========= -->
-  <el-dialog v-model="recordDialog.visible" :title="recordDialog.mode==='add' ? '新增焊接参数记录' : '编辑焊接参数记录'" width="760px" :close-on-click-modal="false">
+  <el-dialog v-model="recordDialog.visible" :title="recordDialog.mode==='add' ? '新增焊接参数记录' : '编辑焊接参数记录'" :width="isMobile ? '96%' : '760px'" :close-on-click-modal="false" top="5vh">
     <el-form :model="recordDialog.form" :rules="recordRules" ref="recordFormRef" label-width="120px">
       <el-row :gutter="16">
         <el-col :span="12"><el-form-item label="焊接编号" prop="weldNo"><el-input v-model="recordDialog.form.weldNo" placeholder="如：W2025-001" /></el-form-item></el-col>
@@ -672,7 +783,7 @@
   </el-dialog>
 
   <!-- ========= 知识库 弹窗 ========= -->
-  <el-dialog v-model="kbDialog.visible" :title="kbDialog.type==='baseMetal' ? (kbDialog.mode==='add' ? '新增母材' : '编辑母材') : (kbDialog.mode==='add' ? '新增焊材' : '编辑焊材')" width="640px" :close-on-click-modal="false">
+  <el-dialog v-model="kbDialog.visible" :title="kbDialog.type==='baseMetal' ? (kbDialog.mode==='add' ? '新增母材' : '编辑母材') : (kbDialog.mode==='add' ? '新增焊材' : '编辑焊材')" :width="isMobile ? '96%' : '640px'" :close-on-click-modal="false" top="5vh">
     <el-form :model="kbDialog.form" ref="kbFormRef" label-width="140px" :rules="kbRules">
       <template v-if="kbDialog.type==='baseMetal'">
         <el-form-item label="母材牌号" prop="grade"><el-input v-model="kbDialog.form.grade" placeholder="如：Q345R / Q235B / 16MnDR" /></el-form-item>
@@ -757,6 +868,30 @@
       // ---- 基本状态 ----
       const activeTab = ref('dashboard');
       const currentDate = new Date().toLocaleDateString('zh-CN', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
+
+      // ---- 移动端适配：侧栏抽屉 & 屏幕检测 ----
+      const sidebarOpen = ref(false);
+      const isMobile = ref(typeof window !== 'undefined' ? window.matchMedia('(max-width: 768px)').matches : false);
+      if (typeof window !== 'undefined') {
+        const mq = window.matchMedia('(max-width: 768px)');
+        const listener = (e) => {
+          isMobile.value = e.matches;
+          if (!e.matches) { sidebarOpen.value = false; document.body.style.overflow = ''; }
+        };
+        if (mq.addEventListener) mq.addEventListener('change', listener);
+        else if (mq.addListener) mq.addListener(listener);
+      }
+      const toggleSidebar = () => { sidebarOpen.value = !sidebarOpen.value; };
+      const closeSidebar = () => { sidebarOpen.value = false; };
+      const switchTab = (tab) => {
+        activeTab.value = tab;
+        if (isMobile.value) closeSidebar();
+      };
+      watch(sidebarOpen, (open) => {
+        if (typeof document !== 'undefined') {
+          document.body.style.overflow = (open && isMobile.value) ? 'hidden' : '';
+        }
+      });
 
       // ---- 数据 ----
       const weldRecords = ref([]);
@@ -1245,6 +1380,8 @@
         Plus, Download, Document,
         // 状态
         activeTab, currentDate,
+        // 移动端
+        sidebarOpen, isMobile, toggleSidebar, closeSidebar, switchTab,
         // 数据
         weldRecords, kb, stats, recentRecords,
         // 工具
