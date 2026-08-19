@@ -2115,38 +2115,29 @@
             headers: { default: new docx.Header({ children:[new docx.Paragraph({ children:[] })] }) },
             footers: { default: new docx.Footer({ children:[new docx.Paragraph({ children:[] })] }) },
             children: [
-              _blankP(600),
-              new docx.Paragraph({
-                alignment: docx.AlignmentType.CENTER,
-                spacing:{ after: 300, line: 480 },
-                children:[new docx.TextRun({ text:'焊接工艺评定', bold:true, size: 84, font:'微软雅黑', eastAsia:'微软雅黑', color:'1F3864' })]
-              }),
-              new docx.Paragraph({
-                alignment: docx.AlignmentType.CENTER,
-                spacing:{ after: 500, line: 360 },
-                children:[new docx.TextRun({ text:'WELDING PROCEDURE QUALIFICATION RECORD (PQR)', size:28, font:'Times New Roman', color:'4A6FA5', italics:true })]
-              }),
-              new docx.Paragraph({
-                alignment: docx.AlignmentType.CENTER,
-                spacing:{ after: 200, line: 360 },
-                children:[new docx.TextRun({ text:'依 据：NB/T 47014-2023《承压设备焊接工艺评定》', bold:true, size:32, font:'微软雅黑', eastAsia:'微软雅黑', color:'1F3864' })]
-              }),
-              _blankP(500),
-              new docx.Table({
-                width: { size: 100, type: docx.WidthType.PERCENTAGE },
-                columnWidths: [3000, 7000],
-                rows: [
-                  newTableRow([_tc('评定报告编号',{w:3000, bold:true, shading:shadeHead}), _tc(pqrNo,{w:7000})]),
-                  newTableRow([_tc('焊接方法',{w:3000, bold:true, shading:shadeHead}), _tc(weldMethodFull,{w:7000})]),
-                  newTableRow([_tc('焊接材料',{w:3000, bold:true, shading:shadeHead}), _tc(`${_(C.type)}  ${_(C.brand||C.grade)}  (${_(C.standard)})`,{w:7000})]),
-                  newTableRow([_tc('单位名称',{w:3000, bold:true, shading:shadeHead}), _tc(unitName,{w:7000, align:docx.AlignmentType.LEFT, marginL:120})])
-                ]
-              }),
               _blankP(800),
               new docx.Paragraph({
                 alignment: docx.AlignmentType.CENTER,
+                spacing:{ after: 800, line: 600 },
+                children:[new docx.TextRun({ text:'焊   接   工   艺   评   定', bold:true, size: 72, font:'微软雅黑', eastAsia:'微软雅黑' })]
+              }),
+              _blankP(400),
+              new docx.Table({
+                width: { size: 80, type: docx.WidthType.PERCENTAGE },
+                columnWidths: [3000, 5000],
+                rows: [
+                  newTableRow([_tc('评 定 内 容',{w:3000, bold:true}), _tc(_(pqrForm.evaluateContent,'焊接工艺评定'),{w:5000, align:docx.AlignmentType.LEFT, marginL:120})]),
+                  newTableRow([_tc('评定报告编号',{w:3000, bold:true}), _tc(pqrNo,{w:5000, align:docx.AlignmentType.LEFT, marginL:120})]),
+                  newTableRow([_tc('焊 接 方 法',{w:3000, bold:true}), _tc(weldMethodFull,{w:5000, align:docx.AlignmentType.LEFT, marginL:120})]),
+                  newTableRow([_tc('焊 接 材 料',{w:3000, bold:true}), _tc(`${_(C.brand||C.grade)}  ${_(C.depositSize||C.depositSpec)}`,{w:5000, align:docx.AlignmentType.LEFT, marginL:120})]),
+                  newTableRow([_tc('单 位 名 称',{w:3000, bold:true}), _tc(unitName,{w:5000, align:docx.AlignmentType.LEFT, marginL:120})])
+                ]
+              }),
+              _blankP(1200),
+              new docx.Paragraph({
+                alignment: docx.AlignmentType.CENTER,
                 spacing: { before: 400, after: 0 },
-                children:[new docx.TextRun({ text: dateStr.replace(/-/g,' 年 ').slice(0,4+1+2)+' 月', size:32, font:'微软雅黑', eastAsia:'微软雅黑' })]
+                children:[new docx.TextRun({ text: _date(pqrForm.date).replace(/-/g,'   ').slice(0,7).replace(/(\d{4})\s+(\d{2})/, '$1   年   $2   月   日').replace(/年   0?(\d+)/, '年   $1'), size:32, font:'微软雅黑', eastAsia:'微软雅黑' })]
               })
             ]
           });
@@ -2175,96 +2166,105 @@
             spacing:{ before:20, after:20, line:276 },
             children:[new docx.TextRun({ text, bold, size, font:'微软雅黑', ascii:'Times New Roman', eastAsia:'微软雅黑', highAnsi:'Times New Roman' })]
           });
-          const jointNotesPars = pqrForm.grooveNotes ? pqrForm.grooveNotes.split(/\r?\n/).filter(s=>s.trim()).map(s=>newLineP(s, 18)) : [newLineP('—',18)];
-          const diagramPars = pqrForm.jointDiagram ? pqrForm.jointDiagram.split(/\r?\n/).filter(s=>s.trim()).map(s=>newLineP(s, 20)) : [newLineP('（简图由设计图纸/工艺卡补充）', 20, false, docx.AlignmentType.CENTER)];
+          const jointNotesPars = [
+            newLineP('1焊前应将坡口表面及两侧20㎜内的水、锈、油污、积渣和其他有害杂质清除干净。', 18),
+            newLineP('2焊条按规定进行烘干。', 18),
+            newLineP('3坡口面为焊接正面。', 18)
+          ];
+          const diagramPars = pqrForm.jointDiagram ? pqrForm.jointDiagram.split(/\r?\n/).filter(s=>s.trim()).map(s=>newLineP(s, 20)) : [newLineP('（接头形式、坡口形式与尺寸、焊层、焊道布置及顺序简图）', 18, false, docx.AlignmentType.CENTER)];
 
           const pwpsPage1Section = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } } },
-            headers: { default: header('预焊接工艺规程 PWPS 第 1 页') },
+            headers: { default: header('预焊接工艺规程') },
             footers: { default: footer() },
             children: [
-              _hPara('表A  PWPS 基本信息', 2),
+              new docx.Paragraph({ alignment: docx.AlignmentType.RIGHT, spacing:{before:0,after:40},
+                children:[new docx.TextRun({ text:'共  2  页   第  1  页', size:21, font:'微软雅黑', eastAsia:'微软雅黑' })]}),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[1800,3200,1800,3200], rows:[
-                  newTableRow([_tc('单位名称',{bold:true,shading:shadeHead,w:1800}), _tc(unitName,{w:3200,align:docx.AlignmentType.LEFT,marginL:120}),
-                    _tc('PWPS编号',{bold:true,shading:shadeHead,w:1800}), _tc(pwpsNo,{w:3200})]),
-                  newTableRow([_tc('日  期',{bold:true,shading:shadeHead,w:1800}), _tc(_date(pqrForm.pwpsDate),{w:3200}),
-                    _tc('依据PQR报告编号',{bold:true,shading:shadeHead,w:1800}), _tc(_(pqrForm.basedPQRNo,pqrNo),{w:3200})]),
-                  newTableRow([_tc('焊接方法',{bold:true,shading:shadeHead,w:1800}), _tc(weldMethodFull,{w:3200,align:docx.AlignmentType.LEFT,marginL:120}),
-                    _tc('机动化程度',{bold:true,shading:shadeHead,w:1800}), _tc(_(pqrForm.mechanizationLevel),{w:3200})])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2400,3600,1600,2400], rows:[
+                  newTableRow([_tc('单位名称',{bold:true,w:2400}), _tc(unitName,{w:3600,align:docx.AlignmentType.LEFT,marginL:120}),
+                    _tc('预焊接工艺规程编号',{bold:true,w:1600}), _tc(pwpsNo,{w:2400})]),
+                  newTableRow([_tc('日  期',{bold:true,w:2400}), _tc(_date(pqrForm.pwpsDate),{w:3600}),
+                    _tc('焊接方法',{bold:true,w:1600}), _tc(weldMethodFull,{w:2400,align:docx.AlignmentType.LEFT,marginL:60})]),
+                  newTableRow([_tc('所依据焊接工艺评定报告编号',{bold:true,w:2400}), _tc(_(pqrForm.basedPQRNo,pqrNo),{w:3600}),
+                    _tc('机动化程度',{bold:true,w:1600}), _tc(_(pqrForm.mechanizationLevel,'手工、机动、自动'),{w:2400})])
                 ]
               }),
-              _blankP(160),
-              _hPara('表B  焊接接头', 2),
+              _blankP(120),
+              _p('焊接接头', {before:40, after:40, bold:true, size:22}),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000, 8000], rows:[
-                  newTableRow([_tc('坡口形式',{bold:true,shading:shadeHead,w:2000}), _tc(_(pqrForm.grooveType),{w:8000,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('衬  垫',{bold:true,shading:shadeHead,w:2000}), _tc(`材料：${_(pqrForm.gasketMaterial)}；尺寸：${_(pqrForm.gasketSize)}`,{w:8000,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('其他说明',{bold:true,shading:shadeHead,w:2000}), _tcP(jointNotesPars,{w:8000,align:docx.AlignmentType.LEFT})]),
-                  newTableRow([_tc('简  图',{bold:true,shading:shadeHead,w:2000,rowSpan:5}), _tcP(diagramPars,{w:8000, rowSpan:5})])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2400, 7600], rows:[
+                  newTableRow([_tc('坡口形式',{bold:true,w:2400}), _tc(_(pqrForm.grooveType),{w:7600,align:docx.AlignmentType.LEFT,marginL:120})]),
+                  newTableRow([_tc('衬垫材料及规格',{bold:true,w:2400}), _tc(`材料：${_(pqrForm.gasketMaterial,'/')}；规格：${_(pqrForm.gasketSize,'/')}`,{w:7600,align:docx.AlignmentType.LEFT,marginL:120})]),
+                  newTableRow([_tc('其他',{bold:true,w:2400}), _tcP(jointNotesPars,{w:7600,align:docx.AlignmentType.LEFT})]),
+                  newTableRow([_tc('简  图',{bold:true,w:2400,rowSpan:1}), _tcP([newLineP('接头形式、坡口形式与尺寸、焊层、焊道布置及顺序', 18, false, docx.AlignmentType.CENTER), ...diagramPars],{w:7600})])
                 ]
               }),
-              _blankP(160),
-              _hPara('表C  母  材', 2),
+              _blankP(120),
+              _p('母  材', {before:40, after:40, bold:true, size:22}),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2200, 3900, 3900], rows:[
-                  newTableRow([_tc('项  目',{bold:true,shading:shadeHead,w:2200}), _tc('母材 B1（被焊侧A）',{bold:true,shading:shadeHead,w:3900}), _tc('母材 B2（被焊侧B）',{bold:true,shading:shadeHead,w:3900})]),
-                  newTableRow([_tc('类别号 / 组别号',{w:2200,shading:shadeHead}), _tc(`${_(B1.category)}  /  ${_(B1.groupNo)}`,{w:3900}), _tc(`${_(B2.category)}  /  ${_(B2.groupNo)}`,{w:3900})]),
-                  newTableRow([_tc('标准号',{w:2200,shading:shadeHead}), _tc(_(B1.standard),{w:3900}), _tc(_(B2.standard),{w:3900})]),
-                  newTableRow([_tc('牌  号',{w:2200,shading:shadeHead}), _tc(_(B1.grade),{w:3900, bold:true}), _tc(_(B2.grade),{w:3900, bold:true})]),
-                  newTableRow([_tc('材料代号',{w:2200,shading:shadeHead}), _tc(_(B1.materialCode,'/'),{w:3900}), _tc(_(B2.materialCode,'/'),{w:3900})]),
-                  newTableRow([_tc('对接焊缝厚度范围',{w:2200,shading:shadeHead}), _tc(_(B1.buttThicknessRange),{w:3900}), _tc(_(B2.buttThicknessRange),{w:3900})]),
-                  newTableRow([_tc('角焊缝厚度范围',{w:2200,shading:shadeHead}), _tc(_(B1.filletThicknessRange),{w:3900}), _tc(_(B2.filletThicknessRange),{w:3900})]),
-                  newTableRow([_tc('管子范围(对接)',{w:2200,shading:shadeHead}), _tc(_(B1.pipeButtRange,'—'),{w:3900}), _tc(_(B2.pipeButtRange,'—'),{w:3900})]),
-                  newTableRow([_tc('管子范围(角接)',{w:2200,shading:shadeHead}), _tc(_(B1.pipeFilletRange,'—'),{w:3900}), _tc(_(B2.pipeFilletRange,'—'),{w:3900})]),
-                  newTableRow([_tc('其他',{w:2200,shading:shadeHead}),
-                    _tc(`产品形式：${_(B1.productForm,'—')}；供货状态：${_(B1.supplyStatus,'—')}；热处理：${_(B1.heatTreatment,'—')}`,{w:3900,align:docx.AlignmentType.LEFT,marginL:80}),
-                    _tc(`产品形式：${_(B2.productForm,'—')}；供货状态：${_(B2.supplyStatus,'—')}；热处理：${_(B2.heatTreatment,'—')}`,{w:3900,align:docx.AlignmentType.LEFT,marginL:80})])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[1600,2600,1600,2600,1600], rows:[
+                  newTableRow([_tc('类别号',{bold:true,w:1600}), _tc(_(B1.category),{w:2600}), _tc('组别号',{bold:true,w:1600}), _tc(_(B1.groupNo),{w:2600}), _tc('与类别号  '+_(B2.category)+'  组别号  '+_(B2.groupNo)+'  相焊',{w:1600,align:docx.AlignmentType.LEFT,marginL:40})]),
+                  newTableRow([_tc('标准号',{bold:true,w:1600}), _tc(_(B1.standard),{w:2600}), _tc('材料代号',{bold:true,w:1600}), _tc(_(B1.materialCode,'/'),{w:2600}), _tc('与标准号  '+_(B2.standard)+'  材料代号  '+_(B2.materialCode,'/')+'  相焊',{w:1600,align:docx.AlignmentType.LEFT,marginL:40})]),
+                  newTableRow([_tc('厚度范围',{bold:true,w:1600}), _tcP([newLineP('对接焊缝焊件母材厚度范围：'+_(B1.buttThicknessRange),18),
+                    newLineP('角焊缝焊件母材厚度范围：'+_(B1.filletThicknessRange,'—'),18),
+                    newLineP('管子直径、壁厚范围 对接焊缝：'+_(B1.pipeButtRange,'—')+'  角焊缝：'+_(B1.pipeFilletRange,'—'),18)],{w:2600,colSpan:3,align:docx.AlignmentType.LEFT,marginL:60}),
+                    _tc('',{w:1600}), _tc('',{w:2600})]),
+                  newTableRow([_tc('其他',{bold:true,w:1600}), _tc('／',{w:2600}), _tc('',{w:1600}), _tc('',{w:2600}), _tc('',{w:1600})])
                 ]
               }),
-              _blankP(160),
-              _hPara('表D  填充金属', 2),
+              _blankP(120),
+              _p('填充金属', {before:40, after:40, bold:true, size:22}),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2200, 7800], rows:[
-                  newTableRow([_tc('焊材类别',{w:2200,shading:shadeHead,bold:true}), _tc(_(C.category),{w:7800,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('焊材标准',{w:2200,shading:shadeHead,bold:true}), _tc(_(C.standard),{w:7800,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('填充金属：尺寸、型号、牌号、金属材料代号、填充金属类别',{w:2200,shading:shadeHead,bold:true}),
-                    _tc(`尺寸：${_(C.depositSize||C.depositSpec,'—')}； 型号：${_(C.modelNo,'—')}； 牌号：${_(C.brand||C.grade,'—')}； 金属材料代号：${_(C.fillerMetalCode,'—')}； 填充金属类别：${_(C.fillerCategory,'—')}`,{w:7800,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('对接焊缝焊缝金属厚度范围',{w:2200,shading:shadeHead,bold:true}), _tc(_(C.buttWeldMetalRange),{w:7800})]),
-                  newTableRow([_tc('角焊缝焊缝金属厚度范围',{w:2200,shading:shadeHead,bold:true}), _tc(_(C.filletWeldMetalRange,'—'),{w:7800})]),
-                  newTableRow([_tc('其它（药皮/焊剂类型、扩散氢、烘焙、厂家）',{w:2200,shading:shadeHead,bold:true}),
-                    _tc(`药皮/焊剂类型：${_(C.fluxType,'—')}； 扩散氢等级：${_(C.diffusibleHydrogen,'—')}； 烘焙：${_(C.baketemp,'—')}； 生产厂家：${_(C.manufacturer,'—')}`,{w:7800,align:docx.AlignmentType.LEFT,marginL:120})])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[1600,2600,1600,2600,1600], rows:[
+                  newTableRow([_tc('焊材类别',{bold:true,w:1600}), _tc(_(C.category),{w:2600}), _tc('焊材标准',{bold:true,w:1600}), _tc(_(C.standard),{w:2600}), _tc('填充金属尺寸',{bold:true,w:1600})]),
+                  newTableRow([_tc('',{w:1600}), _tc(_(C.depositSize||C.depositSpec,'/'),{w:2600,colSpan:3}), _tc('',{w:1600}), _tc('',{w:2600}), _tc('',{w:1600})]),
+                  newTableRow([_tc('焊材型号',{bold:true,w:1600}), _tc(_(C.modelNo),{w:2600}), _tc('焊材牌号',{bold:true,w:1600}), _tc(_(C.brand||C.grade),{w:2600}), _tc('金属材料代号',{bold:true,w:1600})]),
+                  newTableRow([_tc('填充金属类别',{bold:true,w:1600}), _tc(_(C.fillerCategory),{w:2600,colSpan:3}), _tc('',{w:1600}), _tc('',{w:2600}), _tc('其他：/ ',{w:1600,align:docx.AlignmentType.LEFT,marginL:40})]),
+                  newTableRow([_tc('对接焊缝焊件焊缝金属厚度范围',{bold:true,w:1600}), _tc(_(C.buttWeldMetalRange),{w:2600,colSpan:3}), _tc('',{w:1600}), _tc('',{w:2600}), _tc('',{w:1600})]),
+                  newTableRow([_tc('角焊缝焊件焊缝金属厚度范围',{bold:true,w:1600}), _tc(_(C.filletWeldMetalRange,'/'),{w:2600,colSpan:3}), _tc('',{w:1600}), _tc('',{w:2600}), _tc('',{w:1600})])
+                ]
+              }),
+              _blankP(120),
+              _p('耐蚀堆焊金属化学成分(%)', {before:40, after:40, bold:true, size:22}),
+              new docx.Table({
+                width:{size:100,type:docx.WidthType.PERCENTAGE},
+                columnWidths:[900,900,900,900,900,900,900,900,900,900,900,900,1900],
+                rows:[
+                  newTableRow(['C','Si','Mn','P','S','Cr','Ni','Mo','V','Ti','Nb','其他'].map((t,i)=>_tc(t,{w:900, bold:true}))),
+                  newTableRow(['/','/','/','/','/','/','/','/','/','/','/','/'].map((t,i)=>_tc(t,{w:900})).concat([_tc('/',{w:1900})]))
                 ]
               }),
               _blankP(60),
-              new docx.Paragraph({ spacing:{ before:60, after:40, line:300 },
-                children:[new docx.TextRun({ text:'表D-附  耐蚀堆焊金属化学成分（如适用，未采用时填"—"）', bold:true, size:21, font:'微软雅黑', eastAsia:'微软雅黑' })]}),
-              new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE},
-                columnWidths:[2000,900,900,900,900,900,900,900,900,900,900,900],
-                rows:[
-                  newTableRow(['元素','C','Si','Mn','P','S','Cr','Ni','Mo','V','Ti','Nb'].map((t,i)=>_tc(t,{w:i===0?2000:900, bold:true, shading:shadeHead}))),
-                  newTableRow(['堆焊层 1','/','/','/','/','/','/','/','/','/','/','/'].map((t,i)=>_tc(t,{w:i===0?2000:900})))
-                ]
-              })
+              _p('注：对每一种母材与焊接材料的组合均需分别填表', {before:20, after:40, size:18, indent:480})
             ]
           });
 
           // ============ PWPS 第2页 ============
-          // 多层多道明细
-          const passTableWidths = [1100, 1400, 2400, 2300, 1400, 1700, 2100];
-          const passTableHeaders = ['焊道/焊层','焊接方法','填充材料(牌号/直径)','焊接电源(极性/电流(A))','电弧电压(V)','焊接速度(cm/min)','热输入(kJ/cm)'];
-          const passHeaderRow = newTableRow(passTableHeaders.map((t,i)=>_tc(t,{w:passTableWidths[i], bold:true, shading:shadeHead})));
+          // 多层多道明细（模板为两行表头）
+          const passTableWidths = [1100, 1400, 1200, 1200, 1200, 1100, 1400, 1700, 2100];
+          const passHeaderRow1 = newTableRow([
+            _tc('焊道/焊层',{w:1100, bold:true, rowSpan:2}),
+            _tc('焊接方法',{w:1400, bold:true, rowSpan:2}),
+            _tc('填充材料',{w:1200, bold:true, colSpan:2}),
+            _tc('焊接电源',{w:1200, bold:true, colSpan:2}),
+            _tc('电弧电压(V)',{w:1400, bold:true, rowSpan:2}),
+            _tc('焊接速度(cm/min)',{w:1700, bold:true, rowSpan:2}),
+            _tc('热输入(kJ/cm)',{w:2100, bold:true, rowSpan:2})
+          ]);
+          const passHeaderRow2 = newTableRow([_tc('',{w:0}),_tc('',{w:0}),_tc('牌号',{w:1200, bold:true}),_tc('直径',{w:1200, bold:true}),_tc('极性',{w:1200, bold:true}),_tc('电流 (A)',{w:1100, bold:true})]);
           const passRowsData = passes.length ? passes : [{ layer:1, passNo:1, weldMethod:R.weldMethod, consumable:C.brand||C.grade, consumableSpec:C.depositSize||C.depositSpec, current:null, voltage:null, weldSpeed:null, efficiency:0.75, weldTime:0 }];
           const passRows = passRowsData.map(p => {
-            const weldSpeed = p.weldSpeed ? (typeof p.weldSpeed === 'number' ? p.weldSpeed.toFixed(1) : p.weldSpeed) : '—';
+            const weldSpeed = p.weldSpeed ? (typeof p.weldSpeed === 'number' ? p.weldSpeed.toFixed(1) : p.weldSpeed) : '';
             const heatIn = calcPassHeatInput(p);
             return newTableRow([
-              _tc(`L${p.layer}-${p.passNo}`,{w:1100}),
-              _tc(p.weldMethod || R.weldMethod || '—',{w:1400}),
-              _tc(`${_(p.consumable, C.brand||C.grade)} / ${_(p.consumableSpec, C.depositSize||C.depositSpec)}`,{w:2400}),
-              _tc(`${_(pqrForm.polarity,'DCEP')} / ${p.current||'—'}`,{w:2300}),
-              _tc(p.voltage ? String(p.voltage) : '—',{w:1400}),
+              _tc(`${p.layer}-${p.passNo}`,{w:1100}),
+              _tc(p.weldMethod || R.weldMethod || '',{w:1400}),
+              _tc(_(p.consumable, C.brand||C.grade),{w:1200}),
+              _tc(_(p.consumableSpec, C.depositSize||C.depositSpec),{w:1200}),
+              _tc(_(pqrForm.polarity,'DCEP'),{w:1200}),
+              _tc(p.current ? String(p.current) : '',{w:1100}),
+              _tc(p.voltage ? String(p.voltage) : '',{w:1400}),
               _tc(String(weldSpeed),{w:1700}),
               _tc(String(heatIn),{w:2100})
             ]);
@@ -2272,85 +2272,88 @@
 
           const pwpsPage2Section = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } } },
-            headers: { default: header('预焊接工艺规程 PWPS 第 2 页') },
+            headers: { default: header('预焊接工艺规程') },
             footers: { default: footer() },
             children: [
-              _hPara('表E  焊接位置 / 焊后热处理', 2),
+              new docx.Paragraph({ alignment: docx.AlignmentType.RIGHT, spacing:{before:0,after:40},
+                children:[new docx.TextRun({ text:'共  2  页   第  2  页', size:21, font:'微软雅黑', eastAsia:'微软雅黑' })]}),
+              _p('焊接位置', {before:40, after:40, bold:true, size:22}),
               new docx.Table({
                 width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2400, 3800, 3800], rows:[
-                  newTableRow([_tc('项  目',{w:2400, bold:true, shading:shadeHead}), _tc('对接焊缝',{w:3800, bold:true, shading:shadeHead}), _tc('角焊缝',{w:3800, bold:true, shading:shadeHead})]),
-                  newTableRow([_tc('焊接位置',{w:2400,shading:shadeHead}), _tc(_(pqrForm.buttWeldPos),{w:3800}), _tc(_(pqrForm.filletWeldPos),{w:3800})]),
-                  newTableRow([_tc('焊缝方向',{w:2400,shading:shadeHead}), _tc(_(pqrForm.buttDirection,'向上'),{w:3800}), _tc(_(pqrForm.filletDirection,'向上'),{w:3800})]),
-                  newTableRow([_tc('焊后热处理 温度范围',{w:2400,shading:shadeHead, rowSpan:2}), _tc(_(pqrForm.heatTreatTempRange),{w:3800, colSpan:2, rowSpan:2})]),
-                  newTableRow([_tc('焊后热处理 保温时间',{w:2400,shading:shadeHead})])
+                  newTableRow([_tc('项  目',{w:2400, bold:true}), _tc('对接焊缝',{w:3800, bold:true}), _tc('角焊缝',{w:3800, bold:true})]),
+                  newTableRow([_tc('焊接位置',{w:2400}), _tc(_(pqrForm.buttWeldPos,'平、横、立、仰'),{w:3800}), _tc(_(pqrForm.filletWeldPos,'平、横、立、仰'),{w:3800})]),
+                  newTableRow([_tc('焊接方向',{w:2400}), _tc(_(pqrForm.buttDirection,'向上、向下'),{w:3800}), _tc(_(pqrForm.filletDirection,'向上、向下'),{w:3800})])
+                ]
+              }),
+              _blankP(120),
+              _p('焊后热处理', {before:40, after:40, bold:true, size:22}),
+              new docx.Table({
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[4000, 3000, 3000], rows:[
+                  newTableRow([_tc('项  目',{w:4000, bold:true}), _tc('温度范围℃',{w:3000, bold:true}), _tc('保温时间h',{w:3000, bold:true})]),
+                  newTableRow([_tc('焊后热处理',{w:4000}), _tc(_(pqrForm.heatTreatTempRange,'/'),{w:3000}), _tc(_(pqrForm.heatTreatHoldTime,'/'),{w:3000})])
+                ]
+              }),
+              _blankP(120),
+              _p('预热', {before:40, after:40, bold:true, size:22}),
+              new docx.Table({
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[4000, 3000, 3000], rows:[
+                  newTableRow([_tc('预热 (℃) (允许最低值)',{w:4000, bold:true}), _tc(_(pqrForm.preheatMinTemp,'/'),{w:3000,colSpan:2}), _tc('',{w:3000})]),
+                  newTableRow([_tc('层间温度(℃)(允许最高值)',{w:4000, bold:true}), _tc(_(pqrForm.interpassMaxTemp,'/'),{w:3000,colSpan:2}), _tc('',{w:3000})]),
+                  newTableRow([_tc('保持预热时间',{w:4000, bold:true}), _tc(_(pqrForm.holdPreheatTime,'/'),{w:3000,colSpan:2}), _tc('',{w:3000})]),
+                  newTableRow([_tc('加热方式',{w:4000, bold:true}), _tc(_(pqrForm.heatingMethod,'/'),{w:3000,colSpan:2}), _tc('',{w:3000})])
+                ]
+              }),
+              _blankP(120),
+              _p('保护气体', {before:40, after:40, bold:true, size:22}),
+              new docx.Table({
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[3000, 2400, 2400, 2200], rows:[
+                  newTableRow([_tc('保护气体',{w:3000, bold:true}), _tc('气体种类',{w:2400, bold:true}), _tc('混合比',{w:2400, bold:true}), _tc('流量(L/min)',{w:2200, bold:true})]),
+                  newTableRow([_tc('保  护  气',{w:3000}), _tc(_(pqrForm.shieldGas,'/'),{w:2400}), _tc(_(pqrForm.shieldMix,'/'),{w:2400}), _tc(_(pqrForm.shieldFlow,'/'),{w:2200})]),
+                  newTableRow([_tc('尾部保护气',{w:3000}), _tc(_(pqrForm.tailShieldGas,'/'),{w:2400}), _tc(_(pqrForm.tailMix,'/'),{w:2400}), _tc(_(pqrForm.tailFlow,'/'),{w:2200})]),
+                  newTableRow([_tc('背面保护气',{w:3000}), _tc(_(pqrForm.backShieldGas,'/'),{w:2400}), _tc(_(pqrForm.backMix,'/'),{w:2400}), _tc(_(pqrForm.backFlow,'/'),{w:2200})])
+                ]
+              }),
+              _blankP(120),
+              _p('电特性', {before:40, after:40, bold:true, size:22}),
+              new docx.Table({
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[4000, 3000, 3000], rows:[
+                  newTableRow([_tc('电流种类',{w:4000, bold:true}), _tc(_(pqrForm.currentType,'/'),{w:3000,colSpan:2}), _tc('',{w:3000})]),
+                  newTableRow([_tc('极性',{w:4000, bold:true}), _tc(_(pqrForm.polarity,'/'),{w:3000,colSpan:2}), _tc('',{w:3000})]),
+                  newTableRow([_tc('焊接电流范围(A)',{w:4000, bold:true}), _tc(_(pqrForm.currentRangeA,'/'),{w:3000,colSpan:2}), _tc('',{w:3000})]),
+                  newTableRow([_tc('电弧电压(V)',{w:4000, bold:true}), _tc(_(pqrForm.voltageRangeV,'/'),{w:3000,colSpan:2}), _tc('',{w:3000})])
+                ]
+              }),
+              _p('(按所焊位置和厚度,分别列出电流电压范围,记入下表)', {before:20, after:40, size:18, indent:480}),
+              new docx.Table({ width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:passTableWidths, rows:[passHeaderRow1, passHeaderRow2, ...passRows] }),
+              _blankP(120),
+              new docx.Table({
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[3000, 2000, 3000, 2000], rows:[
+                  newTableRow([_tc('钨极类型及直径',{w:3000, bold:true}), _tc(_(pqrForm.tungstenTypeDia,'/'),{w:2000}), _tc('喷嘴直径 (mm)',{w:3000, bold:true}), _tc(_(pqrForm.nozzleDia,'/'),{w:2000})]),
+                  newTableRow([_tc('熔滴过渡形式',{w:3000, bold:true}), _tc(_(pqrForm.metalTransferMode,'/'),{w:2000}), _tc('焊丝送进速度 (cm/min)',{w:3000, bold:true}), _tc(_(pqrForm.wireFeedSpeed,'/'),{w:2000})])
+                ]
+              }),
+              _blankP(120),
+              _p('技术措施', {before:40, after:40, bold:true, size:22}),
+              new docx.Table({
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[3200, 6800], rows:[
+                  newTableRow([_tc('摆动焊或不摆动焊',{w:3200, bold:true}), _tc(_(pqrForm.swingOrNot,'/'),{w:6800,align:docx.AlignmentType.LEFT,marginL:120})]),
+                  newTableRow([_tc('摆动参数',{w:3200, bold:true}), _tc(_(pqrForm.swingParams,'/'),{w:6800,align:docx.AlignmentType.LEFT,marginL:120})]),
+                  newTableRow([_tc('焊前清理和层间清理',{w:3200, bold:true}), _tc(_(pqrForm.preAndInterpassCleaning,'/'),{w:6800,align:docx.AlignmentType.LEFT,marginL:120})]),
+                  newTableRow([_tc('背面清根方法',{w:3200, bold:true}), _tc(_(pqrForm.backGougeMethod,'/'),{w:6800,align:docx.AlignmentType.LEFT,marginL:120})]),
+                  newTableRow([_tc('单道焊或多道焊每面',{w:3200, bold:true}), _tc(_(pqrForm.singleOrMultiPerSide,'/'),{w:6800})]),
+                  newTableRow([_tc('单丝焊或多丝焊',{w:3200, bold:true}), _tc(_(pqrForm.singleOrMultiWire,'/'),{w:6800})]),
+                  newTableRow([_tc('导电嘴至工件距离(mm)',{w:3200, bold:true}), _tc(_(pqrForm.contactTipDist,'/'),{w:6800})]),
+                  newTableRow([_tc('锤击',{w:3200, bold:true}), _tc(_(pqrForm.peening,'/'),{w:6800})]),
+                  newTableRow([_tc('其他',{w:3200, bold:true}), _tc(_(pqrForm.otherTechnical,'/'),{w:6800,align:docx.AlignmentType.LEFT,marginL:120})])
                 ]
               }),
               _blankP(160),
-              _hPara('表F  预热 / 保护气体', 2),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000, 8000], rows:[
-                  newTableRow([_tc('预热最低温度',{w:2000,shading:shadeHead,bold:true}), _tc(`${_(pqrForm.preheatMinTemp)} ℃`,{w:8000})]),
-                  newTableRow([_tc('层间最高温度',{w:2000,shading:shadeHead,bold:true}), _tc(`${_(pqrForm.interpassMaxTemp)} ℃`,{w:8000})]),
-                  newTableRow([_tc('预热保持时间 / 方法',{w:2000,shading:shadeHead,bold:true}), _tc(`保温：${_(pqrForm.holdPreheatTime)}；加热方式：${_(pqrForm.heatingMethod)}`,{w:8000,align:docx.AlignmentType.LEFT,marginL:120})])
-                ]
-              }),
-              _blankP(60),
-              new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000, 2800, 2600, 2600], rows:[
-                  newTableRow([_tc('保护气体',{w:2000, bold:true, shading:shadeHead}), _tc('气体种类',{w:2800, bold:true, shading:shadeHead}), _tc('混合比',{w:2600, bold:true, shading:shadeHead}), _tc('流量 L/min',{w:2600, bold:true, shading:shadeHead})]),
-                  newTableRow([_tc('焊接保护气 (Nozzle)',{w:2000,shading:shadeHead}), _tc(_(pqrForm.shieldGas),{w:2800}), _tc(_(pqrForm.shieldMix),{w:2600}), _tc(_(pqrForm.shieldFlow),{w:2600})]),
-                  newTableRow([_tc('保护气 (Tail Shield)',{w:2000,shading:shadeHead}), _tc(_(pqrForm.tailShieldGas),{w:2800}), _tc(_(pqrForm.tailMix),{w:2600}), _tc(_(pqrForm.tailFlow),{w:2600})]),
-                  newTableRow([_tc('背面保护气 (Backing)',{w:2000,shading:shadeHead}), _tc(_(pqrForm.backShieldGas),{w:2800}), _tc(_(pqrForm.backMix),{w:2600}), _tc(_(pqrForm.backFlow),{w:2600})])
-                ]
-              }),
-              _blankP(160),
-              _hPara('表G  电特性 + 多层多道明细', 2),
-              new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2200, 3900, 3900], rows:[
-                  newTableRow([_tc('电流种类',{w:2200,shading:shadeHead,bold:true}), _tc(_(pqrForm.currentType),{w:3900}),
-                    _tc(`极性：${_(pqrForm.polarity)}`,{w:3900, bold:true, shading:shadeHead})]),
-                  newTableRow([_tc('电流范围 A',{w:2200,shading:shadeHead,bold:true}), _tc(_(pqrForm.currentRangeA),{w:3900}),
-                    _tc('电压范围 V',{w:3900, bold:true, shading:shadeHead})]),
-                  newTableRow([_tc('',{w:2200,shading:shadeHead,bold:true}), _tc('',{w:3900}),
-                    _tc(_(pqrForm.voltageRangeV),{w:3900})])
-                ]
-              }),
-              _blankP(60),
-              new docx.Paragraph({ spacing:{ before:40, after:40 },
-                children:[new docx.TextRun({ text:'多层多道焊接规范参数表（按 NB/T 47014 附录记录）', bold:true, size:21, font:'微软雅黑', eastAsia:'微软雅黑' })]}),
-              new docx.Table({ width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:passTableWidths, rows:[passHeaderRow, ...passRows] }),
-              _blankP(160),
-              _hPara('表H  钨极 / 喷嘴 / 熔滴 / 送丝', 2),
-              new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2200, 2600, 2600, 2600], rows:[
-                  newTableRow([_tc('钨极种类/直径',{w:2200,shading:shadeHead,bold:true}), _tc(_(pqrForm.tungstenTypeDia),{w:2600}),
-                    _tc('喷嘴直径',{w:2600, bold:true, shading:shadeHead}), _tc(_(pqrForm.nozzleDia),{w:2600})]),
-                  newTableRow([_tc('熔滴过渡形式',{w:2200,shading:shadeHead,bold:true}), _tc(_(pqrForm.metalTransferMode),{w:2600}),
-                    _tc('送丝速度 m/min',{w:2600, bold:true, shading:shadeHead}), _tc(_(pqrForm.wireFeedSpeed),{w:2600})])
-                ]
-              }),
-              _blankP(160),
-              _hPara('表I  技术措施', 2),
-              new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[3000, 7000], rows:[
-                  newTableRow([_tc('摆动/不摆动',{w:3000,shading:shadeHead,bold:true}), _tc(_(pqrForm.swingOrNot)+'  '+_(pqrForm.swingParams),{w:7000,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('焊前及层间清理',{w:3000,shading:shadeHead,bold:true}), _tc(_(pqrForm.preAndInterpassCleaning),{w:7000,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('背面清根方法',{w:3000,shading:shadeHead,bold:true}), _tc(_(pqrForm.backGougeMethod),{w:7000,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('每面单道/多道',{w:3000,shading:shadeHead,bold:true}), _tc(_(pqrForm.singleOrMultiPerSide),{w:7000})]),
-                  newTableRow([_tc('单丝/多丝',{w:3000,shading:shadeHead,bold:true}), _tc(_(pqrForm.singleOrMultiWire),{w:7000})]),
-                  newTableRow([_tc('导电嘴距离(mm)',{w:3000,shading:shadeHead,bold:true}), _tc(_(pqrForm.contactTipDist),{w:7000})]),
-                  newTableRow([_tc('锤击处理',{w:3000,shading:shadeHead,bold:true}), _tc(_(pqrForm.peening),{w:7000})]),
-                  newTableRow([_tc('其他措施',{w:3000,shading:shadeHead,bold:true}), _tc(_(pqrForm.otherTechnical),{w:7000,align:docx.AlignmentType.LEFT,marginL:120})])
-                ]
-              }),
-              _blankP(300),
-              // 签字栏
-              new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2500, 2500, 2500, 2500], rows:[
-                  newTableRow([_tc('编  制',{bold:true, shading:shadeHead}), _tc('审  核',{bold:true, shading:shadeHead}), _tc('批  准',{bold:true, shading:shadeHead}), _tc('第三方',{bold:true, shading:shadeHead})]),
-                  newTableRow([_tc(_(pqrForm.compiler,'（签字）'),{w:2500, spacing:160}), _tc(_(pqrForm.auditor,'（签字）'),{w:2500, spacing:160}), _tc(_(pqrForm.approver,'（签字）'),{w:2500, spacing:160}), _tc(_(pqrForm.thirdPartyInspector,'（签字）'),{w:2500, spacing:160})]),
-                  newTableRow([_tc('日 期',{bold:true, shading:shadeHead}), _tc('日 期',{bold:true, shading:shadeHead}), _tc('日 期',{bold:true, shading:shadeHead}), _tc('日 期',{bold:true, shading:shadeHead})]),
-                  newTableRow([_tc(_date(pqrForm.compilerDate),{w:2500}), _tc(_date(pqrForm.auditorDate),{w:2500}), _tc(_date(pqrForm.approverDate),{w:2500}), _tc(_(pqrForm.thirdPartyDate,pqrForm.approverDate),{w:2500})])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2500, 833, 2500, 833, 2500, 834], rows:[
+                  newTableRow([_tc('编  制',{bold:true, w:2500}), _tc('日期',{bold:true, w:833}), _tc('审  核',{bold:true, w:2500}), _tc('日期',{bold:true, w:833}), _tc('批  准',{bold:true, w:2500}), _tc('日期',{bold:true, w:834})]),
+                  newTableRow([_tc(_(pqrForm.compiler,''),{w:2500, spacing:200}), _tc(_date(pqrForm.compilerDate),{w:833, spacing:200}),
+                    _tc(_(pqrForm.auditor,''),{w:2500, spacing:200}), _tc(_date(pqrForm.auditorDate),{w:833, spacing:200}),
+                    _tc(_(pqrForm.approver,''),{w:2500, spacing:200}), _tc(_date(pqrForm.approverDate),{w:834, spacing:200})])
                 ]
               })
             ]
@@ -2359,70 +2362,103 @@
           // ============ (4) PQR 第1页 ============
           const pqrPage1Section = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } } },
-            headers: { default: header('焊接工艺评定报告 PQR 第 1 页') },
+            headers: { default: header('焊接工艺评定报告') },
             footers: { default: footer() },
             children: [
-              _hPara('焊接工艺评定报告（PQR）', 1, { align: docx.AlignmentType.CENTER }),
+              new docx.Paragraph({ alignment: docx.AlignmentType.RIGHT, spacing:{before:0,after:40},
+                children:[new docx.TextRun({ text:'共  2  页   第  1  页', size:21, font:'微软雅黑', eastAsia:'微软雅黑' })]}),
+              new docx.Table({
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2400,3600,2400,1600], rows:[
+                  newTableRow([_tc('单位名称',{bold:true,w:2400}), _tc(unitName,{w:3600,align:docx.AlignmentType.LEFT,marginL:120}),
+                    _tc('焊接工艺评定报告编号',{bold:true,w:2400}), _tc(pqrNo,{w:1600})]),
+                  newTableRow([_tc('预焊接工艺规程编号',{bold:true,w:2400}), _tc(pwpsNo,{w:3600}),
+                    _tc('焊接方法',{bold:true,w:2400}), _tc(weldMethodFull,{w:1600,align:docx.AlignmentType.LEFT,marginL:60})]),
+                  newTableRow([_tc('机械化程度(手工, 机动自动)',{bold:true,w:2400,colSpan:3}), _tc('',{w:3600}), _tc('',{w:2400}), _tc(_(pqrForm.mechanizationLevel),{w:1600})])
+                ]
+              }),
               _blankP(80),
+              _p('接头简图', {before:40, after:40, bold:true, size:22}),
+              _p('坡口形式、尺寸、衬垫、每种焊接方法或焊接工艺、焊缝金属厚度', {before:20, after:20, size:18, indent:240}),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2400, 3800, 2400, 1400], rows:[
-                  newTableRow([_tc('单位名称',{bold:true,shading:shadeHead,w:2400}), _tc(unitName,{w:3800,align:docx.AlignmentType.LEFT,marginL:120}),
-                    _tc('报告编号',{bold:true,shading:shadeHead,w:2400}), _tc(pqrNo,{w:1400})]),
-                  newTableRow([_tc('PQR编号',{bold:true,shading:shadeHead,w:2400}), _tc(pqrNo,{w:3800}),
-                    _tc('PWPS编号',{bold:true,shading:shadeHead,w:2400}), _tc(pwpsNo,{w:1400})]),
-                  newTableRow([_tc('焊接方法',{bold:true,shading:shadeHead,w:2400}), _tc(weldMethodFull,{w:3800,align:docx.AlignmentType.LEFT,marginL:120}),
-                    _tc('机械化程度',{bold:true,shading:shadeHead,w:2400}), _tc(_(pqrForm.mechanizationLevel),{w:1400})])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[10000], rows:[
+                  newTableRow([_tcP([newLineP('（接头简图位置：'+_(pqrForm.grooveType,'见PWPS简图')+'）', 18, false, docx.AlignmentType.CENTER), ...diagramPars],{w:10000,align:docx.AlignmentType.CENTER})])
                 ]
               }),
-              _blankP(60),
-              new docx.Paragraph({ spacing:{ before:40, after:40 },
-                children:[new docx.TextRun({ text:'焊接接头简图 / 坡口形式说明（文字或图示位置）', bold:true, size:21, font:'微软雅黑', eastAsia:'微软雅黑' })]}),
+              _blankP(120),
+              _p('母  材', {before:40, after:40, bold:true, size:22}),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[4000, 6000], rows:[
-                  newTableRow([
-                    _tcP([newLineP('焊接接头简图',21,true,docx.AlignmentType.CENTER),newLineP('（此处粘贴简图照片/示意图）',18,false,docx.AlignmentType.CENTER),newLineP('参考：'+_(pqrForm.grooveType),18)],{w:4000}),
-                    _tcP([newLineP('坡口形式：'+_(pqrForm.grooveType), 20),
-                           newLineP('衬垫材料：'+_(pqrForm.gasketMaterial)+'  尺寸：'+_(pqrForm.gasketSize),20),
-                           newLineP('焊件厚度/规格：'+_(pqrForm.baseThicknessOrDia),20),
-                           ...diagramPars],{w:6000})
-                  ])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000,3000,2000,3000], rows:[
+                  newTableRow([_tc('材料标准',{bold:true,w:2000}), _tc(_(B1.standard),{w:3000}), _tc('钢 号',{bold:true,w:2000}), _tc(_(B1.grade)+' / '+_(B2.grade),{w:3000})]),
+                  newTableRow([_tc('类、组别号',{bold:true,w:2000}), _tc(_(B1.category)+' / '+_(B1.groupNo),{w:3000}), _tc('与类、组别号  '+_(B2.category)+' / '+_(B2.groupNo)+'  相焊',{bold:true,w:2000,colSpan:2}), _tc('',{w:3000})]),
+                  newTableRow([_tc('厚  度',{bold:true,w:2000}), _tc(_(B1.thicknessOrDia || B1.buttThicknessRange),{w:3000}), _tc('直  径',{bold:true,w:2000}), _tc('/',{w:3000})]),
+                  newTableRow([_tc('其  他',{bold:true,w:2000}), _tc('/',{w:3000}), _tc('',{w:2000}), _tc('',{w:3000})])
                 ]
               }),
-              _blankP(160),
-              _hPara('母  材', 2),
+              _blankP(120),
+              _p('焊后热处理', {before:40, after:40, bold:true, size:22}),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2600, 3700, 3700], rows:[
-                  newTableRow([_tc('项  目',{w:2600,bold:true,shading:shadeHead}), _tc('A 侧（B1）',{w:3700,bold:true,shading:shadeHead}), _tc('B 侧（B2）',{w:3700,bold:true,shading:shadeHead})]),
-                  newTableRow([_tc('材料标准号',{w:2600,shading:shadeHead}), _tc(_(B1.standard),{w:3700}), _tc(_(B2.standard),{w:3700})]),
-                  newTableRow([_tc('钢 号',{w:2600,shading:shadeHead}), _tc(_(B1.grade),{w:3700,bold:true}), _tc(_(B2.grade),{w:3700,bold:true})]),
-                  newTableRow([_tc('类别号 / 组别号',{w:2600,shading:shadeHead}), _tc(`${_(B1.category)}  /  ${_(B1.groupNo)}`,{w:3700}), _tc(`${_(B2.category)}  /  ${_(B2.groupNo)}`,{w:3700})]),
-                  newTableRow([_tc('厚度 t / 规格',{w:2600,shading:shadeHead}), _tc(_(B1.thicknessOrDia || B1.buttThicknessRange),{w:3700}), _tc(_(B2.thicknessOrDia || B2.buttThicknessRange),{w:3700})])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[4000,3000,3000], rows:[
+                  newTableRow([_tc('项  目',{bold:true,w:4000}), _tc('热处理温度(℃)',{bold:true,w:3000}), _tc('保温时间 (h)',{bold:true,w:3000})]),
+                  newTableRow([_tc('焊后热处理',{w:4000}), _tc(_(pqrForm.heatTreatTempRange,'/'),{w:3000}), _tc(_(pqrForm.heatTreatHoldTime,'/'),{w:3000})])
                 ]
               }),
-              _blankP(160),
+              _blankP(120),
+              _p('保护气体', {before:40, after:40, bold:true, size:22}),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000, 8000], rows:[
-                  newTableRow([_tc('焊后热处理',{w:2000, bold:true, shading:shadeHead}), _tc(`温度：${_(pqrForm.heatTreatTempRange)}  保温：${_(pqrForm.heatTreatHoldTime)}`,{w:8000,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('预  热',{w:2000, bold:true, shading:shadeHead}), _tc(`最低预热：${_(pqrForm.preheatMinTemp)} ℃；层间最高：${_(pqrForm.interpassMaxTemp)} ℃；保温：${_(pqrForm.holdPreheatTime)}；加热方式：${_(pqrForm.heatingMethod)}`,{w:8000,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('保护气体',{w:2000, bold:true, shading:shadeHead}), _tc(`焊接：${_(pqrForm.shieldGas)}/${_(pqrForm.shieldMix)}/${_(pqrForm.shieldFlow)}L；尾部：${_(pqrForm.tailShieldGas)}/${_(pqrForm.tailMix)}/${_(pqrForm.tailFlow)}L；背面：${_(pqrForm.backShieldGas)}/${_(pqrForm.backMix)}/${_(pqrForm.backFlow)}L`,{w:8000,align:docx.AlignmentType.LEFT,marginL:120})])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[3000,2400,2400,2200], rows:[
+                  newTableRow([_tc('保护气体',{bold:true,w:3000}), _tc('气体种类',{bold:true,w:2400}), _tc('混合比',{bold:true,w:2400}), _tc('流量(L/min)',{bold:true,w:2200})]),
+                  newTableRow([_tc('保  护  气',{w:3000}), _tc(_(pqrForm.shieldGas,'/'),{w:2400}), _tc(_(pqrForm.shieldMix,'/'),{w:2400}), _tc(_(pqrForm.shieldFlow,'/'),{w:2200})]),
+                  newTableRow([_tc('尾部保护气',{w:3000}), _tc(_(pqrForm.tailShieldGas,'/'),{w:2400}), _tc(_(pqrForm.tailMix,'/'),{w:2400}), _tc(_(pqrForm.tailFlow,'/'),{w:2200})]),
+                  newTableRow([_tc('背面保护气',{w:3000}), _tc(_(pqrForm.backShieldGas,'/'),{w:2400}), _tc(_(pqrForm.backMix,'/'),{w:2400}), _tc(_(pqrForm.backFlow,'/'),{w:2200})])
                 ]
               }),
-              _blankP(160),
-              _hPara('填充金属', 2),
+              _blankP(120),
+              _p('填充金属', {before:40, after:40, bold:true, size:22}),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000, 4000, 4000], rows:[
-                  newTableRow([_tc('类  别',{w:2000,bold:true,shading:shadeHead}), _tc(_(C.category),{w:4000,colSpan:2})]),
-                  newTableRow([_tc('标准/型号/牌号',{w:2000,bold:true,shading:shadeHead}), _tc(`${_(C.standard)}  型号：${_(C.modelNo)}  牌号：${_(C.brand||C.grade)}`,{w:8000,colSpan:2,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('尺寸、熔敷范围',{w:2000,bold:true,shading:shadeHead}), _tc(`尺寸：${_(C.depositSize||C.depositSpec)}；对接焊缝金属厚度范围：${_(C.buttWeldMetalRange)}；角焊缝：${_(C.filletWeldMetalRange,'—')}`,{w:8000,colSpan:2,align:docx.AlignmentType.LEFT,marginL:120})])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[3000,3500,3500], rows:[
+                  newTableRow([_tc('焊材标准',{bold:true,w:3000}), _tc(_(C.standard),{w:3500}), _tc('焊材牌号',{bold:true,w:3500}), ]),
+                  newTableRow([_tc('',{w:3000}), _tc(_(C.brand||C.grade),{w:3500}), _tc('',{w:3500})]),
+                  newTableRow([_tc('焊材规格',{bold:true,w:3000}), _tc(_(C.depositSize||C.depositSpec),{w:3500}), _tc('焊缝金属厚度',{bold:true,w:3500})]),
+                  newTableRow([_tc('',{w:3000}), _tc(_(C.buttWeldMetalRange,'/'),{w:3500}), _tc('',{w:3500})]),
+                  newTableRow([_tc('其  他',{bold:true,w:3000}), _tc('/',{w:3500,colSpan:2}), _tc('',{w:3500})])
                 ]
               }),
-              _blankP(160),
-              _hPara('电特性 / 位置 / 技术措施', 2),
+              _blankP(120),
+              _p('电特性', {before:40, after:40, bold:true, size:22}),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2600, 7400], rows:[
-                  newTableRow([_tc('电特性',{w:2600,bold:true,shading:shadeHead}), _tc(`${_(pqrForm.currentType)} / ${_(pqrForm.polarity)}  I=${_(pqrForm.currentRangeA)} A  U=${_(pqrForm.voltageRangeV)} V；钨极：${_(pqrForm.tungstenTypeDia)}；喷嘴：${_(pqrForm.nozzleDia)}；熔滴：${_(pqrForm.metalTransferMode)}；送丝：${_(pqrForm.wireFeedSpeed)} m/min`,{w:7400,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('焊接位置',{w:2600,bold:true,shading:shadeHead}), _tc(`对接：${_(pqrForm.buttWeldPos)} / ${_(pqrForm.buttDirection)}  角接：${_(pqrForm.filletWeldPos)} / ${_(pqrForm.filletDirection)}`,{w:7400,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('技术措施',{w:2600,bold:true,shading:shadeHead}), _tc(`${_(pqrForm.preAndInterpassCleaning)}；摆动：${_(pqrForm.swingOrNot)}${_(pqrForm.swingParams,'')}；清根：${_(pqrForm.backGougeMethod)}；单/多道：${_(pqrForm.singleOrMultiPerSide)}；丝：${_(pqrForm.singleOrMultiWire)}；导电嘴：${_(pqrForm.contactTipDist)}mm；锤击：${_(pqrForm.peening)}`,{w:7400,align:docx.AlignmentType.LEFT,marginL:120})])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[3000,2000,3000,2000], rows:[
+                  newTableRow([_tc('电流种类',{bold:true,w:3000}), _tc(_(pqrForm.currentType,'/'),{w:2000}), _tc('极  性',{bold:true,w:3000}), _tc(_(pqrForm.polarity,'/'),{w:2000})]),
+                  newTableRow([_tc('钨极尺寸',{bold:true,w:3000}), _tc('/',{w:2000}), _tc('焊接电流 (A)',{bold:true,w:3000}), _tc(_(pqrForm.currentRangeA,'/'),{w:2000})]),
+                  newTableRow([_tc('电弧电压 (V)',{bold:true,w:3000}), _tc(_(pqrForm.voltageRangeV,'/'),{w:2000}), _tc('其他最大热输入',{bold:true,w:3000}), _tc(_(pqrForm.maxHeatInput,'/'),{w:2000})])
+                ]
+              }),
+              _blankP(120),
+              _p('焊接位置', {before:40, after:40, bold:true, size:22}),
+              new docx.Table({
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[3000,3000,2000,2000], rows:[
+                  newTableRow([_tc('对接焊缝位置',{bold:true,w:3000}), _tc(_(pqrForm.buttWeldPos,'平位'),{w:3000}), _tc('方向(向上, 向下)',{bold:true,w:2000}), _tc(_(pqrForm.buttDirection,'/'),{w:2000})]),
+                  newTableRow([_tc('角焊缝位置',{bold:true,w:3000}), _tc(_(pqrForm.filletWeldPos,'/'),{w:3000}), _tc('方向(向上, 向下)',{bold:true,w:2000}), _tc(_(pqrForm.filletDirection,'/'),{w:2000})])
+                ]
+              }),
+              _blankP(120),
+              _p('技术措施', {before:40, after:40, bold:true, size:22}),
+              new docx.Table({
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[3000,7000], rows:[
+                  newTableRow([_tc('焊接速度(cm/min)',{bold:true,w:3000}), _tc(_(pqrForm.weldSpeed,'/'),{w:7000,align:docx.AlignmentType.LEFT,marginL:120})]),
+                  newTableRow([_tc('摆动或不摆动',{bold:true,w:3000}), _tc(_(pqrForm.swingOrNot,'/'),{w:7000,align:docx.AlignmentType.LEFT,marginL:120})]),
+                  newTableRow([_tc('摆动参数',{bold:true,w:3000}), _tc(_(pqrForm.swingParams,'/'),{w:7000,align:docx.AlignmentType.LEFT,marginL:120})]),
+                  newTableRow([_tc('多道焊或单道焊每面',{bold:true,w:3000}), _tc(_(pqrForm.singleOrMultiPerSide,'/'),{w:7000})]),
+                  newTableRow([_tc('多丝焊或单丝焊',{bold:true,w:3000}), _tc(_(pqrForm.singleOrMultiWire,'/'),{w:7000})]),
+                  newTableRow([_tc('其他',{bold:true,w:3000}), _tc(_(pqrForm.otherTechnical,'/'),{w:7000,align:docx.AlignmentType.LEFT,marginL:120})])
+                ]
+              }),
+              _blankP(120),
+              _p('预热', {before:40, after:40, bold:true, size:22}),
+              new docx.Table({
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[3000,4000,3000], rows:[
+                  newTableRow([_tc('预热温度(℃)',{bold:true,w:3000}), _tc(_(pqrForm.preheatMinTemp,'/'),{w:4000}), _tc('层间温度 (℃)',{bold:true,w:3000})]),
+                  newTableRow([_tc('',{w:3000}), _tc(_(pqrForm.interpassMaxTemp,'/'),{w:4000}), _tc('',{w:3000})]),
+                  newTableRow([_tc('其  他',{bold:true,w:3000}), _tc(_(pqrForm.heatingMethod,'/'),{w:4000,colSpan:2}), _tc('',{w:3000})])
                 ]
               })
             ]
@@ -2437,7 +2473,7 @@
             ...Array.from({length: Math.max(0, 3 - (pqrForm.tensileRows||[]).filter(r=>r.no).length)}, ()=>({no:'',sizeW:null,sizeT:null,area:null,fractureLoad:null,rm:null,fracturePos:''}))
           ].slice(0,6);
           const tensileBody = tensileRowFill.map(r => newTableRow([
-            _tc(_(r.no,'—'),{w:tensileCols[0]}),
+            _tc(_(r.no,''),{w:tensileCols[0]}),
             _tc(`${_num(r.sizeW)} × ${_num(r.sizeT)}`,{w:tensileCols[1]}),
             _tc(_num(r.area),{w:tensileCols[2]}),
             _tc(_num(r.fractureLoad),{w:tensileCols[3]}),
@@ -2451,12 +2487,12 @@
             ...Array.from({length: Math.max(0, 4 - (pqrForm.bendRows||[]).filter(r=>r.no).length)}, ()=>({no:'',typeAndCount:'',thickness:null,mandrelDia:null,angle:null,result:''}))
           ].slice(0,6);
           const bendBody = bendRowFill.map(r => newTableRow([
-            _tc(_(r.no,'—'),{w:bendCols[0]}),
+            _tc(_(r.no,''),{w:bendCols[0]}),
             _tc(_(r.typeAndCount),{w:bendCols[1]}),
             _tc(_num(r.thickness),{w:bendCols[2]}),
             _tc(_num(r.mandrelDia),{w:bendCols[3]}),
             _tc(_num(r.angle),{w:bendCols[4]}),
-            _tc(_(r.result,'—'),{w:bendCols[5]})
+            _tc(_(r.result,''),{w:bendCols[5]})
           ]));
           const charpyCols = [1100,1300,1200,1300,1200,1100,800,800,800,1100];
           const charpyHdrs = ['试样编号','试样尺寸mm×mm','缺口类型','缺口位置','试验温度','冲击吸收功J','1','2','3','标准值'];
@@ -2465,80 +2501,91 @@
             ...Array.from({length: Math.max(0, 3 - (pqrForm.charpyRows||[]).filter(r=>r.no).length)}, ()=>({no:'',sizeW:null,sizeT:null,notchType:'',notchPos:'',testTemp:null,akv1:null,akv2:null,akv3:null}))
           ].slice(0,6);
           const charpyBody = charpyRowFill.map(r => newTableRow([
-            _tc(_(r.no,'—'),{w:charpyCols[0]}),
+            _tc(_(r.no,''),{w:charpyCols[0]}),
             _tc(`${_num(r.sizeW)} × ${_num(r.sizeT)}`,{w:charpyCols[1]}),
             _tc(_(r.notchType),{w:charpyCols[2]}),
             _tc(_(r.notchPos),{w:charpyCols[3]}),
             _tc(_num(r.testTemp),{w:charpyCols[4]}),
-            _tc('—',{w:charpyCols[5]}),
+            _tc('',{w:charpyCols[5]}),
             _tc(_num(r.akv1),{w:charpyCols[6]}),
             _tc(_num(r.akv2),{w:charpyCols[7]}),
             _tc(_num(r.akv3),{w:charpyCols[8]}),
-            _tc('—',{w:charpyCols[9]})
+            _tc('',{w:charpyCols[9]})
           ]));
 
           const pqrPage2Section = ({
             properties: { page: { margin:{ top:1440, bottom:1440, left:1440, right:1440 } } },
-            headers: { default: header('焊接工艺评定报告 PQR 第 2 页') },
+            headers: { default: header('焊 接 工 艺 评 定 报 告 续 页') },
             footers: { default: footer() },
             children: [
-              _hPara('一、拉伸试验结果（报告编号：'+_(pqrForm.tensileReportNo,'—')+'）', 2),
+              new docx.Paragraph({ alignment: docx.AlignmentType.RIGHT, spacing:{before:0,after:40},
+                children:[new docx.TextRun({ text:'共 2 页  第2 页', size:21, font:'微软雅黑', eastAsia:'微软雅黑' })]}),
+              _p('拉伸试验    试验报告编号  '+_(pqrForm.tensileReportNo,''), {before:40, after:40, bold:true, size:22}),
               new docx.Table({ width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:tensileCols,
-                rows:[ newTableRow(tensileHdrs.map((t,i)=>_tc(t,{w:tensileCols[i],bold:true,shading:shadeHead}))), ...tensileBody ]
+                rows:[ newTableRow(tensileHdrs.map((t,i)=>_tc(t,{w:tensileCols[i],bold:true}))), ...tensileBody ]
               }),
-              _blankP(160),
-              _hPara('二、弯曲试验结果（报告编号：'+_(pqrForm.bendReportNo,'—')+'）', 2),
+              _blankP(120),
+              _p('弯曲试验    试验报告编号  '+_(pqrForm.bendReportNo,''), {before:40, after:40, bold:true, size:22}),
               new docx.Table({ width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:bendCols,
-                rows:[ newTableRow(bendHdrs.map((t,i)=>_tc(t,{w:bendCols[i],bold:true,shading:shadeHead}))), ...bendBody ]
+                rows:[ newTableRow(bendHdrs.map((t,i)=>_tc(t,{w:bendCols[i],bold:true}))), ...bendBody ]
               }),
-              _blankP(160),
-              _hPara('三、冲击试验结果（报告编号：'+_(pqrForm.charpyReportNo,'—')+'）', 2),
+              _blankP(120),
+              _p('冲击试验    试验报告编号  '+_(pqrForm.charpyReportNo,''), {before:40, after:40, bold:true, size:22}),
               new docx.Table({ width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:charpyCols,
-                rows:[ newTableRow(charpyHdrs.map((t,i)=>_tc(t,{w:charpyCols[i],bold:true,shading:shadeHead}))), ...charpyBody ]
+                rows:[ newTableRow(charpyHdrs.map((t,i)=>_tc(t,{w:charpyCols[i],bold:true}))), ...charpyBody ]
               }),
-              _blankP(160),
-              _hPara('四、角焊缝/宏观金相检验结果（报告编号：'+_(pqrForm.metallographyReportNo,'—')+'）', 2),
+              _blankP(120),
+              _p('金相检验角焊缝    检验报告编号  '+_(pqrForm.metallographyReportNo,'')+'    根部  焊透、未焊透    焊缝  熔合、未熔合    焊缝、热影响区  有裂纹、无裂纹', {before:40, after:40, bold:true, size:21}),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000, 2000, 2000, 4000], rows:[
-                  newTableRow([_tc('焊根',{bold:true,shading:shadeHead}), _tc('焊缝',{bold:true,shading:shadeHead}), _tc('热影响区',{bold:true,shading:shadeHead}), _tc('焊缝截面切片（I~VI区）/ 焊脚差',{bold:true,shading:shadeHead})]),
-                  newTableRow([_tc(_(pqrForm.cornerRoot,'合格')), _tc(_(pqrForm.cornerWeld,'合格')), _tc(_(pqrForm.cornerHAZ,'合格')),
-                    _tc(`${_(pqrForm.sectionRowStr,'I:合格, II:合格, III:合格, IV:合格, V:合格, VI:合格')}；焊脚差：${_(pqrForm.weldFootDiff)}`,{align:docx.AlignmentType.LEFT,marginL:120})])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000,1333,1333,1333,1333,1333,1334], rows:[
+                  newTableRow(['检验截面','I','II','III','IV','V','VI'].map((t,i)=>_tc(t,{w:i===0?2000:1333, bold:true}))),
+                  newTableRow([_tc('焊脚差mm',{w:2000}), _tc(_(pqrForm.weldFootDiff,''),{w:1333,colSpan:6}), _tc('',{w:1333}),_tc('',{w:1333}),_tc('',{w:1333}),_tc('',{w:1333}),_tc('',{w:1334})])
                 ]
               }),
-              _blankP(160),
-              _hPara('五、无损检测结果（报告编号：'+_(pqrForm.ndtReportNo,'—')+'）', 2),
+              _blankP(120),
+              _p('无损检测    检测报告编号  '+_(pqrForm.ndtReportNo,''), {before:40, after:40, bold:true, size:22}),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000, 2000, 2000, 2000, 2000], rows:[
-                  newTableRow([_tc('RT 射线',{bold:true,shading:shadeHead}), _tc('UT 超声',{bold:true,shading:shadeHead}), _tc('MT 磁粉',{bold:true,shading:shadeHead}), _tc('PT 渗透',{bold:true,shading:shadeHead}), _tc('其他 NDT',{bold:true,shading:shadeHead})]),
-                  newTableRow([_tc(_(pqrForm.rtResult)), _tc(_(pqrForm.utResult)), _tc(_(pqrForm.mtResult)), _tc(_(pqrForm.ptResult)), _tc(_(pqrForm.otherNdt))])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000,2000,2000,2000,2000], rows:[
+                  newTableRow([_tc('RT',{bold:true,w:2000}), _tc(_(pqrForm.rtResult,'无裂纹'),{w:2000})]),
+                  newTableRow([_tc('UT',{bold:true,w:2000}), _tc(_(pqrForm.utResult,'/'),{w:2000,colSpan:4}),_tc('',{w:2000}),_tc('',{w:2000}),_tc('',{w:2000})]),
+                  newTableRow([_tc('MT',{bold:true,w:2000}), _tc(_(pqrForm.mtResult,'/'),{w:2000,colSpan:4}),_tc('',{w:2000}),_tc('',{w:2000}),_tc('',{w:2000})]),
+                  newTableRow([_tc('PT',{bold:true,w:2000}), _tc(_(pqrForm.ptResult,'/'),{w:2000,colSpan:4}),_tc('',{w:2000}),_tc('',{w:2000}),_tc('',{w:2000})]),
+                  newTableRow([_tc('其他',{bold:true,w:2000}), _tc(_(pqrForm.otherNdt,'/'),{w:2000,colSpan:4}),_tc('',{w:2000}),_tc('',{w:2000}),_tc('',{w:2000})])
                 ]
               }),
-              _blankP(200),
-              new docx.Paragraph({
-                spacing:{ before:200, after:200, line:360 },
-                shading: shadeGreen,
-                indent:{ left:200, right:200 },
-                children:[new docx.TextRun({ text:'附加说明及评定结论：', bold:true, size:24, font:'微软雅黑', eastAsia:'微软雅黑' })]
+              _blankP(120),
+              _p('附加说明', {before:40, after:40, bold:true, size:22}),
+              new docx.Table({
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[10000], rows:[
+                  newTableRow([_tc(_(pqrForm.conclusionText,''),{w:10000,align:docx.AlignmentType.LEFT,marginL:120})])
+                ]
               }),
+              _blankP(120),
               new docx.Paragraph({
                 spacing:{ before:40, after:60, line:360 },
-                indent:{ left:200, right:200 },
-                shading: shadeGreen,
-                children:[new docx.TextRun({ text: _(pqrForm.conclusionText, defaultConclusion()), size:22, font:'微软雅黑', eastAsia:'微软雅黑' })]
+                indent:{ left:200 },
+                children:[new docx.TextRun({ text:'结论：本评定按NB/T 47014-2023规定焊接试件、检验试样、测定性能、确认检验记录正确。   评定结果  合格', bold:true, size:22, font:'微软雅黑', eastAsia:'微软雅黑' })]
               }),
               _blankP(160),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2500, 2500, 2500, 2500], rows:[
-                  newTableRow([_tc('焊工/操作工',{bold:true,shading:shadeHead}), _tc('焊工代号',{bold:true,shading:shadeHead}), _tc('施焊日期',{bold:true,shading:shadeHead}), _tc('环境温度/湿度',{bold:true,shading:shadeHead})]),
-                  newTableRow([_tc(_(pqrForm.welder||pqrForm.welderDoer)), _tc(_(pqrForm.welderCode)), _tc(_date(pqrForm.weldDate||pqrForm.weldDate2)), _tc(`${_(pqrForm.envTemp)} ℃ / ${_(pqrForm.humidity)}%`)])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000,3000,2000,3000], rows:[
+                  newTableRow([_tc('焊工',{bold:true,w:2000}), _tc(_(pqrForm.welder,''),{w:3000}), _tc('焊工代号',{bold:true,w:2000}), _tc(_(pqrForm.welderCode,''),{w:3000})]),
+                  newTableRow([_tc('施焊日期',{bold:true,w:2000}), _tc(_date(pqrForm.weldDate||pqrForm.weldDate2),{w:3000}), _tc('',{w:2000}), _tc('',{w:3000})])
                 ]
               }),
-              _blankP(200),
+              _blankP(120),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2500, 2500, 2500, 2500], rows:[
-                  newTableRow([_tc('编  制',{bold:true, shading:shadeHead}), _tc('审  核',{bold:true, shading:shadeHead}), _tc('批  准',{bold:true, shading:shadeHead}), _tc('第三方检验',{bold:true, shading:shadeHead})]),
-                  newTableRow([_tc(_(pqrForm.compiler,'（签字）'),{spacing:160}), _tc(_(pqrForm.auditor,'（签字）'),{spacing:160}), _tc(_(pqrForm.approver,'（签字）'),{spacing:160}), _tc(_(pqrForm.thirdPartyInspector,'（签字）'),{spacing:160})]),
-                  newTableRow([_tc(_date(pqrForm.compilerDate)), _tc(_date(pqrForm.auditorDate)), _tc(_date(pqrForm.approverDate)), _tc(_(pqrForm.thirdPartyDate,pqrForm.approverDate))])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2500,833,2500,833,2500,834], rows:[
+                  newTableRow([_tc('编  制',{bold:true,w:2500}), _tc('日期',{bold:true,w:833}), _tc('审  核',{bold:true,w:2500}), _tc('日期',{bold:true,w:833}), _tc('批  准',{bold:true,w:2500}), _tc('日期',{bold:true,w:834})]),
+                  newTableRow([_tc(_(pqrForm.compiler,''),{w:2500, spacing:200}), _tc(_date(pqrForm.compilerDate),{w:833, spacing:200}),
+                    _tc(_(pqrForm.auditor,''),{w:2500, spacing:200}), _tc(_date(pqrForm.auditorDate),{w:833, spacing:200}),
+                    _tc(_(pqrForm.approver,''),{w:2500, spacing:200}), _tc(_date(pqrForm.approverDate),{w:834, spacing:200})])
+                ]
+              }),
+              _blankP(80),
+              new docx.Table({
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2500,7500], rows:[
+                  newTableRow([_tc('第三方检验',{bold:true,w:2500}), _tc(_(pqrForm.thirdPartyInspector,''),{w:7500,align:docx.AlignmentType.LEFT,marginL:120})])
                 ]
               })
             ]
@@ -2560,64 +2607,70 @@
             headers: { default: header('焊接工艺评定施焊记录') },
             footers: { default: footer() },
             children: [
-              _hPara('焊接工艺评定施焊记录', 1, { align: docx.AlignmentType.CENTER }),
-              _blankP(120),
+              _hPara('焊 接 工 艺 评 定 施 焊 记 录', 1, { align: docx.AlignmentType.CENTER }),
+              _blankP(80),
               new docx.Table({
                 width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000, 3000, 2000, 3000], rows:[
-                  newTableRow([_tc('指导书编号',{bold:true,shading:shadeHead,w:2000}), _tc(_(pqrForm.instructionNo,pwpsNo),{w:3000}),
-                    _tc('记录编号',{bold:true,shading:shadeHead,w:2000}), _tc(_(pqrForm.recordNo,pqrNo+'-R'),{w:3000})]),
-                  newTableRow([_tc('设备型号',{bold:true,shading:shadeHead,w:2000}), _tc(_(pqrForm.equipModel,'—'),{w:3000}),
-                    _tc('电源类型/极性',{bold:true,shading:shadeHead,w:2000}), _tc(_(pqrForm.powerTypePolarity, pqrForm.currentType+' / '+pqrForm.polarity),{w:3000})])
+                  newTableRow([_tc('指导书编号',{bold:true,w:2000}), _tc(_(pqrForm.instructionNo,pwpsNo),{w:3000}),
+                    _tc('记录编号',{bold:true,w:2000}), _tc(_(pqrForm.recordNo,pqrNo+'-R'),{w:3000})]),
+                  newTableRow([_tc('焊接方法',{bold:true,w:2000}), _tc(weldMethodFull,{w:3000,align:docx.AlignmentType.LEFT,marginL:60}),
+                    _tc('施焊位置',{bold:true,w:2000}), _tc(_(pqrForm.buttWeldPos,'平位'),{w:3000})]),
+                  newTableRow([_tc('设备型号',{bold:true,w:2000}), _tc(_(pqrForm.equipModel,'/'),{w:3000}),
+                    _tc('电源种类和极性',{bold:true,w:2000}), _tc(_(pqrForm.powerTypePolarity, pqrForm.currentType+' / '+pqrForm.polarity),{w:3000})])
                 ]
               }),
               _blankP(80),
-              _p('■ 试件母材 / 焊材：', {before:40, after:40, bold:true, size:22}),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2400, 7600], rows:[
-                  newTableRow([_tc('母材：钢号 / 规格 / 厂家 / 批号 / 材料标记',{bold:true,shading:shadeHead,w:2400}),
-                    _tc(`${_(pqrForm.baseSteelNo,B1.grade)}  /  ${_(pqrForm.baseSpec,B1.thicknessOrDia||B1.buttThicknessRange)}  /  ${_(pqrForm.baseMfr,'—')}  /  ${_(pqrForm.baseBatchNo,'—')}  /  ${_(pqrForm.baseMatMark,'—')}`,{w:7600,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('坡口形式',{bold:true,shading:shadeHead,w:2400}), _tc(_(pqrForm.grooveType)+'  '+_(pqrForm.jointDiagram),{w:7600,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('焊材：牌号 / 规格 / 厂家 / 批号 / 材料标记',{bold:true,shading:shadeHead,w:2400}),
-                    _tc(`${_(pqrForm.consBrand,C.brand||C.grade)}  /  ${_(pqrForm.consSpec,C.depositSize||C.depositSpec)}  /  ${_(pqrForm.consMfr,'—')}  /  ${_(pqrForm.consBatchNo,'—')}  /  ${_(pqrForm.consMatMark,'—')}`,{w:7600,align:docx.AlignmentType.LEFT,marginL:120})]),
-                  newTableRow([_tc('焊材烘焙 / 用量',{bold:true,shading:shadeHead,w:2400}),
-                    _tc(`烘焙：${_(pqrForm.consBakeTemp,C.baketemp)}  用量：${_(pqrForm.consDosageKg)} kg`,{w:7600,align:docx.AlignmentType.LEFT,marginL:120})])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[1200,1500,2000,1500,1300,1500,1000], rows:[
+                  newTableRow([_tc('试件钢号',{bold:true,w:1200}), _tc(_(pqrForm.baseSteelNo,B1.grade),{w:1500}), _tc('规格(㎜)',{bold:true,w:2000}), _tc(_(pqrForm.baseSpec,B1.thicknessOrDia||B1.buttThicknessRange),{w:1500}), _tc('生产厂家',{bold:true,w:1300}), _tc(_(pqrForm.baseMfr,'/'),{w:1500}), _tc('',{w:1000})]),
+                  newTableRow([_tc('批号',{bold:true,w:1200}), _tc(_(pqrForm.baseBatchNo,'/'),{w:1500}), _tc('材料标记',{bold:true,w:2000}), _tc(_(pqrForm.baseMatMark,'/'),{w:1500,colSpan:3}), _tc('',{w:1300}), _tc('',{w:1500}), _tc('',{w:1000})]),
+                  newTableRow([_tc('坡口形式',{bold:true,w:1200}), _tc(_(pqrForm.grooveType,'/'),{w:1500,colSpan:5}), _tc('',{w:2000}), _tc('',{w:1500}), _tc('',{w:1300}), _tc('',{w:1500}), _tc('',{w:1000})]),
+                  newTableRow([_tc('焊材牌号',{bold:true,w:1200}), _tc(_(pqrForm.consBrand,C.brand||C.grade),{w:1500}), _tc('规格(㎜)',{bold:true,w:2000}), _tc(_(pqrForm.consSpec,C.depositSize||C.depositSpec),{w:1500}), _tc('生产厂家',{bold:true,w:1300}), _tc(_(pqrForm.consMfr,'/'),{w:1500}), _tc('批号',{bold:true,w:1000})]),
+                  newTableRow([_tc('材料标记',{bold:true,w:1200}), _tc(_(pqrForm.consMatMark,'/'),{w:1500}), _tc('烘焙温度℃',{bold:true,w:2000}), _tc(_(pqrForm.consBakeTemp,C.baketemp,'/'),{w:1500}), _tc('用量kg',{bold:true,w:1300}), _tc(_(pqrForm.consDosageKg,'/'),{w:1500}), _tc('',{w:1000})])
                 ]
               }),
               _blankP(120),
-              _p('■ 焊接规范参数（层/道表）：', {before:40, after:40, bold:true, size:22}),
+              _p('焊接规范参数', {before:40, after:40, bold:true, size:22}),
               new docx.Table({ width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:weldRecordCols,
-                rows:[newTableRow(weldRecordHdrs.map((t,i)=>_tc(t,{w:weldRecordCols[i],bold:true,shading:shadeHead}))), ...wrRows]
+                rows:[newTableRow(weldRecordHdrs.map((t,i)=>_tc(t,{w:weldRecordCols[i],bold:true}))), ...wrRows]
               }),
               _blankP(120),
-              _p('■ 外观检验：', {before:40, after:40, bold:true, size:22}),
+              _p('检验记录', {before:40, after:40, bold:true, size:22}),
               new docx.Table({
                 width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000, 1500, 1500, 1500, 1500, 2000], rows:[
-                  newTableRow([_tc('余高(mm)',{bold:true,shading:shadeHead}), _tc('咬边(mm)',{bold:true,shading:shadeHead}), _tc('焊脚高低差(mm)',{bold:true,shading:shadeHead}), _tc('焊缝宽度(mm)',{bold:true,shading:shadeHead}), _tc('表面气孔',{bold:true,shading:shadeHead}), _tc('其它',{bold:true,shading:shadeHead})]),
-                  newTableRow([_tc(_(pqrForm.reinforceHeight)), _tc(_(pqrForm.undercut)), _tc(_(pqrForm.weldHeightDiff)), _tc(_(pqrForm.weldWidth)), _tc(_(pqrForm.surfacePorosity)), _tc(_(pqrForm.inspectOther))])
+                  newTableRow([_tc('焊缝余高mm',{bold:true,w:2000}), _tc(_(pqrForm.reinforceHeight,''),{w:1500}), _tc('咬边',{bold:true,w:1500}), _tc(_(pqrForm.undercut,''),{w:1500}), _tc('焊缝高低差mm',{bold:true,w:1500}), _tc(_(pqrForm.weldHeightDiff,''),{w:2000})]),
+                  newTableRow([_tc('焊缝宽度mm',{bold:true,w:2000}), _tc(_(pqrForm.weldWidth,''),{w:1500}), _tc('表面气孔',{bold:true,w:1500}), _tc(_(pqrForm.surfacePorosity,''),{w:1500}), _tc('其他',{bold:true,w:1500}), _tc(_(pqrForm.inspectOther,''),{w:2000})])
                 ]
               }),
               _blankP(80),
               new docx.Table({
-                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[3000, 4000, 3000], rows:[
-                  newTableRow([_tc('外观检验结论',{bold:true,shading:shadeHead,w:3000}), _tc(_(pqrForm.inspectConclusion,'合格'),{w:4000}),
-                    _tc(`检验员 / 日期：${_(pqrForm.inspectorName)}  /  ${_(pqrForm.inspectDate,todayStr())}`,{w:3000,align:docx.AlignmentType.LEFT,marginL:80})])
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000, 3000, 2000, 3000], rows:[
+                  newTableRow([_tc('检验结论',{bold:true,w:2000}), _tc(_(pqrForm.inspectConclusion,''),{w:3000}),
+                    _tc('检验员',{bold:true,w:2000}), _tc(_(pqrForm.inspectorName,''),{w:3000})]),
+                  newTableRow([_tc('检验日期',{bold:true,w:2000}), _tc(_date(pqrForm.inspectDate),{w:3000,colSpan:3}), _tc('',{w:2000}), _tc('',{w:3000})])
                 ]
               }),
               _blankP(120),
-              _p('■ 无损检测：', {before:40, after:40, bold:true, size:22}),
+              _p('无损检测', {before:40, after:40, bold:true, size:22}),
               new docx.Table({
                 width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[2000, 4000, 4000], rows:[
-                  newTableRow([_tc('检测方法',{bold:true,shading:shadeHead,w:2000}), _tc('底片 / 片号',{bold:true,shading:shadeHead,w:4000}), _tc('检测报告编号',{bold:true,shading:shadeHead,w:4000})]),
-                  newTableRow([_tc(_(pqrForm.ndtMethod)), _tc(_(pqrForm.filmNo)), _tc(_(pqrForm.ndtReportNo2)||_(pqrForm.ndtReportNo))])
+                  newTableRow([_tc('无损检测方法',{bold:true,w:2000}), _tc(_(pqrForm.ndtMethod,''),{w:4000}), _tc('检验报告编号',{bold:true,w:4000})]),
+                  newTableRow([_tc('片号',{bold:true,w:2000}), _tc(_(pqrForm.filmNo,''),{w:4000}), _tc(_(pqrForm.ndtReportNo2)||_(pqrForm.ndtReportNo,''),{w:4000})])
                 ]
               }),
               _blankP(120),
-              _p('■ 施焊环境与记录签字：', {before:40, after:40, bold:true, size:22}),
+              _p('备注', {before:40, after:40, bold:true, size:22}),
+              new docx.Table({
+                width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[10000], rows:[
+                  newTableRow([_tc('',{w:10000})])
+                ]
+              }),
+              _blankP(120),
               new docx.Table({
                 width:{size:100,type:docx.WidthType.PERCENTAGE}, columnWidths:[1700, 1700, 1700, 1700, 3200], rows:[
-                  newTableRow([_tc('环境温度',{bold:true,shading:shadeHead}), _tc('相对湿度',{bold:true,shading:shadeHead}), _tc('层间温度',{bold:true,shading:shadeHead}), _tc('施焊日期',{bold:true,shading:shadeHead}), _tc('焊工 / 记录人',{bold:true,shading:shadeHead})]),
-                  newTableRow([_tc(`${_(pqrForm.envTemp)} ℃`), _tc(`${_(pqrForm.humidity)} %`), _tc(`${_(pqrForm.interpassMaxTemp)} ℃`), _tc(_date(pqrForm.weldDate2||pqrForm.weldDate)),
-                    _tc(`焊工：${_(pqrForm.welderDoer||pqrForm.welder)}  /  记录人：${_(pqrForm.recorderName)}`,{align:docx.AlignmentType.LEFT,marginL:120})])
+                  newTableRow([_tc('施焊日期',{bold:true,w:1700}), _tc('环境温度℃',{bold:true,w:1700}), _tc('相对湿度',{bold:true,w:1700}), _tc('层间温度℃',{bold:true,w:1700}), _tc('施焊者 / 记录者',{bold:true,w:3200})]),
+                  newTableRow([_tc(_date(pqrForm.weldDate2||pqrForm.weldDate),{w:1700}), _tc(_(pqrForm.envTemp,''),{w:1700}), _tc(_(pqrForm.humidity,''),{w:1700}), _tc(_(pqrForm.interpassMaxTemp,''),{w:1700}),
+                    _tc(`${_(pqrForm.welderDoer||pqrForm.welder,'')} / ${_(pqrForm.recorderName,'')}`,{w:3200,align:docx.AlignmentType.LEFT,marginL:120})])
                 ]
               })
             ]
