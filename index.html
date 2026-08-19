@@ -2065,6 +2065,50 @@
           if (!B1) { ElementPlus.ElMessage.warning('请先选择母材 B1'); return; }
           if (!C)  { ElementPlus.ElMessage.warning('请先选择焊材'); return; }
 
+          // ===== 调用后端：基于 PQR模板.doc 填充空格，生成与模板一致的 Word =====
+          const passes0 = getRecordPasses(R);
+          const payload = {
+            pqrForm: JSON.parse(JSON.stringify(pqrForm)),
+            record: { weldMethod: R.weldMethod || pqrForm.weldMethod },
+            passes: passes0.map(p => ({
+              layer: p.layer, passNo: p.passNo, weldMethod: p.weldMethod || R.weldMethod,
+              consumable: p.consumable, consumableSpec: p.consumableSpec,
+              current: p.current, voltage: p.voltage, weldSpeed: p.weldSpeed,
+              efficiency: p.efficiency, weldTime: p.weldTime, weldLength: p.weldLength
+            })),
+            baseMetal1: B1, baseMetal2: B2 || B1, consumable: C
+          };
+          try {
+            ElementPlus.ElMessage.info('正在基于公司模板生成报告…');
+            const resp = await fetch('/api/gen-pqr', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            if (!resp.ok) {
+              const errTxt = await resp.text();
+              throw new Error('服务端错误: ' + (errTxt || resp.status));
+            }
+            const blob = await resp.blob();
+            // 从 Content-Disposition 取文件名
+            const cd = resp.headers.get('Content-Disposition') || '';
+            let fname = _(pqrForm.pqrNo, 'PQR') + '_焊接工艺评定.docx';
+            const m = cd.match(/filename\*=UTF-8''([^;]+)/i);
+            if (m) { try { fname = decodeURIComponent(m[1]); } catch(e){} }
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = fname;
+            document.body.appendChild(a); a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 5000);
+            ElementPlus.ElMessage.success('已生成报告（基于公司模板填充）：' + fname);
+            return;
+          } catch (apiErr) {
+            console.error('模板填充接口失败:', apiErr);
+            ElementPlus.ElMessage.warning('模板填充接口失败，回退到内置生成：' + (apiErr.message || apiErr));
+            // 继续向下执行内置 docx 生成作为回退
+          }
+
           const passes = getRecordPasses(R);
           const hiSummary = calcRecordSummary(R);
           const unitName = _(pqrForm.unitName, '胜利油田胜机石油装备有限公司');

@@ -1,0 +1,6654 @@
+{
+  "paragraphs": [
+    {
+      "seq": 2,
+      "text": "焊 接 工 艺 评 定"
+    },
+    {
+      "seq": 6,
+      "text": "评 定 内 容"
+    },
+    {
+      "seq": 8,
+      "text": "评定报告编号"
+    },
+    {
+      "seq": 10,
+      "text": "焊 接 方 法"
+    },
+    {
+      "seq": 12,
+      "text": "焊 接 材 料"
+    },
+    {
+      "seq": 14,
+      "text": "单 位 名 称  胜利油田胜机石油装备有限公司"
+    },
+    {
+      "seq": 17,
+      "text": "年   月   日"
+    },
+    {
+      "seq": 20,
+      "text": "目      录"
+    },
+    {
+      "seq": 22,
+      "text": "1.预焊接工艺规程                  1份 2页"
+    },
+    {
+      "seq": 24,
+      "text": "2.焊接工艺评定报告                1份 2页"
+    },
+    {
+      "seq": 26,
+      "text": "3.焊接工艺评定施焊记录表          1份 1页"
+    },
+    {
+      "seq": 28,
+      "text": "4.无损检测报告                    1份 2页"
+    },
+    {
+      "seq": 30,
+      "text": "5.焊接工艺评定性能试验报告        1份 1页"
+    },
+    {
+      "seq": 32,
+      "text": "6.母材质量证明书                  1份 1页"
+    },
+    {
+      "seq": 34,
+      "text": "7.焊材质量证明书                  1份 2页"
+    },
+    {
+      "seq": 38,
+      "text": "预焊接工艺规程"
+    },
+    {
+      "seq": 39,
+      "text": "共  2  页   第  1  页"
+    },
+    {
+      "seq": 41,
+      "text": "注：对每一种母材与焊接材料的组合均需分别填表"
+    },
+    {
+      "seq": 43,
+      "text": "预焊接工艺规程"
+    },
+    {
+      "seq": 44,
+      "text": "共  2  页   第  2  页"
+    },
+    {
+      "seq": 46,
+      "text": "焊接工艺评定报告"
+    },
+    {
+      "seq": 47,
+      "text": "共  2  页   第  1  页"
+    },
+    {
+      "seq": 50,
+      "text": "焊 接 工 艺 评 定 报 告（续页）"
+    },
+    {
+      "seq": 51,
+      "text": "共 2 页  第2 页"
+    }
+  ],
+  "tables": [
+    {
+      "seq": 40,
+      "nrows": 8,
+      "rows": [
+        {
+          "row_idx": 0,
+          "cells": [
+            {
+              "text": "单位名称：                    胜利油田胜机石油装备有限公司                     \n预焊接工艺规程编号：           日期：            所依据焊接工艺评定报告编号：          \n焊接方法：                            机动化程度（手工、机动、自动）：",
+              "grid_span": 12,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 1,
+          "cells": [
+            {
+              "text": "焊接接头： \n坡口形式：         v            \n衬垫（材料及规格）      /       \n其他 1：焊前应将坡口表面及两则20㎜\n内的水、锈、油污、积渣和其他有害杂质清除干净。\n 2：焊条，按规定进行烘干。\n3：坡口面为焊接正面。",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "简图：（接头形式、坡口形式与尺寸、焊层、焊道布置及顺序）",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 2,
+          "cells": [
+            {
+              "text": "母材：                                                  \n类别号              组别号          与类别号             组别号             相焊及标准号         材料代号　         与标准号                材料代号           相焊 \n厚度范围：                                                              \n对接焊缝焊件母材厚度范围：                                      \n角焊缝焊件母材厚度范围：                                            \n管子直径、壁厚范围： 对接焊缝               角焊缝                 \n其他:                 　/",
+              "grid_span": 12,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 3,
+          "cells": [
+            {
+              "text": "填充金属:\n对接焊缝焊件焊缝金属厚度范围：                        角焊缝焊件焊缝金属厚度范围",
+              "grid_span": 12,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 4,
+          "cells": [
+            {
+              "text": "耐蚀堆焊金属化学成分(%)",
+              "grid_span": 12,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 5,
+          "cells": [
+            {
+              "text": "C",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "Si",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "Mn",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "P",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "S",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "Cr",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "Ni",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "Mo",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "V",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "Ti",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "Nb",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        },
+        {
+          "row_idx": 6,
+          "cells": [
+            {
+              "text": "/",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "/",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "/",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "/",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "/",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "/",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "/",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "/",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "/",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "/",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "/",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        },
+        {
+          "row_idx": 7,
+          "cells": [
+            {
+              "text": "其他：/",
+              "grid_span": 12,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seq": 45,
+      "nrows": 15,
+      "rows": [
+        {
+          "row_idx": 0,
+          "cells": [
+            {
+              "text": "焊接位置：\n对接焊缝的位置       平、横、立、仰     \n焊接方向（向上、向下）      向上     \n角焊缝位置       平、横、立、仰     \n焊接方向（向上、向下）     向上",
+              "grid_span": 10,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "焊后热处理：\n温度范围（℃）                  \n保温时间（h）",
+              "grid_span": 11,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 1,
+          "cells": [
+            {
+              "text": "预热：\n预热 (℃) (允许最低值)              \n层间温度(℃)(允许最高值)             \n保持预热时间                          \n加热方式",
+              "grid_span": 10,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "保护气体：\n气体种类     混合比     流量(L/min)\n保  护  气                                       \n尾部保护气                                       \n背面保护气",
+              "grid_span": 11,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 2,
+          "cells": [
+            {
+              "text": "电特性：\n电流种类：                                    极性：                                             \n焊接电流范围(A)：                                电弧电压(V)：                                   \n(按所焊位置和厚度,分别列出电流电压范围,记入下表)",
+              "grid_span": 21,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 3,
+          "cells": [
+            {
+              "text": "焊道/\n焊层",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "焊接方法",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "填充材料",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "焊接电源",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "电弧电压\n(V)",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "焊接速度\n(cm/min)",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "热输入\n(kJ/cm)",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 4,
+          "cells": [
+            {
+              "text": "焊道/\n焊层",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "焊接方法",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "牌号",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "直径",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "极性",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "电流 (A)",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "电弧电压\n(V)",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "焊接速度\n(cm/min)",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "热输入\n(kJ/cm)",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 5,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 6,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 7,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 8,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 9,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 10,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 11,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 12,
+          "cells": [
+            {
+              "text": "钨极类型及直径：                         喷嘴直径 (mm)：                             \n熔滴过渡形式：                          焊丝送进速度 (cm/min)：",
+              "grid_span": 21,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 13,
+          "cells": [
+            {
+              "text": "技术措施：\n摆动焊或不摆动焊：                              摆动参数：                                 \n焊前清理和层间清理：                        背面清根方法：                           \n单道焊或多道焊（每面）：                 单丝焊或多丝焊：                                  \n导电嘴至工件距离(mm)：                      锤击：                                 \n其他：",
+              "grid_span": 21,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 14,
+          "cells": [
+            {
+              "text": "编制",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "日期",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "审核",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "日期",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "批准",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "日期",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seq": 48,
+      "nrows": 7,
+      "rows": [
+        {
+          "row_idx": 0,
+          "cells": [
+            {
+              "text": "单位名称：                     胜利油田胜机石油装备有限公司                                 \n焊接工艺评定报告编号：                  预焊接工艺规程编号：                        \n焊接方法：                          机械化程度(手工, 机动，自动)：",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 1,
+          "cells": [
+            {
+              "text": "接头简图（坡口形式、尺寸、衬垫、每种焊接方法或焊接工艺、焊缝金属厚度）：",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 2,
+          "cells": [
+            {
+              "text": "母材：\n材料标准：                                   \n钢 号.：                                     \n类、组别号：         与类、组别号：        相焊\n厚度：                                 \n直径：                /                   \n其他：                /",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "焊后热处理： \n热处理温度(℃)：             /          \n保温时间 (h)：               /",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        },
+        {
+          "row_idx": 3,
+          "cells": [
+            {
+              "text": "母材：\n材料标准：                                   \n钢 号.：                                     \n类、组别号：         与类、组别号：        相焊\n厚度：                                 \n直径：                /                   \n其他：                /",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "保护气体：\n气体种类     混合比    流量(L/min)\n保  护  气                                     \n尾部保护气       /           /            /     \n背面保护气       /            /           /",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        },
+        {
+          "row_idx": 4,
+          "cells": [
+            {
+              "text": "填充金属：\n焊材标准：                                     \n焊材牌号：                                     \n焊材规格：                                     \n焊缝金属厚度：                              \n其他：                  /",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "电特性：\n电流种类：                              \n极性：                                  \n钨极尺寸：               /                 \n焊接电流 (A)：                             \n                             \n电弧电压 (V)：                              \n其他：最大热输入：",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        },
+        {
+          "row_idx": 5,
+          "cells": [
+            {
+              "text": "焊接位置：\n对接焊缝位置：      平位     方向(向上, 向下)\n角焊缝位置：         /       方向(向上, 向下)",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "技术措施： \n焊接速度(cm/min)：                          \n摆动或不摆动：                              \n摆动参数：                                  \n多道焊或单道焊（每面）：                      \n多丝焊或单丝焊:                              \n其他:",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        },
+        {
+          "row_idx": 6,
+          "cells": [
+            {
+              "text": "预热：\n预热温度(℃)：                         \n层间温度 (℃)：                       \n其他：",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "技术措施： \n焊接速度(cm/min)：                          \n摆动或不摆动：                              \n摆动参数：                                  \n多道焊或单道焊（每面）：                      \n多丝焊或单丝焊:                              \n其他:",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seq": 52,
+      "nrows": 30,
+      "rows": [
+        {
+          "row_idx": 0,
+          "cells": [
+            {
+              "text": "拉伸试验：                                                试验报告编号",
+              "grid_span": 26,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 1,
+          "cells": [
+            {
+              "text": "试样编号",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "截面尺寸\n（mm×mm）",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "横截面积\n（mm2）",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "断裂载荷（kN）",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "抗拉强度\n（MPa）",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "断裂部位和特征",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 2,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 3,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 4,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 5,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 6,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 7,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 8,
+          "cells": [
+            {
+              "text": "弯曲试验：                                                试验报告编号",
+              "grid_span": 26,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 9,
+          "cells": [
+            {
+              "text": "试样编号",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "试样类型及件数",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "试样厚度（mm）",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "弯心直径（mm）",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "弯曲角度（0）",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "试验结果",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 10,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 11,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 12,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 13,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 14,
+          "cells": [
+            {
+              "text": "冲击试验：                                                试验报告编号",
+              "grid_span": 26,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 15,
+          "cells": [
+            {
+              "text": "试样编号",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "试样尺寸（mm×mm）",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "缺口类型",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "缺口位置",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "试验温度",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "冲击吸收功（J）",
+              "grid_span": 10,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 16,
+          "cells": [
+            {
+              "text": "试样编号",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "试样尺寸（mm×mm）",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "缺口类型",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "缺口位置",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "试验温度",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "1",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "2",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "3",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "标准值",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        },
+        {
+          "row_idx": 17,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        },
+        {
+          "row_idx": 18,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        },
+        {
+          "row_idx": 19,
+          "cells": [
+            {
+              "text": "金相检验（角焊缝）：                                       检验报告编号               \n根部  （焊透、未焊透） ，焊缝  （熔合、未熔合） ，焊缝、热影响区 （有裂纹、无裂纹）",
+              "grid_span": 26,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 20,
+          "cells": [
+            {
+              "text": "检验截面",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "I",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "II",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "III",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "IV",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "V",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "VI",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 21,
+          "cells": [
+            {
+              "text": "焊脚差（mm）",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 22,
+          "cells": [
+            {
+              "text": "无损检测                                                 检测报告编号                      \nRT    无裂纹      UT      /        MT         /     PT         /     其他        /",
+              "grid_span": 26,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 23,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 26,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 24,
+          "cells": [
+            {
+              "text": "附加说明：",
+              "grid_span": 26,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 25,
+          "cells": [
+            {
+              "text": "结论：本评定按NB/T 47014-2023规定焊接试件、检验试样、测定性能、确认检验记录正确。\n评定结果  合格",
+              "grid_span": 26,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 26,
+          "cells": [
+            {
+              "text": "焊 工",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "焊工代号",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "施焊日期",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 27,
+          "cells": [
+            {
+              "text": "编 制",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "审 核",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "批 准",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 28,
+          "cells": [
+            {
+              "text": "日 期",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "日  期",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "日  期",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 29,
+          "cells": [
+            {
+              "text": "第三方检验：",
+              "grid_span": 26,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seq": 54,
+      "nrows": 27,
+      "rows": [
+        {
+          "row_idx": 0,
+          "cells": [
+            {
+              "text": "焊接工艺评定施焊记录",
+              "grid_span": 10,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "指导书编号",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 1,
+          "cells": [
+            {
+              "text": "焊接工艺评定施焊记录",
+              "grid_span": 10,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "记录编号",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 2,
+          "cells": [
+            {
+              "text": "焊 接 方 法",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "施焊位置",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "设 备 型 号",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "电源种类和极性",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 3,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 7,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 4,
+          "cells": [
+            {
+              "text": "试件钢号",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "规格\n(㎜)",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "生 产 厂 家",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "批 号",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "材料标记",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "坡口形式",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 5,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 6,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 7,
+          "cells": [
+            {
+              "text": "焊材牌号",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "规格\n(㎜)",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "生 产 厂 家",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "批 号",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "材料标记",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "烘焙温度\n（℃）",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "用量\n（kg）",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        },
+        {
+          "row_idx": 8,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        },
+        {
+          "row_idx": 9,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        },
+        {
+          "row_idx": 10,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 1,
+              "vmerge_cont": false
+            }
+          ]
+        },
+        {
+          "row_idx": 11,
+          "cells": [
+            {
+              "text": "焊    接    规    范    参    数",
+              "grid_span": 20,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 12,
+          "cells": [
+            {
+              "text": "焊接层次",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "焊材/规格\n（mm）",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "焊接电流\n（A）",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "电弧电压\n（V）",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "焊接速度\n（cm／min）",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "线能量\n（kJ／cm）",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 13,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 14,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 15,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 16,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 17,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 18,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 19,
+          "cells": [
+            {
+              "text": "检       验      记      录",
+              "grid_span": 20,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 20,
+          "cells": [
+            {
+              "text": "焊缝余高（mm）",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "咬  边",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "焊缝高低差（mm）",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 21,
+          "cells": [
+            {
+              "text": "焊缝宽度（mm）",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "表面气孔",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "其  他",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 22,
+          "cells": [
+            {
+              "text": "检 验 结 论",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "检 验 员",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "检验日期",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 23,
+          "cells": [
+            {
+              "text": "无损检测方法",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "片  号",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "检验报告编号",
+              "grid_span": 6,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 3,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 24,
+          "cells": [
+            {
+              "text": "备 注：",
+              "grid_span": 20,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 25,
+          "cells": [
+            {
+              "text": "施焊日期",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "环境温度（℃）",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "相对湿度（％）",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "层间温度（℃）",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "施 焊 者",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "记 录 者",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        },
+        {
+          "row_idx": 26,
+          "cells": [
+            {
+              "text": "",
+              "grid_span": 1,
+              "vmerge_cont": false
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 5,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 4,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "dup": true
+            },
+            {
+              "text": "",
+              "grid_span": 2,
+              "vmerge_cont": false
+            },
+            {
+              "dup": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
