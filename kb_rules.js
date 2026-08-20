@@ -104,13 +104,17 @@ window.KB_RULES = {
   // NB/T 47014-2023 第6.3条 / 表5(对接焊缝)与表7(角焊缝)
   // key 为母材类别号,'通用' 为默认规则
   // formula(t, options) options 字段:
-  //   impact   : Boolean 有冲击试验要求(夏比V型缺口冲击)
-  //   pwht     : Boolean 进行焊后热处理
-  //   multiPass: Boolean 多道焊(true);单道焊(false)覆盖上限收窄至1.1t
-  //   isPipe   : Boolean 管材对接(影响管径覆盖)
-  //   pipeDia  : Number  管外径(mm),仅 isPipe=true 时生效
+  //   impact        : Boolean 规定进行冲击试验
+  //   pwht          : Boolean 进行焊后热处理
+  //   multiPass     : Boolean 多道焊(true);单道焊(false)覆盖上限收窄至1.1t
+  //   isPipe        : Boolean 管材对接(影响管径覆盖)
+  //   pipeDia       : Number  管外径(mm),仅 isPipe=true 时生效
+  //   solidSolution : Boolean 例外情形(高于上转变温度PWHT / 双相或奥氏体经固溶处理 / 有冲击评定用于无冲击焊接)→ 仍按表6/7基础0.5t
   // 特殊规则(NB/T 47014-2023 第6.3.3 条):
-  //   (1) 冲击试验:有冲击要求时,试件 t>12mm 覆盖厚度下限放宽至 5mm(而非0.5t)
+  //   (1) 冲击试验:规定进行冲击试验时,SMAW/SAW/GTAW/GMAW/PAW/EGW 评定合格后,
+  //        T≥6mm → 覆盖母材厚度下限 = min(T, 16mm);
+  //        T<6mm → 覆盖母材厚度下限 = T/2。
+  //        例外(高于上转变温度PWHT / 双相不锈钢或奥氏体接头经固溶处理 / 有冲击评定用于无冲击焊接)→ 仍按表6/7基础0.5t
   //   (2) 多道焊:单道焊覆盖上限1.1t;多道焊覆盖上限2t
   //   (3) PWHT:覆盖产品必须经过相同温度范围的PWHT,保温时间≥0.8倍
   //   (4) 管径:板材对接可覆盖管材 D≥150mm;管材对接按管径公式覆盖
@@ -124,7 +128,8 @@ window.KB_RULES = {
         '  38 < t ≤ 100 mm → 0.5t ~ 2t\n' +
         '  t > 100 mm      → 0.5t ~ 1.5t\n' +
         '特殊规则:\n' +
-        '  (1) 冲击试验:有冲击要求时, t>12mm 覆盖厚度下限放宽至 5mm\n' +
+        '  (1) 冲击试验:规定进行冲击试验时,T≥6mm 下限=min(T,16mm);T<6mm 下限=T/2;\n' +
+        '       例外(高于上转变温度PWHT/双相或奥氏体经固溶处理/有冲击评定用于无冲击焊接)→ 仍按表6/7基础0.5t\n' +
         '  (2) 多道焊:单道焊覆盖上限 1.1t; 多道焊覆盖上限 2t\n' +
         '  (3) PWHT:试件进行PWHT时,产品须经过相同温度范围PWHT,保温时间≥0.8倍试件\n' +
         '  (4) 管径:板材对接可覆盖管材 D≥150mm; 管材对接按管径公式覆盖\n' +
@@ -139,15 +144,16 @@ window.KB_RULES = {
         const multiPass = opts.multiPass !== false; // 默认多道焊
         const isPipe = !!opts.isPipe;
         const pipeDia = parseFloat(opts.pipeDia) || 0;
-        // 厚度下限
-        let lower;
-        if (tf < 1.5) lower = 0.5 * tf;
-        else if (tf <= 10) lower = 0.5 * tf;
-        else if (tf <= 38) lower = 0.5 * tf;
-        else if (tf <= 100) lower = 0.5 * tf;
-        else lower = 0.5 * tf;
-        // 冲击试验特殊规则:有冲击要求且 t>12mm 时下限放宽至 5mm
-        if (impact && tf > 12) lower = Math.max(5, lower);
+        const solidSolution = !!opts.solidSolution; // 例外情形
+        // 厚度下限(基础):0.5t
+        let lower = 0.5 * tf;
+        // 冲击试验特殊规则(NB/T 47014-2023 第6.3.3条):
+        //   T≥6mm → 下限 min(T,16mm);T<6mm → 下限 T/2
+        //   例外(高于上转变温度PWHT/双相或奥氏体固溶/有冲击评定用于无冲击)→ 按表6/7通用0.5t
+        if (impact && !solidSolution) {
+          if (tf >= 6) lower = Math.min(tf, 16);
+          else lower = tf / 2;
+        }
         // 厚度上限
         let upper;
         if (tf > 100) upper = 1.5 * tf;       // 超厚
@@ -157,7 +163,11 @@ window.KB_RULES = {
         lower = Math.max(0.5, lower);
         // 备注说明
         const notes = [];
-        if (impact && tf > 12) notes.push('有冲击要求,下限≥5mm');
+        if (impact) {
+          if (solidSolution) notes.push('有冲击要求,但属例外(高温PWHT/固溶处理/用于无冲击),按表6/7基础0.5t');
+          else if (tf >= 6) notes.push('有冲击要求,下限=min(T,16)=' + Math.min(tf, 16) + 'mm');
+          else notes.push('有冲击要求,T<6mm,下限=T/2=' + (tf / 2) + 'mm');
+        }
         if (pwht) notes.push('须PWHT覆盖,产品保温时间≥0.8倍');
         if (!multiPass) notes.push('单道焊,上限1.1t');
         else notes.push('多道焊,上限2t');
@@ -169,7 +179,8 @@ window.KB_RULES = {
     'Fe-8': {
       rule: '奥氏体不锈钢(NB/T 47014-2023 表5 注):' +
         '\n基础: 0.5t ~ 2t(各厚度区间一致);' +
-        '\n冲击/多道焊/PWHT/管径规则同通用',
+        '\n冲击规则同通用(T≥6→min(T,16),T<6→T/2);奥氏体接头经固溶处理属例外,按表6/7基础0.5t;' +
+        '\n多道焊/PWHT/管径规则同通用',
       formula: (t, options) => {
         const opts = options || {};
         const tf = parseFloat(t);
@@ -180,12 +191,20 @@ window.KB_RULES = {
         const multiPass = opts.multiPass !== false;
         const isPipe = !!opts.isPipe;
         const pipeDia = parseFloat(opts.pipeDia) || 0;
+        const solidSolution = !!opts.solidSolution;
         let lower = 0.5 * tf;
-        if (impact && tf > 12) lower = Math.max(5, lower);
+        if (impact && !solidSolution) {
+          if (tf >= 6) lower = Math.min(tf, 16);
+          else lower = tf / 2;
+        }
         let upper = (!multiPass) ? 1.1 * tf : 2 * tf;
         lower = Math.max(0.5, lower);
         const notes = [];
-        if (impact && tf > 12) notes.push('有冲击要求,下限≥5mm');
+        if (impact) {
+          if (solidSolution) notes.push('有冲击要求,奥氏体经固溶处理属例外,按表6/7基础0.5t');
+          else if (tf >= 6) notes.push('有冲击要求,下限=min(T,16)=' + Math.min(tf, 16) + 'mm');
+          else notes.push('有冲击要求,T<6mm,下限=T/2=' + (tf / 2) + 'mm');
+        }
         if (pwht) notes.push('须PWHT覆盖');
         if (!multiPass) notes.push('单道焊,上限1.1t');
         else notes.push('多道焊,上限2t');
@@ -203,12 +222,20 @@ window.KB_RULES = {
         if (tf <= 0) return '无效';
         const multiPass = opts.multiPass !== false;
         const impact = !!opts.impact;
+        const solidSolution = !!opts.solidSolution;
         let lower = 0.5 * tf;
-        if (impact && tf > 12) lower = Math.max(5, lower);
+        if (impact && !solidSolution) {
+          if (tf >= 6) lower = Math.min(tf, 16);
+          else lower = tf / 2;
+        }
         let upper = (!multiPass) ? 1.1 * tf : 2 * tf;
         lower = Math.max(0.5, lower);
         const notes = [];
-        if (impact && tf > 12) notes.push('有冲击要求,下限≥5mm');
+        if (impact) {
+          if (solidSolution) notes.push('有冲击要求,属例外,按表6/7基础0.5t');
+          else if (tf >= 6) notes.push('有冲击要求,下限=min(T,16)=' + Math.min(tf, 16) + 'mm');
+          else notes.push('有冲击要求,T<6mm,下限=T/2=' + (tf / 2) + 'mm');
+        }
         if (!multiPass) notes.push('单道焊,上限1.1t');
         else notes.push('多道焊,上限2t');
         const noteStr = notes.length ? ' (' + notes.join('; ') + ')' : '';
@@ -219,12 +246,14 @@ window.KB_RULES = {
 
   // ============ 4. 试件焊缝金属厚度→覆盖熔敷金属厚度 规则 ============
   // NB/T 47014-2023 第6.4条 / 表6:w 为试件焊缝金属厚度
-  // formula(w, options) options 字段同 thicknessRule
+  // 注:冲击试验的厚度下限放宽规则(第6.3.3条)适用于"母材厚度",熔敷金属厚度按表6基础规则
+  // formula(w, options) options 字段:
+  //   pwht     : Boolean 进行焊后热处理(产品须相同PWHT)
+  //   multiPass: Boolean 多道焊(true)/单道焊(false)
   // 特殊规则:
-  //   (1) 冲击试验:有冲击要求且 w>10mm 时,覆盖下限放宽至 5mm
-  //   (2) 多道焊:单道焊覆盖上限 1.1w;多道焊覆盖上限 2w
-  //   (3) PWHT:同母材厚度规则,产品须经过相同PWHT
-  //   (4) 最小厚度:w≤1.5mm 覆盖≤2w;w>10mm 下限最小1.5mm
+  //   (1) 多道焊:单道焊覆盖上限 1.1w;多道焊覆盖上限 2w
+  //   (2) PWHT:产品须经过相同温度范围PWHT
+  //   (3) 最小厚度:w≤1.5mm 覆盖≤2w;w>1.5mm 下限最小1.5mm
   weldMetalRule: {
     '通用': {
       rule: 'NB/T 47014-2023 表6 焊缝金属厚度 w → 覆盖熔敷金属厚度 W:\n' +
@@ -232,15 +261,14 @@ window.KB_RULES = {
         '  1.5 < w ≤ 10 mm → 0.5w ~ 2w\n' +
         '  w > 10 mm       → 0.5w ~ 2w (最小1.5mm)\n' +
         '特殊规则:\n' +
-        '  (1) 冲击试验:有冲击要求且 w>10mm 时,覆盖下限放宽至 5mm\n' +
-        '  (2) 多道焊:单道焊覆盖上限 1.1w; 多道焊覆盖上限 2w\n' +
-        '  (3) PWHT:产品须经过相同温度范围PWHT',
+        '  (1) 多道焊:单道焊覆盖上限 1.1w; 多道焊覆盖上限 2w\n' +
+        '  (2) PWHT:产品须经过相同温度范围PWHT\n' +
+        '注:冲击试验厚度下限放宽规则适用于母材厚度,熔敷金属厚度按表6基础规则',
       formula: (w, options) => {
         const opts = options || {};
         const wf = parseFloat(w);
         if (isNaN(wf)) return '需输入焊缝金属厚度';
         if (wf <= 0) return '无效';
-        const impact = !!opts.impact;
         const pwht = !!opts.pwht;
         const multiPass = opts.multiPass !== false;
         // w ≤ 1.5mm:覆盖 ≤ 2w
@@ -254,12 +282,9 @@ window.KB_RULES = {
         }
         // 上限
         let upper = (!multiPass) ? 1.1 * wf : 2 * wf;
-        // 下限
-        let lower;
-        if (impact && wf > 10) lower = Math.max(5, 0.5 * wf);
-        else lower = Math.max(1.5, 0.5 * wf);
+        // 下限(基础0.5w,最小1.5mm)
+        let lower = Math.max(1.5, 0.5 * wf);
         const notes = [];
-        if (impact && wf > 10) notes.push('有冲击要求,下限≥5mm');
         if (pwht) notes.push('须PWHT覆盖');
         if (!multiPass) notes.push('单道焊,上限1.1w');
         else notes.push('多道焊,上限2w');

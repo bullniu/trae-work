@@ -749,7 +749,8 @@
                   </div>
                   <div class="coverage-options-box">
                     <span class="coverage-options-label">特殊规则选项(NB/T 47014-2023):</span>
-                    <el-checkbox v-model="pqrForm.coverageOptions.impact">有冲击试验要求</el-checkbox>
+                    <el-checkbox v-model="pqrForm.coverageOptions.impact">规定进行冲击试验</el-checkbox>
+                    <el-checkbox v-model="pqrForm.coverageOptions.solidSolution" style="color:#b45309;">例外(高温PWHT/固溶处理/用于无冲击)</el-checkbox>
                     <el-checkbox v-model="pqrForm.coverageOptions.pwht">进行焊后热处理(PWHT)</el-checkbox>
                     <el-checkbox v-model="pqrForm.coverageOptions.multiPass">多道焊</el-checkbox>
                     <el-checkbox v-model="pqrForm.coverageOptions.isPipe">管材对接</el-checkbox>
@@ -1246,7 +1247,10 @@
         </el-form-item>
         <el-divider content-position="left">特殊规则选项 (NB/T 47014-2023)</el-divider>
         <el-form-item label="冲击试验">
-          <el-checkbox v-model="testCoverageForm.impact">有冲击试验要求</el-checkbox>
+          <el-checkbox v-model="testCoverageForm.impact">规定进行冲击试验</el-checkbox>
+        </el-form-item>
+        <el-form-item label="冲击例外">
+          <el-checkbox v-model="testCoverageForm.solidSolution">例外情形(高于上转变温度PWHT/双相或奥氏体经固溶处理/有冲击评定用于无冲击焊接)→按表6/7基础0.5t</el-checkbox>
         </el-form-item>
         <el-form-item label="焊后热处理">
           <el-checkbox v-model="testCoverageForm.pwht">进行焊后热处理(PWHT)</el-checkbox>
@@ -1785,7 +1789,7 @@
       // 试算覆盖范围对话框
       const testCoverageDialog = ref(false);
       const testCoverageForm = reactive({ category:'Fe-1', thickness:12, weldMetal:7.2,
-        impact:false, pwht:false, multiPass:true, isPipe:false, pipeDia:0 });
+        impact:false, pwht:false, multiPass:true, isPipe:false, pipeDia:0, solidSolution:false });
       const testCoverageResult = ref(null);
       const doTestCoverage = () => {
         const r = window.KB_RULES;
@@ -1795,7 +1799,8 @@
           pwht: !!testCoverageForm.pwht,
           multiPass: testCoverageForm.multiPass !== false,
           isPipe: !!testCoverageForm.isPipe,
-          pipeDia: parseFloat(testCoverageForm.pipeDia) || 0
+          pipeDia: parseFloat(testCoverageForm.pipeDia) || 0,
+          solidSolution: !!testCoverageForm.solidSolution
         };
         testCoverageResult.value = {
           thickness: calcThicknessRange(testCoverageForm.category, testCoverageForm.thickness, options),
@@ -2206,11 +2211,12 @@
         coverageResult: null,
         // 评定覆盖范围特殊规则选项(NB/T 47014-2023)
         coverageOptions: {
-          impact: false,        // 有冲击试验要求
+          impact: false,        // 规定进行冲击试验
           pwht: false,          // 进行焊后热处理
           multiPass: true,      // 多道焊(true)/单道焊(false)
           isPipe: false,        // 管材对接
-          pipeDia: 0            // 管外径(mm),仅 isPipe=true 时生效
+          pipeDia: 0,           // 管外径(mm),仅 isPipe=true 时生效
+          solidSolution: false  // 例外(高于上转变温度PWHT/双相或奥氏体固溶处理/有冲击评定用于无冲击)→按表6/7基础0.5t
         }
       });
 
@@ -2492,7 +2498,8 @@
           pwht: !!opts.pwht,
           multiPass: opts.multiPass !== false,
           isPipe: !!opts.isPipe,
-          pipeDia: parseFloat(opts.pipeDia) || 0
+          pipeDia: parseFloat(opts.pipeDia) || 0,
+          solidSolution: !!opts.solidSolution
         };
         // 焊缝金属厚度:取焊层焊道最大填充厚度,简化用焊材记录的 depositThicknessMax 或试件厚度的0.6倍
         let testW = 0;
