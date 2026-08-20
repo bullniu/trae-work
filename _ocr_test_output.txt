@@ -1,0 +1,330 @@
+==========================================================================================
+TEST: 14976 P11 (garbled - expect 表2 化学成分?)
+[OCR len=2014]
+GB/T 14976一2025
+a                  号
+IR                  S
+2                  wa)
+aK                  Z
+S          lo lwo lis       loin
+Z.  下          ar ar 呈 全       2
+oS          =~ oO =~ oO a       =~ oO
+oS  oS  oS        oS
+lis
+3
+5                          Bo
+S
+q
+S                          o 8
+三                          Soc
+CD
+一
+4    lio lio lio lio lio lis lis lis lis lis
+R  4 os oS os oS os os oS os oS o 0
+tet  0 Qa Qs Qs Qs Qs Qs Qs Qs Qc ‘Qo
+=    woo oN oN oN oN oN oN NON 二 cq a a
+1K 汉   一  一  一  一  一  cond  cond  N  N  cond
+Ss
+_  &
+e |2  Ces/le|iesiisl|ilss/esfis/es{ses]sa
+eR ab Z/Ss/Salsal/Saf}sal}/sal/Bc SS
+入
+a
+i      i.)  i.)  i.)  i.)  i.)  i.)  i.)  i.)  i.)  °O
+~一      CD  CD  CD  CD  CD  CD  CD  CD  ise)  coal
+”  gS  gS  gS  gS  gS  gS  gS  gS  gS  2
+s      oS  oS  oS  oS  oS  oS  oS  oS  oS  oS
+Bl      LO  LO  LO  LO  LO  LO  LO  LO  LO  i)
+“      ise)  ise)  ise)  ise)  ise)  ise)  ise)  ise)  ise)  ise)
+=      gz  gz  gz  gz  gz  gz  gz  gz  gz  gz
+a       3  3  3  3  3  3  3  3  3  3
+He
+alr
+和时    只  o  o  o  o  o  o  o  o  o  o
+到    S  g  g  g  g  g  g  g  g  g  2
+=      cq  cq  cq  cq  cq  cq  cq  cq  cq  一
+区
+AH
+°  °  °  °  °  °  °  °  =)  2
+N    万  2  2  2  2  2  2  2  2  a  2
+me      a)  a)  a)  a)  a)  a)  a)  a)  a)  Oo
+—)     "   —)              i)
+oS  S  oS  = =  S  oS  oS  oS  oS  S
+Z,
+5
+Z.
+S  ro)  °  Zz  Zz  a  on  ro)  Ss
+=  S  =  =  =  S  Z.  =  BS  三
+up   Z  Zz  7.  7.  7  Z  fez)  Z  Z  co
+a  =  >  >  a     7.  cm  LO  a
+Bt   u   u  一  一  4  
+==========================================================================================
+TEST: 14976 P9 (find 表1 start rows 1-17)
+[OCR len=383]
+GB/T 14976一2025
+
+d) 尺寸规格;
+
+e) 订购的数量(总重量或总长度或文数);
+
+D。 交货状态;
+
+&) 特殊要求，
+6 制造工艺
+6.1 钢的冶炼方法
+
+钢应采用电弧炉加炉外精炼或转炉加炉外精炼方法冶炼,或电渣重燃法治人庶。经供需双方协商,并
+在合同中注明,可采用其他更高要求的方法冶炼。
+6.2 ”钢管的制造方法
+
+钢管应采用冷轧(拔)或热轧(挤.银、扩)无颖方法制造。需方指定某一种制造方法时,应在合同中
+注明。
+6.3 交货状态
+6.3.1 钢管应以热处理并酸洗状态交货。凡经整体磨、铀或保护气氛热处理的钢管可不经酸洗交货。
+钢管的推荐热处理制度见表 1 。
+
+表 1 热处理制度.密度
+组织  序   统一                             BE IE Co)
+牌号          推荐热处理制度
+DER
+3
+
+==========================================================================================
+TEST: 9948 P10 (find 表1 start rows 1-11)
+[OCR len=1740]
+GB/T 9948—2025
+6.3.2 ANP ER AR AE NK FA BL C) BS AL GR) FO SET HL
+6.3.3 FGF 35CrNi3MoV 4h EF BY Oe FH Be ek Ba PR BM AL whl I ZS LR A FH aed ee, IS AY SF PL
+(挤、顶)无颖方法制造。
+6.4 交货状态
+6.4.1 优质碳素钢 、低合金钢和合金钢钢管应以热处理状态交货。
+6.4.2 不锈钢钢管应以热处理并酸洗钝化状态交货。凡经整体磨、甸或保护气氛热处理的钢管可不经
+6.4.3 钢管的热处理制度应符合表 1 的规定。
+表1 钢管的热处理制度
+i
+序号   a oe       牌号                      热处理制度
+字代号
+S<14 mm 的钢管正火 :正火温度 880 °C ~940 °C;
+3      U21102        10Mn*?       S>14 mm fH) #49 Ek BE kJ Le ke BE J Te] ks TE tha BE 880 °C ~
+940 °C TEAR SUV RR Hl, [Tk Heh RE DY Fe 600 °C
+S<14 mm 的钢管正火:正火温度 880 “C ~940 °C;
+4       L03552        Q355B"?       S>14 mm fH) #49 Ek BE 2k J Fe ke BE Yc J Te ks TE tak BE 880 °C ~
+940 °C TEA IA SUV RR Hl [Tk Hh RE DY FF 600 °C
+S<14 mm 的钢管正火:正火温度 880 °C ~940 °C;
+5       L03553        Q355C*?       S>14 mm fH) #49 Ek BE 2k J Le ke BE cM Te] ks TE tha BE 880 °C ~
+940 °C TEAR SUV RR HN [Tk Heh RE DY FF «600 °C
+S<14 mm 的钢管正火:正火温度 880 “C ~940 °C;
+L03554        Q355D*?      S>14 mm AY 44 4 TE ke BATE eH ed ke Be Ee TM TEN Ks TE 2K Hk BE 880 °C ~
+940 °C TEAR SUV RR HN [Tk Heh RE DY FF «600 °C
+S<14 mm 的钢管正火:正火温度 880 CC一940 °C;
+7      L03555       Q355Ee"      S>14 mm 的钢管正火或正火加回火或湾火加回火:正火温度880 °C ~
+940 °C ,正火后允许快速冷却,回火温度应高于 600 °C
+S<30 mm 的钢管正火加回火:正火温度 900 °C ~ 960 °C. Ik ith BE
+680 °C ~730 °C;
+A30152         15CrMo?       S>30 mm FY) #4 ee J eT eB TE Ye JO ke :淳火温度不低于 900 °C ,回
+火温度 680 “C ~730 °C; TEAK YEE 900 “°C ~ 960 °C, [Al YR EE 680 °C ~
+730 ,但正火后应进行急冷
+ TE JCM PLA Ei BE 900 一960 ‘CFL 680 C~T50
+S<30 mm 
+==========================================================================================
+TEST: 9948 P12 (garbled - expect 表2 化学成分)
+[OCR len=1340]
+GB/T 9948—2025
+off 2)2)2/8) 2 /2)2)/2)2)>8)2| =
+vi S S S S S S S Ss Ss Ss Ss Ss
+cq
+3 3 s/s} Ss |S] s S| 8 3 3 3
+S S S S S S S S S Ss Ss Ss
+LO
+re
+Z      二
+S
+V
+全     Low
+之     oe 8
+Ss
+S
+°
+5      N
+Oo      S
+V
+=
+一 =      全
+长 <      S
+六       八
+tet
+oe      2  SR RS |
+= xe Z      S  S 3 So oS oS oS
+&       V  V V V V V V
+入 AD 请     eo 8
+yw       So
+tt        =
+匀  _     Lin     Lic
+cH        a 4     ID op
+中
+了        °
+=  3      3  28/e8)s 8le8/s4}e2
+: : _— P|; Sot] Be
+Be        V/  SI Sle Sle SlseéT74>s°
+°
+w        RS  ， ，
+1 | 有2 7
+VW  ecleé 7 2 7]e 7]e%] ae
+N N N  《  《
+¢ Lo Lo Lo  Lo   《
+5 2 elo ;  PSPS E]S S/S SIS EE 7
+S S S  sc ecefeclecelecl]ecleasc
+in | "  S       2 S
+x |e slo sleds  %  {slis}/degl/is] 8 8
+2 sla s|at sc   Ss sfosf/B alas] Gg vi
+S S S  V S V/ V/
+Loo | lew a 名  《       号
+eo |s ffs 8] s = 2/2 8/4 4]28]28]28] =
+。 。    避 | 二 。 2 SILOS oS} So od
+S S V V  SePlsé ls>”>s2>” ss V
+zlz fale] 2e] ef] 81全| 3
+ap  5 5 § |a|/e;aljm] = S 三 = = S
+at  S g  ID | 10 | 1 | wo q u re 四 咏 ve)
+=) io fio fis | wo Oo Oo  ra 5 四
+a om | on | oO | ce cq iB iS 6) oO oO
+CGIGIG 一 一 N SG N N
+re
+nN
+& op 3 S S Silolol.e NI tS a oS oS 六
+| # 三 中 ID | wm lp | 一 一 一 一 一 一
+= alsa |s l2/2/2/2]/ 3/8 ]/e)]s]8] 8
+4         c ¢ ¢ ¢ laa} ¢
+&  5 5 > |2/3/3/)3] = < < < < <
+ofp
+pf fe jefe -felef-pe)-le)efe ts.
+=  LEME  Sede     !
+2  Ss R  Bre     {cs
+6
+
+==========================================================================================
+TEST: 17854 P1 (scanned cover)
+[OCR len=361]
+ICS 25.160.20                                                oe
+133                                     Ga! a
+Ht 4E AK Be de AI el Fe] BE Bas HE
+GB/T 17854—2018
+代替 GB/T 17854—1999
+PB MS A AS £5 SG 22-9 Fl 2 GD EEK
+Solid wire electrodes/flux combinations for submerged arc welding of
+stainless steels
+2018-03-15发布 208-1001实施
+中华人民共和国国家质量监督检验检疫总局 和 。
+中国国冢标准化审理委员会
+
+==========================================================================================
+TEST: 17854 P5 (scanned - expect content)
+[OCR len=1163]
+GB/T 17854—2018
+埋踊焊用不锈钢焊丝-焊剂组合分类要求
+
+1 范围
+
+本标准规定了埋听焊用不锈钢和焊丝-焊剂组全的分类 .技术要求 .试验方法 .复验和供货技术条件等
+
+本标准适用于埋跌焊用不锈钢焊丝-焊剂组人台的分类要求,其炊数金属中铬洛量不小于 1150 ,旬会
+量不大于 385 。
+2 规范性引用文件
+
+下列文件对于本文件的应用是必不可少的。凡是注日期的引用文件,仅注日期的版本适用于本文
+件。凡是不往日期的引用文件.其最新版本(包括所有的修改单)适用于本文件。
+
+GB/T 1954 铬钊奥氏体不锈钢焊锋铁素体售量测量方法(GB/T 1954一2008 ,ISO 8249 ;2000，
+MOD)
+
+GB/T 2652 ‘SAE Ae be Bie Se J Fic Ha a WE CG B/T 2652一2008, ISO 5178:2001.IDT)
+
+GB/T 4334 金属和人台金的腐蚀 ASA AAI hit eK CGB/T 4334一2008, ISO 3651-1;
+1998 & ISO 3651-2:1998,.MOD)
+
+GB/T 18591 焊接 预热温度 .道间温度及预热维持温度的测量指南(GB/工 18591一2001,idit
+ISO 13916:1996)
+
+GB/T 25774.1 焊接材料的检验 第1部分:钢、.钾及钾合金巡囊金属力学性能试梓的制备及检
+难(GB/T 25774.1—2010.1ISO 15792-1:2000. MOD)
+
+GB/T 25775 «(fee BL (IE Ge RR Re SE ROP 4S 2 A pp KR CGB/T 25775一2010，
+ISO 544.2003, MOD)
+
+GB/T 25777 焊接材料熔融全属化学分析试样制备方法(4GB/T 25777—2010.1SO 6847; 2000.
+IDT)
+
+GB/T 25778 焊接材料采购指南(4GB/7T 25778—2010.ISO 14344:2010.MOD)
+
+GB/T 29713 不锈钢焊丝和焊带(GB/T 29713一2013 ,ISO 14343 ,2009 ,MOD)
+3 分类
+3.1 焊丝-焊剂组合分类
+
+焊丝-焊剂组全分类按照熔表金属化学成分和力学性能进行划分。
+3.2 焊丝-焊剂组合分类方法
+
+焊丝-焊剂组合分类由四部分组成，
+
+1) 第一部分:用字母"SS ”表示埋弧和焊焊丝-焊剂组合;
+
+2) By ABP : des tet AY Se JB ar Se. Ue 1 和表 2;
+
+3) 第三部分:表示焊剂类型代号,人参见附录 A;
+
+4) SS 0804). Ba GS FE GB/T 29713.
+
+|
+
+==========================================================================================
+TEST: 39279 P1 (scanned cover)
+[OCR len=615]
+ICS 25.160.20                                                    ee ET
+J 33                                                  Lz  EL
+( — —
+中华人人民共和国国家标准
+GB/T 39279一2020
+下                                                  rm
+气体保护电弧焊用热强钢实心焊丝
+Wire electrodes, wires,rods and deposits for gas shielded arc
+welding of creep-resisting steels
+(ISO 21952:2012, Welding consumables—Wire electrodes, wires,
+rods and deposits for gas shielded arc welding of creep-resisting
+steels—Classification, MOD)
+
+2020-11-19 发布                                                2021-06-01 实施
+Ni、      国冢市场监督管理总局 发 布
+国家标准化管理委员会
+局 Rie Weve Oh +
+
+==========================================================================================
+TEST: 39279 P5 (scanned - expect content)
+[OCR len=571]
+GB/T 39279一2020
+号为”网"时,保护气体类型代号"I12可省略;
+4) 第四部分:表示焊丝化学成分分类,见 4.3。
+除以上强制代号外,可在型号中附加可选代号，                      ，
+无镀铜代号“<N”,附加在第四部分之后 ,表示无镀铜焊丝。
+本标准中焊丝型号示例如下 ，
+示例 1,
+G 55 M21 1CM WN
+| mmr
+示保护气体类型“M21” Beas RR 1S % << CO, < 25%) + Ar
+               示熔数金属抗拉强度,“55” 表示焊后热处理条件下最小要求值为 550 MPa
+表示熔化极气体保护电弧焊用实心焊丝
+示例 2;
+W 55 fl 1CM
+示保护气体类型,“I1”(此处可省略) BRR RL 100% Ar
+表示熔甫金属抗拉强度,“55” 表示焊后热处理条件下最小和要素利为 550 MPa
+表示铭极惰性气体保护电弧焊用实心填充丝
+表1 熔甫金属抗拉强度代号
+ewe RR.     .
+i eel itll
+ee
+ee | El
+4 技术要求
+4.1 焊丝尺寸及表面质量
+焊丝尺寸及表面质量应符合 GB/T 25775 的规定。
+4.2 ”焊丝松弛直径和兽距
+He HAS He HE A FAS 2 的规定。        a
+2
+7
+

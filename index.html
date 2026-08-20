@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>焊接工艺管理系统 - Welding Process Management</title>
   <script src="libs/vue.global.prod.js"></script>
+  <script src="kb_base_metals.js"></script>
+  <script src="kb_consumables.js"></script>
+  <script src="kb_rules.js"></script>
   <link rel="stylesheet" href="libs/element-plus.css" />
   <script src="libs/element-plus.full.min.js"></script>
   <script src="libs/element-plus-icons.iife.min.js"></script>
@@ -292,6 +295,10 @@
       background:#e0e7ff; border-radius:50%; width:36px; height:36px; line-height:36px;
     }
     .sub-table-title { font-size:13px; font-weight:600; color:#374151; margin:8px 0 6px; padding-left:8px; border-left:3px solid #60a5fa; }
+    .coverage-card { background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:10px 12px; }
+    .coverage-card .coverage-title { font-size:12px; color:#64748b; margin-bottom:4px; }
+    .coverage-card .coverage-value { font-size:15px; font-weight:600; color:#0f172a; line-height:1.4; margin-bottom:4px; }
+    .coverage-card .coverage-detail { font-size:11px; color:#64748b; line-height:1.3; }
   </style>
 </head>
 <body>
@@ -328,6 +335,12 @@
         </div>
         <div class="menu-item" :class="{active: activeTab==='kb-consumable'}" @click="switchTab('kb-consumable')">
           <span class="menu-icon">🔩</span><span>焊材标准库</span>
+        </div>
+        <div class="menu-item" :class="{active: activeTab==='kb-rules'}" @click="switchTab('kb-rules')">
+          <span class="menu-icon">📐</span><span>评定规则库</span>
+        </div>
+        <div class="menu-item" :class="{active: activeTab==='kb-extracted'}" @click="switchTab('kb-extracted')">
+          <span class="menu-icon">📚</span><span>PDF 提取数据</span>
         </div>
         <div class="menu-title">工艺评定</div>
         <div class="menu-item" :class="{active: activeTab==='pqr'}" @click="switchTab('pqr')">
@@ -727,6 +740,41 @@
                       <el-input v-model="pqrForm.baseThicknessOrDia" placeholder="如：t=12mm 或 Φ159×8" />
                     </el-form-item></el-col>
                   </el-row>
+                  <div class="sub-table-title">
+                    评定覆盖范围（NB/T 47014 规则自动推导）
+                    <el-button type="primary" size="small" style="margin-left:12px;" @click="autoCalcCoverage">自动计算覆盖范围</el-button>
+                    <el-button type="success" size="small" plain @click="autoFillFromKB">按母材/焊材牌号自动填充</el-button>
+                  </div>
+                  <el-row :gutter="12" v-if="pqrForm.coverageResult">
+                    <el-col :span="12">
+                      <div class="coverage-card">
+                        <div class="coverage-title">母材厚度覆盖范围</div>
+                        <div class="coverage-value">{{ pqrForm.coverageResult.thickness }}</div>
+                        <div class="coverage-detail">{{ pqrForm.coverageResult.thicknessRule }}</div>
+                      </div>
+                    </el-col>
+                    <el-col :span="12">
+                      <div class="coverage-card">
+                        <div class="coverage-title">熔敷金属厚度覆盖范围</div>
+                        <div class="coverage-value">{{ pqrForm.coverageResult.weldMetal }}</div>
+                        <div class="coverage-detail">{{ pqrForm.coverageResult.weldMetalRule }}</div>
+                      </div>
+                    </el-col>
+                  </el-row>
+                  <el-row :gutter="12" v-if="pqrForm.coverageResult" style="margin-top:8px;">
+                    <el-col :span="12">
+                      <div class="coverage-card">
+                        <div class="coverage-title">母材类别相焊规则</div>
+                        <div class="coverage-value">{{ pqrForm.coverageResult.categoryMatch }}</div>
+                      </div>
+                    </el-col>
+                    <el-col :span="12">
+                      <div class="coverage-card">
+                        <div class="coverage-title">焊后热处理规则</div>
+                        <div class="coverage-value">{{ pqrForm.coverageResult.pwht }}</div>
+                      </div>
+                    </el-col>
+                  </el-row>
                   <div class="sub-table-title">焊后热处理</div>
                   <el-row :gutter="12">
                     <el-col :span="12"><el-form-item label="热处理温度范围"><el-input v-model="pqrForm.heatTreatTempRange" placeholder="如：600~650 ℃ / —" /></el-form-item></el-col>
@@ -1067,6 +1115,101 @@
             </el-result>
           </div>
         </div>
+
+        <!-- ========== 评定规则库 ========== -->
+        <div v-if="activeTab==='kb-rules'">
+          <div class="page-header">
+            <div>
+              <div class="page-title">评定规则库 (NB/T 47014-2023 Rules)</div>
+              <div class="page-subtitle">母材分类表、焊材分类表、试件厚度→覆盖范围规则、PWHT 规则</div>
+            </div>
+            <div>
+              <el-button type="primary" size="small" @click="reinitKB">重置知识库数据</el-button>
+            </div>
+          </div>
+          <div v-if="rulesData">
+            <!-- 母材分类表 -->
+            <div class="card-panel" style="margin-top:14px;">
+              <div class="card-title">母材分类表（类别号-组别号）</div>
+              <el-table :data="rulesBaseMetalList" border size="small" style="width:100%;">
+                <el-table-column prop="category" label="类别号" width="100" />
+                <el-table-column prop="groupNo" label="组别号" width="80" />
+                <el-table-column prop="desc" label="说明" min-width="220" />
+                <el-table-column prop="examples" label="典型牌号" min-width="200" />
+                <el-table-column prop="standards" label="对应标准" min-width="200" />
+              </el-table>
+            </div>
+            <!-- 焊材分类表 -->
+            <div class="card-panel">
+              <div class="card-title">焊材分类表（F-No. 焊剂/焊条类型 + A-No. 熔敷金属成分）</div>
+              <el-tabs type="border-card">
+                <el-tab-pane label="F-No.(按焊剂/药皮类型)">
+                  <el-table :data="rulesFNoList" border size="small" style="width:100%;">
+                    <el-table-column prop="fNo" label="F-No." width="80" />
+                    <el-table-column prop="desc" label="说明" min-width="260" />
+                    <el-table-column prop="appliesTo" label="适用焊材类型" min-width="220" />
+                    <el-table-column prop="commonBrands" label="常见牌号" min-width="220" />
+                  </el-table>
+                </el-tab-pane>
+                <el-tab-pane label="A-No.(按熔敷金属成分)">
+                  <el-table :data="rulesANoList" border size="small" style="width:100%;">
+                    <el-table-column prop="aNo" label="A-No." width="80" />
+                    <el-table-column prop="desc" label="说明" min-width="200" />
+                    <el-table-column prop="typicalComp" label="典型成分" min-width="260" />
+                    <el-table-column prop="appliesTo" label="适用焊材" min-width="200" />
+                    <el-table-column prop="commonBrands" label="常见牌号" min-width="220" />
+                  </el-table>
+                </el-tab-pane>
+              </el-tabs>
+            </div>
+            <!-- 覆盖范围规则 -->
+            <div class="card-panel">
+              <div class="card-title">试件厚度→覆盖范围 规则</div>
+              <el-table :data="rulesThicknessList" border size="small" style="width:100%;">
+                <el-table-column prop="category" label="母材类别号" width="120" />
+                <el-table-column prop="rule" label="规则" min-width="520" />
+              </el-table>
+              <div style="margin-top:12px;">
+                <el-button type="primary" size="small" @click="testCoverageDialog=true">试算覆盖范围</el-button>
+              </div>
+            </div>
+            <!-- PWHT 规则 -->
+            <div class="card-panel">
+              <div class="card-title">焊后热处理规则</div>
+              <el-table :data="rulesPwhtList" border size="small" style="width:100%;">
+                <el-table-column prop="category" label="母材类别号" width="120" />
+                <el-table-column prop="rule" label="规则" min-width="520" />
+              </el-table>
+            </div>
+          </div>
+          <div v-else style="text-align:center;padding:40px;color:#64748b;">规则库加载中...</div>
+        </div>
+
+        <!-- ========== PDF 提取数据 ========== -->
+        <div v-if="activeTab==='kb-extracted'">
+          <div class="page-header">
+            <div>
+              <div class="page-title">PDF 提取数据 (Extracted)</div>
+              <div class="page-subtitle">从 GBT 14976/9948/36037/17854/39279/NBT 47018.4 等 PDF 自动提取的牌号/型号数据</div>
+            </div>
+          </div>
+          <div class="card-panel" style="margin-top:14px;">
+            <div class="card-title">提取文件汇总</div>
+            <el-table :data="extractedSummary" border size="small" style="width:100%;">
+              <el-table-column prop="file" label="PDF 文件" min-width="260" />
+              <el-table-column prop="title" label="标题" min-width="320" />
+              <el-table-column prop="count" label="条目数" width="100" align="center" />
+              <el-table-column label="操作" width="120">
+                <template #default="{row}">
+                  <el-button size="small" link type="primary" @click="viewExtracted(row)">查看</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <div style="margin-top:8px;font-size:12px;color:#64748b;">
+              注:扫描版/乱码字体的 PDF (NBT 47014-2023、GBT 713 系列、GBT 5310、GBT 5117 等) 未自动提取,相关数据已由内置知识库覆盖。
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="footer-bar">
@@ -1075,6 +1218,43 @@
       <span>母材 {{ kb.baseMetals.length }} 项 / 焊材 {{ kb.consumables.length }} 项</span>
       <span style="margin-left: auto;">焊接工艺管理系统 v2.0 (NB/T 47014-2023 · 胜机模板)</span>
     </div>
+
+    <!-- 试算覆盖范围对话框 -->
+    <el-dialog v-model="testCoverageDialog" title="试算覆盖范围" width="560px">
+      <el-form label-width="140px" size="small">
+        <el-form-item label="母材类别号">
+          <el-select v-model="testCoverageForm.category" filterable placeholder="选择母材类别">
+            <el-option v-for="c in rulesCategoryOptions" :key="c" :label="c" :value="c" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="试件厚度 t (mm)">
+          <el-input-number v-model="testCoverageForm.thickness" :min="0.5" :step="0.5" :precision="1" controls-position="right" />
+        </el-form-item>
+        <el-form-item label="焊缝金属厚度 w">
+          <el-input-number v-model="testCoverageForm.weldMetal" :min="0" :step="0.5" :precision="1" controls-position="right" />
+        </el-form-item>
+      </el-form>
+      <div v-if="testCoverageResult" style="margin-top:12px;padding:12px;background:#f8fafc;border-radius:6px;">
+        <div>母材厚度覆盖范围: <strong style="color:#0f172a;">{{ testCoverageResult.thickness }}</strong></div>
+        <div style="margin-top:6px;">熔敷金属厚度覆盖范围: <strong style="color:#0f172a;">{{ testCoverageResult.weldMetal }}</strong></div>
+        <div style="margin-top:6px;font-size:12px;color:#64748b;">PWHT 规则: {{ testCoverageResult.pwht || '—' }}</div>
+      </div>
+      <template #footer>
+        <el-button @click="testCoverageDialog=false">关闭</el-button>
+        <el-button type="primary" @click="doTestCoverage">计算</el-button>
+      </template>
+    </el-dialog>
+
+    <!-- 查看 PDF 提取数据对话框 -->
+    <el-dialog v-model="extractedDialog.visible" :title="extractedDialog.title" :width="isMobile ? '96%' : '900px'" top="4vh">
+      <el-table :data="extractedDialog.rows" border size="small" max-height="500">
+        <el-table-column v-for="col in extractedDialog.cols" :key="col" :prop="col" :label="col" min-width="120">
+          <template #default="{row}">
+            <span style="font-size:11px;">{{ typeof row[col] === 'object' ? JSON.stringify(row[col]) : row[col] }}</span>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
   <!-- ========= 焊接参数记录 弹窗 ========= -->
   <el-dialog v-model="recordDialog.visible" :title="recordDialog.mode==='add' ? '新增焊接参数记录' : '编辑焊接参数记录'" :width="isMobile ? '96%' : '860px'" :close-on-click-modal="false" top="5vh">
@@ -1309,8 +1489,8 @@
   // IndexedDB 封装 (NB/T 47014 v2)
   // ============================================================
   const DB_NAME = 'WeldingPQRDB';
-  const DB_VERSION = 2;
-  const STORES = { records: 'weld_records', baseMetals: 'kb_base_metals', consumables: 'kb_consumables' };
+  const DB_VERSION = 3;
+  const STORES = { records: 'weld_records', baseMetals: 'kb_base_metals', consumables: 'kb_consumables', rules: 'kb_rules' };
 
   function openDB() {
     return new Promise((resolve, reject) => {
@@ -1368,6 +1548,105 @@
   }
   async function dbGetAll(store) { const db = await openDB(); return new Promise((r,e)=>{ const t = db.transaction(store,'readonly'); const os = t.objectStore(store); const q = os.getAll(); q.onsuccess = ()=>r(q.result); q.onerror = ()=>e(q.error); }); }
   async function dbDelete(store, id) { const db = await openDB(); return new Promise((r,e)=>{ const t = db.transaction(store,'readwrite'); const os = t.objectStore(store); const q = os.delete(id); q.onsuccess = ()=>r(); q.onerror = ()=>e(q.error); }); }
+  async function dbClear(store) { const db = await openDB(); return new Promise((r,e)=>{ const t = db.transaction(store,'readwrite'); const os = t.objectStore(store); const q = os.clear(); q.onsuccess = ()=>r(); q.onerror = ()=>e(q.error); }); }
+  async function dbCount(store) { const db = await openDB(); return new Promise((r,e)=>{ const t = db.transaction(store,'readonly'); const os = t.objectStore(store); const q = os.count(); q.onsuccess = ()=>r(q.result); q.onerror = ()=>e(q.error); }); }
+
+  // 知识库初始化:把 kb_base_metals.js / kb_consumables.js / kb_rules.js 的内置数据写入 IndexedDB
+  // 仅在对应 store 为空时执行,避免覆盖用户已编辑数据。强制重置时传 true
+  async function initKnowledgeBase(force = false) {
+    const results = { baseMetals: 0, consumables: 0, rules: 0 };
+    try {
+      const bmCount = await dbCount(STORES.baseMetals);
+      if (force || bmCount === 0) {
+        if (force) await dbClear(STORES.baseMetals);
+        const list = (window.KB_BASE_METALS || []).map(b => normalizeBaseMetal(b));
+        for (const b of list) { b.id = null; await dbAdd(STORES.baseMetals, b); }
+        results.baseMetals = list.length;
+      }
+      const consCount = await dbCount(STORES.consumables);
+      if (force || consCount === 0) {
+        if (force) await dbClear(STORES.consumables);
+        const list = (window.KB_CONSUMABLES || []).map(c => normalizeConsumable(c));
+        for (const c of list) { c.id = null; await dbAdd(STORES.consumables, c); }
+        results.consumables = list.length;
+      }
+      const ruleCount = await dbCount(STORES.rules);
+      if (force || ruleCount === 0) {
+        if (force) await dbClear(STORES.rules);
+        if (window.KB_RULES) {
+          // 把整个 KB_RULES 对象作为一个记录写入,便于前端规则引擎读取
+          await dbAdd(STORES.rules, { id: null, key: 'NBT_47014_2023', name: 'NB/T 47014-2023 评定规则', data: JSON.parse(JSON.stringify(window.KB_RULES)) });
+          results.rules = 1;
+        }
+      }
+    } catch (err) { console.error('知识库初始化失败:', err); }
+    return results;
+  }
+
+  // 查询规则数据(从内存直接取,性能好)
+  function getRules() { return window.KB_RULES || null; }
+
+  // 根据母材牌号查属性
+  function lookupBaseMetal(grade) {
+    if (!grade) return null;
+    const g = String(grade).trim();
+    const list = window.KB_BASE_METALS || [];
+    // 精确匹配
+    let hit = list.find(b => b.grade === g);
+    // 包含匹配(如 "Q235B" 含在 "Q235B" 中)
+    if (!hit) hit = list.find(b => b.grade && b.grade.indexOf(g) >= 0);
+    if (!hit) hit = list.find(b => b.grade && g.indexOf(b.grade) >= 0);
+    return hit ? normalizeBaseMetal(hit) : null;
+  }
+
+  // 根据焊材牌号/型号查属性
+  function lookupConsumable(keyword) {
+    if (!keyword) return null;
+    const k = String(keyword).trim();
+    const list = window.KB_CONSUMABLES || [];
+    let hit = list.find(c => c.brand === k || c.model === k);
+    if (!hit) hit = list.find(c => (c.brand && c.brand.indexOf(k) >= 0) || (c.model && c.model.indexOf(k) >= 0));
+    if (!hit) hit = list.find(c => (c.brand && k.indexOf(c.brand) >= 0) || (c.model && k.indexOf(c.model) >= 0));
+    return hit ? normalizeConsumable(hit) : null;
+  }
+
+  // 计算母材厚度覆盖范围
+  function calcThicknessRange(category, testThickness) {
+    const rules = window.KB_RULES;
+    if (!rules || !rules.thicknessRule) return '未配置规则';
+    const cat = category || '通用';
+    const r = rules.thicknessRule[cat] || rules.thicknessRule['通用'];
+    if (!r) return '未配置规则';
+    try { return r.formula ? r.formula(testThickness) : r.rule; }
+    catch (e) { return r.rule; }
+  }
+
+  // 计算熔敷金属厚度覆盖范围
+  function calcWeldMetalRange(testWeldThickness) {
+    const rules = window.KB_RULES;
+    if (!rules || !rules.weldMetalRule) return '未配置规则';
+    const r = rules.weldMetalRule['通用'];
+    if (!r) return '未配置规则';
+    try { return r.formula ? r.formula(testWeldThickness) : r.rule; }
+    catch (e) { return r.rule; }
+  }
+
+  // 根据母材类别号取 PWHT 规则
+  function getPwhtRule(category) {
+    const rules = window.KB_RULES;
+    if (!rules || !rules.pwhtRule) return '';
+    return rules.pwhtRule.byCategory && rules.pwhtRule.byCategory[category] || '';
+  }
+
+  // 判断母材类别相焊适用规则
+  function getCategoryMatchRule(cat1, cat2) {
+    const rules = window.KB_RULES;
+    if (!rules || !rules.categoryMatchRule) return '';
+    if (!cat1 || !cat2) return '';
+    if (cat1 === cat2) return rules.categoryMatchRule.sameCategory.rule;
+    return rules.categoryMatchRule.diffCategory.rule;
+  }
+
 
   const BM_DEFAULTS = { id:null, category:'', grade:'', standard:'', tensileMin:'', yieldMin:'', thicknessMin:'', thicknessMax:'',
     groupNo:'', materialCode:'', pairedCategory:'', pairedGroupNo:'', pairedStandard:'', pairedMaterialCode:'',
@@ -1437,6 +1716,91 @@
       }));
       const recentRecords = computed(() => [...weldRecords.value].sort((a,b)=>b.createdAt-a.createdAt).slice(0, 8));
       const formatDate = (ts) => ts ? new Date(ts).toLocaleString('zh-CN', { hour12: false }) : '—';
+
+      // 规则库展示数据(从 window.KB_RULES 取)
+      const rulesData = computed(() => window.KB_RULES || null);
+      const rulesBaseMetalList = computed(() => {
+        const r = window.KB_RULES; if (!r || !r.baseMetalCategory) return [];
+        const list = [];
+        Object.keys(r.baseMetalCategory).forEach(cat => {
+          const c = r.baseMetalCategory[cat];
+          if (c.groups) {
+            Object.keys(c.groups).forEach(g => {
+              list.push({ category: cat, groupNo: g, desc: (c.desc||'') + ' / ' + (c.groups[g].desc||''), examples: c.groups[g].examples||'—', standards: c.groups[g].standards||'—' });
+            });
+          } else {
+            list.push({ category: cat, groupNo: '—', desc: c.desc||'', examples: '—', standards: '—' });
+          }
+        });
+        return list;
+      });
+      const rulesFNoList = computed(() => {
+        const r = window.KB_RULES; if (!r || !r.consumableCategory || !r.consumableCategory.fNo) return [];
+        return Object.keys(r.consumableCategory.fNo).map(k => ({ fNo: k, ...r.consumableCategory.fNo[k] }));
+      });
+      const rulesANoList = computed(() => {
+        const r = window.KB_RULES; if (!r || !r.consumableCategory || !r.consumableCategory.aNo) return [];
+        return Object.keys(r.consumableCategory.aNo).map(k => ({ aNo: k, ...r.consumableCategory.aNo[k] }));
+      });
+      const rulesThicknessList = computed(() => {
+        const r = window.KB_RULES; if (!r || !r.thicknessRule) return [];
+        return Object.keys(r.thicknessRule).map(k => ({ category: k, rule: r.thicknessRule[k].rule }));
+      });
+      const rulesPwhtList = computed(() => {
+        const r = window.KB_RULES; if (!r || !r.pwhtRule || !r.pwhtRule.byCategory) return [];
+        return Object.keys(r.pwhtRule.byCategory).map(k => ({ category: k, rule: r.pwhtRule.byCategory[k] }));
+      });
+      const rulesCategoryOptions = computed(() => {
+        const r = window.KB_RULES; if (!r || !r.baseMetalCategory) return [];
+        return Object.keys(r.baseMetalCategory);
+      });
+      // 试算覆盖范围对话框
+      const testCoverageDialog = ref(false);
+      const testCoverageForm = reactive({ category:'Fe-1', thickness:12, weldMetal:7.2 });
+      const testCoverageResult = ref(null);
+      const doTestCoverage = () => {
+        const r = window.KB_RULES;
+        if (!r) return;
+        testCoverageResult.value = {
+          thickness: calcThicknessRange(testCoverageForm.category, testCoverageForm.thickness),
+          weldMetal: calcWeldMetalRange(testCoverageForm.weldMetal),
+          pwht: getPwhtRule(testCoverageForm.category)
+        };
+      };
+      // PDF 提取数据
+      const extractedSummary = ref([]);
+      const extractedDialog = reactive({ visible:false, title:'', rows:[], cols:[] });
+      const loadExtractedJSON = async () => {
+        try {
+          const res = await fetch('extracted_pdfs.json');
+          if (!res.ok) return;
+          const data = await res.json();
+          extractedSummary.value = Object.keys(data).map(k => ({ file:k, title:data[k].title||'', count:(data[k].grades||[]).length }));
+          window._extractedPdfsData = data;
+        } catch (e) { /* 文件可能不存在,静默 */ }
+      };
+      const viewExtracted = (row) => {
+        const data = window._extractedPdfsData;
+        if (!data || !data[row.file]) return;
+        const grades = data[row.file].grades || [];
+        const cols = grades.length ? Object.keys(grades[0]) : [];
+        extractedDialog.title = row.file;
+        extractedDialog.rows = grades;
+        extractedDialog.cols = cols;
+        extractedDialog.visible = true;
+      };
+      // 重置知识库
+      const reinitKB = async () => {
+        try {
+          ElementPlus.ElMessageBox.confirm('将清空当前母材库/焊材库/规则库并恢复为内置数据,确定继续?', '重置确认', { type:'warning' })
+            .then(async () => {
+              const res = await initKnowledgeBase(true);
+              await loadAllData(false);
+              ElementPlus.ElMessage.success(`已重置:母材${res.baseMetals} / 焊材${res.consumables} / 规则${res.rules}`);
+            })
+            .catch(() => {});
+        } catch (e) { ElementPlus.ElMessage.error('重置失败: '+e.message); }
+      };
 
       const calcPassHeatInput = (pass) => {
         if (!pass || !pass.current || !pass.voltage || !pass.weldSpeed) return '—';
@@ -1800,7 +2164,9 @@
         inspectorName:'', inspectDate: todayStr(),
         ndtMethod:'RT', filmNo:'', ndtReportNo2:'',
         envTemp:20, humidity:55, welderDoer:'', recorderName:'', weldDate2: todayStr(),
-        remarks:''
+        remarks:'',
+        // 评定覆盖范围自动推导结果
+        coverageResult: null
       });
 
       const currentPqrRecord = ref(null);
@@ -2054,6 +2420,60 @@
         children: [new docx.TextRun({ text, bold: !!opts.bold, size: opts.size || 21, font:'微软雅黑', ascii:'Times New Roman', eastAsia:'微软雅黑', highAnsi:'Times New Roman' })]
       });
       const _blankP = (after=60) => new docx.Paragraph({ spacing:{ before:0, after } });
+
+      // 自动计算评定覆盖范围（NB/T 47014-2023 规则）
+      const autoCalcCoverage = () => {
+        const B1 = currentPqrBaseMetal.value;
+        const B2 = currentPqrBaseMetal2.value;
+        const C = currentPqrConsumable.value;
+        // 从 pqrForm.baseThicknessOrDia 提取数值,如 "t=12mm" 取 12,"Φ159×8" 取 8
+        const raw = String(pqrForm.baseThicknessOrDia || '').trim();
+        let testT = parseFloat(raw.replace(/[^\d.]/g, ''));
+        if (isNaN(testT)) {
+          ElementPlus.ElMessage.warning('请先填写试件厚度 t（如 t=12 或 Φ159×8）');
+          return;
+        }
+        const category = B1 ? B1.category : '';
+        // 焊缝金属厚度:取焊层焊道最大填充厚度,简化用焊材记录的 depositThicknessMax 或试件厚度的0.6倍
+        let testW = 0;
+        if (C && C.depositThicknessMax) testW = parseFloat(C.depositThicknessMax) || 0;
+        if (!testW) testW = testT * 0.6;
+        const thickness = calcThicknessRange(category, testT);
+        const weldMetal = calcWeldMetalRange(testW);
+        const catMatch = getCategoryMatchRule(B1 && B1.category, B2 && B2.category ? B2.category : B1 && B1.category);
+        const pwht = getPwhtRule(category);
+        const rules = getRules();
+        pqrForm.coverageResult = {
+          thickness,
+          thicknessRule: rules && rules.thicknessRule ? (rules.thicknessRule[category] || rules.thicknessRule['通用']).rule : '',
+          weldMetal,
+          weldMetalRule: rules && rules.weldMetalRule ? rules.weldMetalRule['通用'].rule : '',
+          categoryMatch: catMatch || '—',
+          pwht: pwht || '—'
+        };
+        ElementPlus.ElMessage.success('已根据 NB/T 47014-2023 自动推导覆盖范围');
+      };
+
+      // 按母材/焊材牌号自动从知识库填充字段
+      const autoFillFromKB = () => {
+        const B1 = currentPqrBaseMetal.value;
+        const C = currentPqrConsumable.value;
+        if (!B1 && !C) { ElementPlus.ElMessage.warning('请先选择母材或焊材'); return; }
+        let changed = 0;
+        // 母材热处理状态 → 填到热处理温度范围(若为空)
+        if (B1) {
+          if (B1.heatTreatment && !pqrForm.heatTreatTempRange) { pqrForm.heatTreatTempRange = B1.heatTreatment; changed++; }
+          if (B1.supplyStatus && !pqrForm.materialSupplyStatus) { pqrForm.materialSupplyStatus = B1.supplyStatus; changed++; }
+        }
+        // 焊材规格 → 填到焊材规格(若为空)
+        if (C) {
+          if (C.depositSize && !pqrForm.consSpec) { pqrForm.consSpec = C.depositSize; changed++; }
+          if (C.brand && !pqrForm.consBrand) { pqrForm.consBrand = C.brand; changed++; }
+        }
+        ElementPlus.ElMessage.success(`已从知识库填充 ${changed} 个字段`);
+        // 自动触发覆盖范围计算
+        nextTick(() => autoCalcCoverage());
+      };
 
       const generatePqrWord = async () => {
         try {
@@ -2974,7 +3394,15 @@
 
       // ---- onMounted / init ----
       onMounted(async () => {
-        try { await loadAllData(false); }
+        try {
+          // 初始化知识库（内置母材库/焊材库/规则库）
+          const kbRes = await initKnowledgeBase(false);
+          if (kbRes.baseMetals || kbRes.consumables || kbRes.rules) {
+            ElementPlus.ElMessage.success(`知识库初始化完成：母材${kbRes.baseMetals}条 / 焊材${kbRes.consumables}条 / 规则${kbRes.rules}套`);
+          }
+          await loadAllData(false);
+          await loadExtractedJSON();
+        }
         catch(err) { console.error(err); ElementPlus.ElMessage.error('IndexedDB加载失败 '+err.message); }
         // 恢复默认选中（示例数据第一条）
         nextTick(() => {
@@ -3003,8 +3431,13 @@
         pqrForm, currentPqrRecord, currentPqrBaseMetal, currentPqrBaseMetal2, currentPqrConsumable,
         onPqrRecordChange, onPqrBaseMetalChange, onPqrBaseMetal2Change, onPqrConsumableChange,
         canGeneratePqr, autoFillFromSelection, generatePqrWord,
+        autoCalcCoverage, autoFillFromKB,
         // 示例数据
-        loadAllData
+        loadAllData,
+        // 规则库/PDF提取数据
+        rulesData, rulesBaseMetalList, rulesFNoList, rulesANoList, rulesThicknessList, rulesPwhtList, rulesCategoryOptions,
+        testCoverageDialog, testCoverageForm, testCoverageResult, doTestCoverage,
+        extractedSummary, extractedDialog, viewExtracted, reinitKB
       };
     }
   });

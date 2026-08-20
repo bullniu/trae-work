@@ -1,0 +1,11 @@
+==========================================================================================
+### 9948 P12 表2化学成分
+  found 1 tables
+  --- TABLE[0] rows=19 cols=4
+Traceback (most recent call last):
+  File "/workspace/_cell_ocr.py", line 54, in <module>
+    txt = ocr_cell(img, dpi, cell)
+  File "/workspace/_cell_ocr.py", line 19, in ocr_cell
+    x0 = max(0, int(bbox[0]*sx)-pad)
+                    ~~~~^^^
+TypeError: 'float' object is not subscriptable

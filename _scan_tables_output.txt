@@ -1,0 +1,243 @@
+==========================================================================================
+### 17854 P6 型号/表1
+GB/T 17854—2018
+
+As frp HE A GL £2 1 ll ZA PR as HE
+
+S F308L AB - S308L
+    [表示焊丝型号
+表示焊剂类型
+表示埋弧焊用焊丝 - 焊剂组合
+
+4 技术要求
+4.1 熔融金属化学成分
+
+焊丝-焊剂组合炊熬金属化学成分应符合表 1 规定。
+
+表 1 熔数金属化学成分
+化学成分(质量分数)
+
+arr
+| oo | oo | wo | tarao 一
+Re [oot [os~as | ro | oo | oo | waitzo | uaoraol 一 | 二
+| 05 | 5 [100 | oo | ooo | outol zol 一 | 二
+raoot [oor [os~25 [100 [oo | 00s [iz0~ie0 [mone [
+roootme [oor [0s~25 | 1.00 [onto [ e030 [ia0~ino | ezo~a5.0 [ 20~80 |
+[Fevesto [oa [0s~28 [1.00 [ ooi | o0s0 [iz0~i40 | a20~es0[ 20~s0 [
+[Fao [oan [esas [100 [0090 [0000 [ao0~a.0 [ase~ze0 [|
+[rua [eas [os~as | 100 [oo [ove | eo~i0s [aso~szo[
+rissa [ono [asm2s | 1.0 [oom [oo [zamas [wanes | tome [
+[ras [eos [osxas [io [oou [oie [rove [aro=e00[ 20maa [
+[raisi_[ oe [os~28 | 1.00 | oom [ose [rio~i60 [0200 [ 20~aa |
+Tar [oe [os~25 [100 [oo [0.000 [i20~ie0 [iso~eio | so~ao [
+rain [oor [0s~25 [100 [oni [0000 [io~i60 [isomae [ 0~ao [
+war [008 [os~as [1.00 [aoi [00a [so~ut0 [iso~eio | — _ [Nbiexe~10
+[rain [oot [o5~28 | 1.00 [0.00 [ose [sono [reo~ao [| Nbsexe=10
+[rao [one [12 [100 [eow [oo [oso Puemes[
+rao [eno [12 [00 [ o.ou0 [ose [oso [asomiso fT
+
+SHE HY Be Met AS TY AN cy SA (Ub ee a JB SS I > BE OR py HE OL rp We XXX Se 1 ne PP
+
+2
+
+==========================================================================================
+### 17854 P7 力学性能表2
+GB/T 17854—2018
+42 熔甫金属力学性能
+焊丝-焊剂组合燃歼金属拉伸试验结果应符合表 2 规定。
+表2 熔甫金属力学性能
+炊数金属            抗拉强度 尺。           断后伸长率 A
+F310                             之520                             2225
+F312                             == 660                             ==17
+F385                               = 520                               之28
+F410                               =440                               =15
+”试件加工前经 730 和一760 CMA Lhe. Lb 1lo C/h 4A RIP SS 315 CEP baa,
+"” 试件加工前经 760 和一790 CUNFA 2 IR. LD 55 Ch ie AP Se 595 CLP BARS.
+FRE HS Yh ee AR TF SA ib ee a SS A SE FE BE oe A Re TDP ad EXON 2 He Ie SP oP
+4.3 ”熔甫金属耐腐蚀性能
+炊数金属奉腐蚀试验由供需双方协商确定。
+3
+
+==========================================================================================
+### 17854 P10 附录A焊剂化学成分
+GB/T 17854一2018
+Mt se A
+(资料性附录 )
+焊剂类型
+为便于应用,本标准按 GB/T 36037 提供了焊剂燃型代号及主要化学成分,见表 ALL
+表 A.1 焊剂类型代号及主要化学成分
+.                         ee ae ee
+焊剂类型代号
+v4
+CaO+ MgO                5一50
+CG
+                   COL                   ==?
+Cpe EG a)
+(镁钙碱型)
+(铁粉镁钙型)                   =
+CBI
+CER BD BE FE                             —
+Fe                  L5~60
+MgQ+SiQ,                == 4?
+TEBE AY)              —               一
+(READ
+AR
+|                       ALO. + TiO.                       三40
+(A Ek HY)
+Go
+BA
+‘                    =
+(碱铅型)                 Cal)                  —=8
+6
+
+==========================================================================================
+### 17854 P11 附录A续
+GB/T 17854—2018
+表 AL) (BE)
+                              主要化学成分(质量分数)
+Ce fs Piz AY)                     CaF, + McQ                        = 99
+AB
+CFF Bi, FE )
+CHE FE)                      “ee                       —
+AB                        Al, O, + CaF                        =70
+(铝氟碱型)                  a As   马上
+FB
+|                         SiO.                         =< 90
+CoB fig LY)
+CaF,                         15
+0 Be ca Se ay Hs pay LiL el] SS FRY oy A SE ay ES Fe as. ie) SL BG" ,化学成分范围不进行规定 ,两种分类之间不可
+em.
+
+==========================================================================================
+### 39279 P6 化学成分表3
+GB/T 39279—2020
+表2 焊丝松弛直径和熄距
+1m              mr               nm
+| if ; RY FP HERE Ae ES Hk 42S fH) HR eT ES Ah Ee Sy BS th 23 A Sch Ere,
+43 ”化学成分
+焊丝化学成分应符夺雪 3 ARTE
+|                              3
+
+==========================================================================================
+### 39279 P10 力学性能表4
+GB/T 39279—2020
+4.4 ”力学性能
+、 ” 熔甫金属拉伸试验结果应符合表 4 的规定。
+表4 熔囊金属力学性能
+规定塑性          预热温度和      焊后热处理
+抗拉强度 尺。         断后伸长率A
+焊丝型号        延伸强度 尺os          y            道间温度       热处理温度       保温时间
+0
+MPa             16       c      min
+        ee ee as
+ic      >490      >390       >22      135~165     620+15      gor}
+—              —       hing:      Q
+x49 3M3T            =                             0 0
+ait       >550       >470       >17      135~165     620-+15      60十15
+—       一       —      日
+x55XCMT    mili                                    oo
+X55 X1CM1
+x55 X1CM2
+x 55X1CM3    >550     >470     >17    135~165    690+15    607°
+x55 X1CMT
+X55 X1CMTI1                |
+|        —  “
+x62 2C1M
+x62 2C1M1
+anes    >620     >540     >15     185~215    690+15      下站
+62x 2C1M3    =      ~       -              |      oo
+x62 2C1MT
+x62 2CIMT1
+a    >550     >470      >15     185~215    690-415     60一15
+SSX 2CIMLI    ee      ad       ~~                     wg
+x55 2CIMV                                         +15
+>550     >470     >15            690+15    604
+S5X2C1IMV1
+7
+
+==========================================================================================
+### 39279 P11 力学性能续
+GB/T 39279—2020
+表 4 (4)
+抗拉强度 R.,.                  后      A
+焊丝型号        am     HE {iH Sh HER yo, 2  村  or      道间温度     热处理温度     wee
+MPa            ,            Cc            c           min                   |
+ee | >mm | >m | > ce es |
+a       >620         >530         >15                      690+15        o>
+x 62 3C1MV1       ss            ~            ~                                         9
+X62X9CIMV
+x 62 X9C1IMV1       >620         >410         >15                      76015       120° 5
+x629CIMV2
+PERE TORN SS          >620                   >530                    >15                 205~260              740+15                sso" >>
+x62X10CMWV-Col          ~          -                                   °
+| xray | >m | >m | > | mm | ms | aot
+          on
+45 焊丝送丝性能
+缠绕的焊丝应适合连续送丝。焊丝接头处应适当处理,以保证能均匀连续送丝。
+46 GH xX HARD
+焊锋和X 射线检测验收等级应符合 GB/T 37910.1—2019 中表 1 规定的2级。
+5 试验方法
+5.1 焊丝尺寸及表面质量
+5.1.1 尺寸
+焊丝直径检验用精度为 0.01 mm 的量具,在同一位置互相垂直方向测量,测量部位不少于两处。
+直条状填充丝长度检验用精度为 1 mm 的量具进行测量，
+5.1.2 表面质量
+焊丝表面质量按 GB/T 25775 的规定,对焊丝任意部位进行目测检验。
+
+==========================================================================================
+### 39279 P16 型号对照表C1
+GB/T 39279一2020
+附 R C
+(资料性附录)
+焊丝型号对照
+为便于应用,提供了本标准常用实心焊丝型号与其他相关标准焊丝型号之间的对应关系,参见表
+cC.1。在实际应用中并不限制采用其他保护气体类型 ,当采用其他保护气体类型时,其力学性能可能会
+发生变化。
+表C.1 焊丝型号对照表
+(B 系列)
+| xsx | xx | -| -
+pa [xoxo | xx | -| =-
+了| xsxar | xx | -|
+了| xssxom | xx | -| =-
+| xmxcom | xxom | -| 一
+| xx | xx | em |
+Pr [xian | xx FO
+pe [xxi | xx [dT
+| xsxom | xx | -| -|
+| xsmmomy | -| -| wewv
+| xs | -| -| we
+| xsxic | xstxc | 一 | 一
+| xx | xx [dT
+| xsxicm | xx [oT
+| xsexzemwy [xem [|
+了了| xxxwwvN | xsrxxwv [oT
+pie [xsexacm | yxetxxc [meas | em
+pe | xexacna | >xoxxm | -| =-
+fm | xexeame | xexcme | -| =-
+pa | xexacme [xcs | -| 一
+pa | xx | xssxacme [ries | rar
+| xssxacm | xsxx | -|
+| xsxxy | xx | -|
+| xsxtcw | xx | -| 二
+| xixxar | xxx | -| 一
+                                                                        13
+
+==========================================================================================
+### 39279 P17 型号对照续
+|
+GB/T 39279—2020                                                                              |
+% C.1 (48)
+a | xem | xem | -| -|
+| xx | xx -| -|
+| xexsamvy | xx | -| -一
+| xx | xx ll -|
+se | xx [xssxeci | sm | ee
+| xxom [xem | -|
+| xex | xx ll -|
+| xxov | xx [|
+| xxuowve| xxowvo [|
+|xexawvel xexowvo [|
+| xeoxiocmwvce] xeoxtoomwves [|
+上
+14
+
