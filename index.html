@@ -182,16 +182,29 @@
     .el-table__body tr.current-row td {
       background: #dbeafe !important;
     }
-    .pqr-float-btn { display: none; }
+    .pqr-float-btn {
+      display: block;
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 90;
+      width: auto;
+      min-width: 200px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .pqr-float-btn .el-button { border-radius: 10px; }
     @media (max-width: 768px) {
       .pqr-float-btn {
-        display: block;
-        position: fixed;
         left: 0; right: 0; bottom: 0;
-        z-index: 90;
+        width: 100%;
+        min-width: 0;
+        border-radius: 0;
         height: 56px;
         box-shadow: 0 -3px 12px rgba(0,0,0,0.18);
       }
+      .pqr-float-btn .el-button { border-radius: 0; }
       .app-main { padding-bottom: 70px; }
       /* PQR页面手机端卡片取消sticky，否则会和悬浮按钮打架 */
       .pqr-float-btn ~ * .card-panel[style*="sticky"],
