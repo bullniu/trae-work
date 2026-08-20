@@ -2213,7 +2213,9 @@
         // 施焊记录
         instructionNo:'', recordNo:'', equipModel:'', powerTypePolarity:'',
         baseSteelNo:'', baseSpec:'', baseMfr:'', baseBatchNo:'', baseMatMark:'',
+        baseSteelNo2:'', baseStandard:'', baseCategory:'', baseGroupNo:'', materialSupplyStatus:'',
         consBrand:'', consSpec:'', consMfr:'', consBatchNo:'', consMatMark:'', consBakeTemp:'', consDosageKg:'',
+        consStandard:'', consCategory:'', consFillerCategory:'', consModelNo:'', consFNo:'', consANo:'',
         reinforceHeight:'0~3', undercut:'≤0.5', weldHeightDiff:'≤1', weldWidth:'',
         surfacePorosity:'无', inspectOther:'—', inspectConclusion:'合格',
         inspectorName:'', inspectDate: todayStr(),
@@ -2559,14 +2561,63 @@
       const generatePqrWord = async () => {
         try {
           const R = currentPqrRecord.value;
-          const B1 = currentPqrBaseMetal.value;
-          const B2 = currentPqrBaseMetal2.value || B1;
-          const C = currentPqrConsumable.value;
           if (!R) { ElementPlus.ElMessage.warning('请先选择焊接参数记录'); return; }
-          if (!B1) { ElementPlus.ElMessage.warning('请先选择母材 B1'); return; }
-          if (!C)  { ElementPlus.ElMessage.warning('请先选择焊材'); return; }
 
-          // ===== 调用后端：基于 PQR模板.doc 填充空格，生成与模板一致的 Word =====
+          // ===== 按"牌号"自动从知识库查询并填充 B1/B2/C 及 pqrForm 字段 =====
+          // 用户可能只输入了牌号(未通过下拉框选)，这里按牌号重新查一次，确保知识库字段都带上
+          const kbGrade1 = String(pqrForm.baseSteelNo || (R && R.baseMetal) || '').trim();
+          const kbGrade2 = String(pqrForm.baseSteelNo2 || '').trim(); // B2 牌号(若与 B1 不同)
+          const kbConsKey = String(pqrForm.consBrand || (R && R.consumable) || '').trim();
+
+          // 母材 B1:若 currentPqrBaseMetal 为空 或 牌号与输入不一致 → 重新查
+          let B1 = currentPqrBaseMetal.value;
+          if (kbGrade1 && (!B1 || (B1.grade && B1.grade !== kbGrade1))) {
+            const hit = lookupBaseMetal(kbGrade1);
+            if (hit) { B1 = hit; currentPqrBaseMetal.value = hit; }
+          }
+          if (!B1 && !kbGrade1) { ElementPlus.ElMessage.warning('请先填写母材牌号(钢号)或从母材库选择 B1'); return; }
+
+          // 母材 B2:若用户填了 B2 牌号 → 查;否则默认 B2 = B1
+          let B2 = currentPqrBaseMetal2.value;
+          if (kbGrade2 && (!B2 || (B2.grade && B2.grade !== kbGrade2))) {
+            const hit2 = lookupBaseMetal(kbGrade2);
+            if (hit2) { B2 = hit2; currentPqrBaseMetal2.value = hit2; }
+          }
+          if (!B2) { B2 = B1; currentPqrBaseMetal2.value = B1; }
+
+          // 焊材 C:若 currentPqrConsumable 为空 或 牌号与输入不一致 → 重新查
+          let C = currentPqrConsumable.value;
+          if (kbConsKey && (!C || ((C.brand !== kbConsKey) && (C.grade !== kbConsKey) && (C.modelNo !== kbConsKey)))) {
+            const hitC = lookupConsumable(kbConsKey);
+            if (hitC) { C = hitC; currentPqrConsumable.value = hitC; }
+          }
+          if (!C && !kbConsKey) { ElementPlus.ElMessage.warning('请先填写焊材牌号或从焊材库选择'); return; }
+
+          // ===== 把知识库字段回填到 pqrForm(只填空格,不覆盖用户已填) =====
+          if (B1) {
+            if (!pqrForm.baseSteelNo) pqrForm.baseSteelNo = B1.grade || '';
+            if (B1.standard && !pqrForm.baseStandard) pqrForm.baseStandard = B1.standard;
+            if (B1.category && !pqrForm.baseCategory) pqrForm.baseCategory = B1.category;
+            if (B1.groupNo != null && !pqrForm.baseGroupNo) pqrForm.baseGroupNo = String(B1.groupNo);
+            if (B1.heatTreatment && !pqrForm.heatTreatTempRange) pqrForm.heatTreatTempRange = B1.heatTreatment;
+            if (B1.supplyStatus && !pqrForm.materialSupplyStatus) pqrForm.materialSupplyStatus = B1.supplyStatus;
+            if (B1.thicknessOrDia && !pqrForm.baseThicknessOrDia) pqrForm.baseThicknessOrDia = 't=' + B1.thicknessOrDia + ' mm';
+          }
+          if (C) {
+            if (!pqrForm.consBrand) pqrForm.consBrand = C.brand || C.grade || '';
+            if (C.standard && !pqrForm.consStandard) pqrForm.consStandard = C.standard;
+            if (C.depositSize && !pqrForm.consSpec) pqrForm.consSpec = C.depositSize;
+            if (C.baketemp && !pqrForm.consBakeTemp) pqrForm.consBakeTemp = C.baketemp;
+            if (C.modelNo && !pqrForm.consModelNo) pqrForm.consModelNo = C.modelNo;
+            if (C.fNo && !pqrForm.consFNo) pqrForm.consFNo = C.fNo;
+            if (C.aNo && !pqrForm.consANo) pqrForm.consANo = C.aNo;
+            if (C.category && !pqrForm.consCategory) pqrForm.consCategory = C.category;
+          }
+
+          // ===== 触发覆盖范围自动计算(确保 coverageResult 是最新的) =====
+          autoCalcCoverage();
+
+          // ===== 调用后端:基于 PQR模板.doc 填充空格,生成与模板一致的 Word =====
           const passes0 = getRecordPasses(R);
           const payload = {
             pqrForm: JSON.parse(JSON.stringify(pqrForm)),
@@ -2577,7 +2628,8 @@
               current: p.current, voltage: p.voltage, weldSpeed: p.weldSpeed,
               efficiency: p.efficiency, weldTime: p.weldTime, weldLength: p.weldLength
             })),
-            baseMetal1: B1, baseMetal2: B2 || B1, consumable: C
+            baseMetal1: B1, baseMetal2: B2 || B1, consumable: C,
+            coverage: pqrForm.coverageResult || null
           };
           try {
             ElementPlus.ElMessage.info('正在基于公司模板生成报告…');

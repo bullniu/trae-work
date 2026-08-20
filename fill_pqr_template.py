@@ -140,9 +140,35 @@ def fill_template(data, out_path):
     pqr = data.get('pqrForm', {})
     R = data.get('record', {})         # 焊接参数记录
     passes = R.get('passes', []) or data.get('passes', [])
-    B1 = data.get('baseMetal1', {})
-    B2 = data.get('baseMetal2', {})
-    C = data.get('consumable', {})
+    B1 = dict(data.get('baseMetal1', {}) or {})
+    B2 = dict(data.get('baseMetal2', {}) or {})
+    C = dict(data.get('consumable', {}) or {})
+    coverage = data.get('coverage', {}) or {}
+
+    # ===== 派生字段(知识库里没有,但模板需要) =====
+    # 母材材料代号 = 类别号-组别号 (如 Fe-1-1)
+    if not B1.get('materialCode') and B1.get('category'):
+        g = B1.get('groupNo', '')
+        B1['materialCode'] = f"{B1['category']}-{g}" if g != '' else B1['category']
+    if not B2.get('materialCode') and B2.get('category'):
+        g = B2.get('groupNo', '')
+        B2['materialCode'] = f"{B2['category']}-{g}" if g != '' else B2['category']
+    # 焊材金属材料代号 = F-No / A-No
+    if not C.get('fillerMetalCode') and (C.get('fNo') or C.get('aNo')):
+        C['fillerMetalCode'] = f"{C.get('fNo','')} / {C.get('aNo','')}".strip(' /')
+    # 焊材填充金属类别 = fNo 或 category
+    if not C.get('fillerCategory'):
+        C['fillerCategory'] = C.get('fNo') or C.get('category') or ''
+
+    # ===== 覆盖范围(基于规则计算的结果)优先于知识库固定范围 =====
+    # coverage.thickness 是基于试件厚度+NB/T 47014 规则算出的"母材厚度覆盖范围"
+    if coverage.get('thickness'):
+        B1['buttThicknessRange'] = coverage['thickness']
+    if coverage.get('weldMetal'):
+        C['buttWeldMetalRange'] = coverage['weldMetal']
+    # PWHT 规则文本
+    if coverage.get('pwht') and not pqr.get('heatTreatTempRange'):
+        pqr['heatTreatTempRange'] = coverage['pwht']
 
     pqrNo = _v(pqr.get('pqrNo'))
     pwpsNo = _v(pqr.get('pwpsNo'), pqrNo + '-W')
@@ -356,10 +382,15 @@ def fill_template(data, out_path):
             fill_after_label(p, '材料标准', _v(B1.get('standard')))
         elif '钢 号' in t:
             fill_after_label(p, '钢 号.', f"{_v(B1.get('grade'))} / {_v(B2.get('grade'))}")
+        elif '与类、组别号' in t or ('类、组别号' in t and '相焊' in t):
+            # 段落形如 "类、组别号：___ 与类、组别号：___ 相焊"，整体重建
+            new = (f"类、组别号  {_v(B1.get('category'))} / {_v(B1.get('groupNo'))}  "
+                   f"与类、组别号  {_v(B2.get('category'))} / {_v(B2.get('groupNo'))}  相焊")
+            if p.runs:
+                for r in p.runs[1:]: r.text=''
+                p.runs[0].text = new
         elif '类、组别号' in t:
             fill_after_label(p, '类、组别号', f"{_v(B1.get('category'))} / {_v(B1.get('groupNo'))}")
-        elif '与类、组别号' in t:
-            fill_after_label(p, '与类、组别号', f"{_v(B2.get('category'))} / {_v(B2.get('groupNo'))} 相焊")
         elif '厚 度' in t:
             fill_after_label(p, '厚 度', _v(B1.get('thicknessOrDia') or B1.get('buttThicknessRange')))
         elif '直 径' in t:
