@@ -101,52 +101,170 @@ window.KB_RULES = {
   },
 
   // ============ 3. 试件厚度→覆盖母材厚度范围 规则 ============
-  // NB/T 47014-2023 第6.3条:对接焊缝、试件厚度 t → 覆盖范围
-  // 公式依据:表5(对接焊缝)与表7(角焊缝)
+  // NB/T 47014-2023 第6.3条 / 表5(对接焊缝)与表7(角焊缝)
   // key 为母材类别号,'通用' 为默认规则
+  // formula(t, options) options 字段:
+  //   impact   : Boolean 有冲击试验要求(夏比V型缺口冲击)
+  //   pwht     : Boolean 进行焊后热处理
+  //   multiPass: Boolean 多道焊(true);单道焊(false)覆盖上限收窄至1.1t
+  //   isPipe   : Boolean 管材对接(影响管径覆盖)
+  //   pipeDia  : Number  管外径(mm),仅 isPipe=true 时生效
+  // 特殊规则(NB/T 47014-2023 第6.3.3 条):
+  //   (1) 冲击试验:有冲击要求时,试件 t>12mm 覆盖厚度下限放宽至 5mm(而非0.5t)
+  //   (2) 多道焊:单道焊覆盖上限1.1t;多道焊覆盖上限2t
+  //   (3) PWHT:覆盖产品必须经过相同温度范围的PWHT,保温时间≥0.8倍
+  //   (4) 管径:板材对接可覆盖管材 D≥150mm;管材对接按管径公式覆盖
+  //   (5) 超厚:t>100mm 时覆盖上限收窄至1.5t
   thicknessRule: {
     '通用': {
-      rule: 't ≤ 3 mm → 覆盖 0.5t ~ 2t (且 ≥0.5mm);\nt = 3-12 mm → 覆盖 0.5t ~ 2t;\nt = 12-100 mm → 覆盖 0.5t ~ 2t;\nt > 100 mm → 覆盖 0.5t ~ 1.5t',
-      formula: (t) => {
+      rule: 'NB/T 47014-2023 表5 对接焊缝试件厚度 t → 覆盖母材厚度 T:\n' +
+        '基础:\n  t < 1.5 mm  → 0.5t ~ 2t (且 ≥0.5mm)\n' +
+        '  1.5 ≤ t ≤ 10 mm → 0.5t ~ 2t\n' +
+        '  10 < t ≤ 38 mm  → 0.5t ~ 2t\n' +
+        '  38 < t ≤ 100 mm → 0.5t ~ 2t\n' +
+        '  t > 100 mm      → 0.5t ~ 1.5t\n' +
+        '特殊规则:\n' +
+        '  (1) 冲击试验:有冲击要求时, t>12mm 覆盖厚度下限放宽至 5mm\n' +
+        '  (2) 多道焊:单道焊覆盖上限 1.1t; 多道焊覆盖上限 2t\n' +
+        '  (3) PWHT:试件进行PWHT时,产品须经过相同温度范围PWHT,保温时间≥0.8倍试件\n' +
+        '  (4) 管径:板材对接可覆盖管材 D≥150mm; 管材对接按管径公式覆盖\n' +
+        '  (5) 超厚:t>100mm 时覆盖上限收窄至 1.5t',
+      formula: (t, options) => {
+        const opts = options || {};
         const tf = parseFloat(t);
         if (isNaN(tf)) return '需输入试件厚度';
         if (tf <= 0) return '无效';
-        if (tf <= 3) return `${Math.max(0.5, (0.5*tf).toFixed(1))} ~ ${(2*tf).toFixed(1)} mm (最小0.5mm)`;
-        if (tf <= 12) return `${(0.5*tf).toFixed(1)} ~ ${(2*tf).toFixed(1)} mm`;
-        if (tf <= 100) return `${(0.5*tf).toFixed(1)} ~ ${(2*tf).toFixed(1)} mm`;
-        return `${(0.5*tf).toFixed(1)} ~ ${(1.5*tf).toFixed(1)} mm`;
+        const impact = !!opts.impact;
+        const pwht = !!opts.pwht;
+        const multiPass = opts.multiPass !== false; // 默认多道焊
+        const isPipe = !!opts.isPipe;
+        const pipeDia = parseFloat(opts.pipeDia) || 0;
+        // 厚度下限
+        let lower;
+        if (tf < 1.5) lower = 0.5 * tf;
+        else if (tf <= 10) lower = 0.5 * tf;
+        else if (tf <= 38) lower = 0.5 * tf;
+        else if (tf <= 100) lower = 0.5 * tf;
+        else lower = 0.5 * tf;
+        // 冲击试验特殊规则:有冲击要求且 t>12mm 时下限放宽至 5mm
+        if (impact && tf > 12) lower = Math.max(5, lower);
+        // 厚度上限
+        let upper;
+        if (tf > 100) upper = 1.5 * tf;       // 超厚
+        else if (!multiPass) upper = 1.1 * tf;  // 单道焊
+        else upper = 2 * tf;                    // 多道焊
+        // 最小厚度约束(≥0.5mm)
+        lower = Math.max(0.5, lower);
+        // 备注说明
+        const notes = [];
+        if (impact && tf > 12) notes.push('有冲击要求,下限≥5mm');
+        if (pwht) notes.push('须PWHT覆盖,产品保温时间≥0.8倍');
+        if (!multiPass) notes.push('单道焊,上限1.1t');
+        else notes.push('多道焊,上限2t');
+        if (isPipe && pipeDia > 0) notes.push('管材Φ' + pipeDia + ',按管径规则');
+        const noteStr = notes.length ? ' (' + notes.join('; ') + ')' : '';
+        return lower.toFixed(1) + ' ~ ' + upper.toFixed(1) + ' mm' + noteStr;
       }
     },
     'Fe-8': {
-      rule: '奥氏体不锈钢:\nt ≤ 10 mm → 覆盖 0.5t ~ 2t;\nt = 10-38 mm → 覆盖 0.5t ~ 2t;\nt > 38 mm → 覆盖 0.5t ~ 2t',
-      formula: (t) => {
+      rule: '奥氏体不锈钢(NB/T 47014-2023 表5 注):' +
+        '\n基础: 0.5t ~ 2t(各厚度区间一致);' +
+        '\n冲击/多道焊/PWHT/管径规则同通用',
+      formula: (t, options) => {
+        const opts = options || {};
         const tf = parseFloat(t);
         if (isNaN(tf)) return '需输入试件厚度';
         if (tf <= 0) return '无效';
-        return `${(0.5*tf).toFixed(1)} ~ ${(2*tf).toFixed(1)} mm`;
+        const impact = !!opts.impact;
+        const pwht = !!opts.pwht;
+        const multiPass = opts.multiPass !== false;
+        const isPipe = !!opts.isPipe;
+        const pipeDia = parseFloat(opts.pipeDia) || 0;
+        let lower = 0.5 * tf;
+        if (impact && tf > 12) lower = Math.max(5, lower);
+        let upper = (!multiPass) ? 1.1 * tf : 2 * tf;
+        lower = Math.max(0.5, lower);
+        const notes = [];
+        if (impact && tf > 12) notes.push('有冲击要求,下限≥5mm');
+        if (pwht) notes.push('须PWHT覆盖');
+        if (!multiPass) notes.push('单道焊,上限1.1t');
+        else notes.push('多道焊,上限2t');
+        if (isPipe && pipeDia > 0) notes.push('管材Φ' + pipeDia + ',按管径规则');
+        const noteStr = notes.length ? ' (' + notes.join('; ') + ')' : '';
+        return lower.toFixed(1) + ' ~ ' + upper.toFixed(1) + ' mm' + noteStr;
       }
     },
     'Fe-10H': {
-      rule: '镍基合金:\nt ≤ 10 mm → 覆盖 0.5t ~ 2t;\nt > 10 mm → 覆盖 0.5t ~ 2t',
-      formula: (t) => {
+      rule: '镍基合金(NB/T 47014-2023 表5 注):0.5t ~ 2t;冲击/多道焊/PWHT规则同通用',
+      formula: (t, options) => {
+        const opts = options || {};
         const tf = parseFloat(t);
         if (isNaN(tf)) return '需输入试件厚度';
-        return `${(0.5*tf).toFixed(1)} ~ ${(2*tf).toFixed(1)} mm`;
+        if (tf <= 0) return '无效';
+        const multiPass = opts.multiPass !== false;
+        const impact = !!opts.impact;
+        let lower = 0.5 * tf;
+        if (impact && tf > 12) lower = Math.max(5, lower);
+        let upper = (!multiPass) ? 1.1 * tf : 2 * tf;
+        lower = Math.max(0.5, lower);
+        const notes = [];
+        if (impact && tf > 12) notes.push('有冲击要求,下限≥5mm');
+        if (!multiPass) notes.push('单道焊,上限1.1t');
+        else notes.push('多道焊,上限2t');
+        const noteStr = notes.length ? ' (' + notes.join('; ') + ')' : '';
+        return lower.toFixed(1) + ' ~ ' + upper.toFixed(1) + ' mm' + noteStr;
       }
     }
   },
 
   // ============ 4. 试件焊缝金属厚度→覆盖熔敷金属厚度 规则 ============
-  // NB/T 47014-2023 第6.4条:w 为试件焊缝金属厚度
+  // NB/T 47014-2023 第6.4条 / 表6:w 为试件焊缝金属厚度
+  // formula(w, options) options 字段同 thicknessRule
+  // 特殊规则:
+  //   (1) 冲击试验:有冲击要求且 w>10mm 时,覆盖下限放宽至 5mm
+  //   (2) 多道焊:单道焊覆盖上限 1.1w;多道焊覆盖上限 2w
+  //   (3) PWHT:同母材厚度规则,产品须经过相同PWHT
+  //   (4) 最小厚度:w≤1.5mm 覆盖≤2w;w>10mm 下限最小1.5mm
   weldMetalRule: {
     '通用': {
-      rule: 'w ≤ 1.5 mm → 覆盖 ≤ 2w;\n1.5 < w ≤ 10 mm → 覆盖 0.5w ~ 2w;\nw > 10 mm → 覆盖 0.5w ~ 2w (最小1.5mm)',
-      formula: (w) => {
+      rule: 'NB/T 47014-2023 表6 焊缝金属厚度 w → 覆盖熔敷金属厚度 W:\n' +
+        '基础:\n  w ≤ 1.5 mm     → ≤ 2w\n' +
+        '  1.5 < w ≤ 10 mm → 0.5w ~ 2w\n' +
+        '  w > 10 mm       → 0.5w ~ 2w (最小1.5mm)\n' +
+        '特殊规则:\n' +
+        '  (1) 冲击试验:有冲击要求且 w>10mm 时,覆盖下限放宽至 5mm\n' +
+        '  (2) 多道焊:单道焊覆盖上限 1.1w; 多道焊覆盖上限 2w\n' +
+        '  (3) PWHT:产品须经过相同温度范围PWHT',
+      formula: (w, options) => {
+        const opts = options || {};
         const wf = parseFloat(w);
         if (isNaN(wf)) return '需输入焊缝金属厚度';
         if (wf <= 0) return '无效';
-        if (wf <= 1.5) return `≤ ${(2*wf).toFixed(1)} mm`;
-        return `${Math.max(1.5, (0.5*wf).toFixed(1))} ~ ${(2*wf).toFixed(1)} mm`;
+        const impact = !!opts.impact;
+        const pwht = !!opts.pwht;
+        const multiPass = opts.multiPass !== false;
+        // w ≤ 1.5mm:覆盖 ≤ 2w
+        if (wf <= 1.5) {
+          const notes = [];
+          if (pwht) notes.push('须PWHT覆盖');
+          if (!multiPass) notes.push('单道焊,上限1.1w');
+          else notes.push('多道焊,上限2w');
+          const noteStr = notes.length ? ' (' + notes.join('; ') + ')' : '';
+          return '≤ ' + (2 * wf).toFixed(1) + ' mm' + noteStr;
+        }
+        // 上限
+        let upper = (!multiPass) ? 1.1 * wf : 2 * wf;
+        // 下限
+        let lower;
+        if (impact && wf > 10) lower = Math.max(5, 0.5 * wf);
+        else lower = Math.max(1.5, 0.5 * wf);
+        const notes = [];
+        if (impact && wf > 10) notes.push('有冲击要求,下限≥5mm');
+        if (pwht) notes.push('须PWHT覆盖');
+        if (!multiPass) notes.push('单道焊,上限1.1w');
+        else notes.push('多道焊,上限2w');
+        const noteStr = notes.length ? ' (' + notes.join('; ') + ')' : '';
+        return lower.toFixed(1) + ' ~ ' + upper.toFixed(1) + ' mm' + noteStr;
       }
     }
   },

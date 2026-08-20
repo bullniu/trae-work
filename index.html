@@ -299,6 +299,8 @@
     .coverage-card .coverage-title { font-size:12px; color:#64748b; margin-bottom:4px; }
     .coverage-card .coverage-value { font-size:15px; font-weight:600; color:#0f172a; line-height:1.4; margin-bottom:4px; }
     .coverage-card .coverage-detail { font-size:11px; color:#64748b; line-height:1.3; }
+    .coverage-options-box { background:#fefce8; border:1px dashed #f59e0b; border-radius:6px; padding:8px 12px; margin:6px 0 10px; display:flex; align-items:center; flex-wrap:wrap; gap:6px 14px; }
+    .coverage-options-box .coverage-options-label { font-size:12px; font-weight:600; color:#b45309; margin-right:4px; }
   </style>
 </head>
 <body>
@@ -741,9 +743,18 @@
                     </el-form-item></el-col>
                   </el-row>
                   <div class="sub-table-title">
-                    评定覆盖范围（NB/T 47014 规则自动推导）
+                    评定覆盖范围（NB/T 47014-2023 规则自动推导，含特殊规则）
                     <el-button type="primary" size="small" style="margin-left:12px;" @click="autoCalcCoverage">自动计算覆盖范围</el-button>
                     <el-button type="success" size="small" plain @click="autoFillFromKB">按母材/焊材牌号自动填充</el-button>
+                  </div>
+                  <div class="coverage-options-box">
+                    <span class="coverage-options-label">特殊规则选项(NB/T 47014-2023):</span>
+                    <el-checkbox v-model="pqrForm.coverageOptions.impact">有冲击试验要求</el-checkbox>
+                    <el-checkbox v-model="pqrForm.coverageOptions.pwht">进行焊后热处理(PWHT)</el-checkbox>
+                    <el-checkbox v-model="pqrForm.coverageOptions.multiPass">多道焊</el-checkbox>
+                    <el-checkbox v-model="pqrForm.coverageOptions.isPipe">管材对接</el-checkbox>
+                    <el-input-number v-if="pqrForm.coverageOptions.isPipe" v-model="pqrForm.coverageOptions.pipeDia" :min="0" :step="10" :precision="1" size="small" controls-position="right" style="width:140px;margin-left:8px;" placeholder="管外径" />
+                    <span v-if="pqrForm.coverageOptions.isPipe" style="font-size:12px;color:#6b7280;">mm</span>
                   </div>
                   <el-row :gutter="12" v-if="pqrForm.coverageResult">
                     <el-col :span="12">
@@ -1220,7 +1231,7 @@
     </div>
 
     <!-- 试算覆盖范围对话框 -->
-    <el-dialog v-model="testCoverageDialog" title="试算覆盖范围" width="560px">
+    <el-dialog v-model="testCoverageDialog" title="试算覆盖范围（含特殊规则）" width="620px">
       <el-form label-width="140px" size="small">
         <el-form-item label="母材类别号">
           <el-select v-model="testCoverageForm.category" filterable placeholder="选择母材类别">
@@ -1232,6 +1243,21 @@
         </el-form-item>
         <el-form-item label="焊缝金属厚度 w">
           <el-input-number v-model="testCoverageForm.weldMetal" :min="0" :step="0.5" :precision="1" controls-position="right" />
+        </el-form-item>
+        <el-divider content-position="left">特殊规则选项 (NB/T 47014-2023)</el-divider>
+        <el-form-item label="冲击试验">
+          <el-checkbox v-model="testCoverageForm.impact">有冲击试验要求</el-checkbox>
+        </el-form-item>
+        <el-form-item label="焊后热处理">
+          <el-checkbox v-model="testCoverageForm.pwht">进行焊后热处理(PWHT)</el-checkbox>
+        </el-form-item>
+        <el-form-item label="焊接方式">
+          <el-checkbox v-model="testCoverageForm.multiPass">多道焊(取消勾选为单道焊)</el-checkbox>
+        </el-form-item>
+        <el-form-item label="管材对接">
+          <el-checkbox v-model="testCoverageForm.isPipe">管材对接</el-checkbox>
+          <el-input-number v-if="testCoverageForm.isPipe" v-model="testCoverageForm.pipeDia" :min="0" :step="10" :precision="1" size="small" controls-position="right" style="width:140px;margin-left:8px;" placeholder="管外径" />
+          <span v-if="testCoverageForm.isPipe" style="font-size:12px;color:#6b7280;margin-left:4px;">mm</span>
         </el-form-item>
       </el-form>
       <div v-if="testCoverageResult" style="margin-top:12px;padding:12px;background:#f8fafc;border-radius:6px;">
@@ -1611,23 +1637,25 @@
   }
 
   // 计算母材厚度覆盖范围
-  function calcThicknessRange(category, testThickness) {
+  // options: { impact, pwht, multiPass, isPipe, pipeDia }
+  function calcThicknessRange(category, testThickness, options) {
     const rules = window.KB_RULES;
     if (!rules || !rules.thicknessRule) return '未配置规则';
     const cat = category || '通用';
     const r = rules.thicknessRule[cat] || rules.thicknessRule['通用'];
     if (!r) return '未配置规则';
-    try { return r.formula ? r.formula(testThickness) : r.rule; }
+    try { return r.formula ? r.formula(testThickness, options || {}) : r.rule; }
     catch (e) { return r.rule; }
   }
 
   // 计算熔敷金属厚度覆盖范围
-  function calcWeldMetalRange(testWeldThickness) {
+  // options: { impact, pwht, multiPass }
+  function calcWeldMetalRange(testWeldThickness, options) {
     const rules = window.KB_RULES;
     if (!rules || !rules.weldMetalRule) return '未配置规则';
     const r = rules.weldMetalRule['通用'];
     if (!r) return '未配置规则';
-    try { return r.formula ? r.formula(testWeldThickness) : r.rule; }
+    try { return r.formula ? r.formula(testWeldThickness, options || {}) : r.rule; }
     catch (e) { return r.rule; }
   }
 
@@ -1756,15 +1784,24 @@
       });
       // 试算覆盖范围对话框
       const testCoverageDialog = ref(false);
-      const testCoverageForm = reactive({ category:'Fe-1', thickness:12, weldMetal:7.2 });
+      const testCoverageForm = reactive({ category:'Fe-1', thickness:12, weldMetal:7.2,
+        impact:false, pwht:false, multiPass:true, isPipe:false, pipeDia:0 });
       const testCoverageResult = ref(null);
       const doTestCoverage = () => {
         const r = window.KB_RULES;
         if (!r) return;
+        const options = {
+          impact: !!testCoverageForm.impact,
+          pwht: !!testCoverageForm.pwht,
+          multiPass: testCoverageForm.multiPass !== false,
+          isPipe: !!testCoverageForm.isPipe,
+          pipeDia: parseFloat(testCoverageForm.pipeDia) || 0
+        };
         testCoverageResult.value = {
-          thickness: calcThicknessRange(testCoverageForm.category, testCoverageForm.thickness),
-          weldMetal: calcWeldMetalRange(testCoverageForm.weldMetal),
-          pwht: getPwhtRule(testCoverageForm.category)
+          thickness: calcThicknessRange(testCoverageForm.category, testCoverageForm.thickness, options),
+          weldMetal: calcWeldMetalRange(testCoverageForm.weldMetal, options),
+          pwht: getPwhtRule(testCoverageForm.category),
+          appliedOptions: options
         };
       };
       // PDF 提取数据
@@ -2166,7 +2203,15 @@
         envTemp:20, humidity:55, welderDoer:'', recorderName:'', weldDate2: todayStr(),
         remarks:'',
         // 评定覆盖范围自动推导结果
-        coverageResult: null
+        coverageResult: null,
+        // 评定覆盖范围特殊规则选项(NB/T 47014-2023)
+        coverageOptions: {
+          impact: false,        // 有冲击试验要求
+          pwht: false,          // 进行焊后热处理
+          multiPass: true,      // 多道焊(true)/单道焊(false)
+          isPipe: false,        // 管材对接
+          pipeDia: 0            // 管外径(mm),仅 isPipe=true 时生效
+        }
       });
 
       const currentPqrRecord = ref(null);
@@ -2421,7 +2466,13 @@
       });
       const _blankP = (after=60) => new docx.Paragraph({ spacing:{ before:0, after } });
 
-      // 自动计算评定覆盖范围（NB/T 47014-2023 规则）
+      // 自动计算评定覆盖范围（NB/T 47014-2023 规则 + 特殊规则）
+      // 特殊规则选项来自 pqrForm.coverageOptions:
+      //   impact   有冲击试验要求
+      //   pwht     进行焊后热处理
+      //   multiPass多道焊(true)/单道焊(false)
+      //   isPipe   管材对接
+      //   pipeDia  管外径(mm)
       const autoCalcCoverage = () => {
         const B1 = currentPqrBaseMetal.value;
         const B2 = currentPqrBaseMetal2.value;
@@ -2434,12 +2485,21 @@
           return;
         }
         const category = B1 ? B1.category : '';
+        // 选项参数
+        const opts = pqrForm.coverageOptions || {};
+        const options = {
+          impact: !!opts.impact,
+          pwht: !!opts.pwht,
+          multiPass: opts.multiPass !== false,
+          isPipe: !!opts.isPipe,
+          pipeDia: parseFloat(opts.pipeDia) || 0
+        };
         // 焊缝金属厚度:取焊层焊道最大填充厚度,简化用焊材记录的 depositThicknessMax 或试件厚度的0.6倍
         let testW = 0;
         if (C && C.depositThicknessMax) testW = parseFloat(C.depositThicknessMax) || 0;
         if (!testW) testW = testT * 0.6;
-        const thickness = calcThicknessRange(category, testT);
-        const weldMetal = calcWeldMetalRange(testW);
+        const thickness = calcThicknessRange(category, testT, options);
+        const weldMetal = calcWeldMetalRange(testW, options);
         const catMatch = getCategoryMatchRule(B1 && B1.category, B2 && B2.category ? B2.category : B1 && B1.category);
         const pwht = getPwhtRule(category);
         const rules = getRules();
@@ -2449,9 +2509,10 @@
           weldMetal,
           weldMetalRule: rules && rules.weldMetalRule ? rules.weldMetalRule['通用'].rule : '',
           categoryMatch: catMatch || '—',
-          pwht: pwht || '—'
+          pwht: pwht || '—',
+          appliedOptions: options
         };
-        ElementPlus.ElMessage.success('已根据 NB/T 47014-2023 自动推导覆盖范围');
+        ElementPlus.ElMessage.success('已根据 NB/T 47014-2023 自动推导覆盖范围(含特殊规则)');
       };
 
       // 按母材/焊材牌号自动从知识库填充字段
