@@ -176,14 +176,14 @@ def fill_template(data, out_path):
     weldMethod = _v(pqr.get('weldMethod'), R.get('weldMethod'))
 
     def calc_heat(p):
-        """计算热输入 kJ/cm = I*U*η/（v*1000）, v 单位 cm/min"""
+        """计算热输入 kJ/cm = I*U*η*60/(v*1000), v 单位 cm/min, SMAW η=0.8"""
         try:
             I = float(p.get('current') or 0)
             U = float(p.get('voltage') or 0)
             v = float(p.get('weldSpeed') or 0)
             eta = float(p.get('efficiency') or 0.8)
             if I and U and v:
-                return f"{I*U*eta/(v*1000):.2f}"
+                return f"{I*U*eta*60/(v*1000):.2f}"
         except: pass
         return ''
 
