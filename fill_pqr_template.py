@@ -391,12 +391,12 @@ def fill_template(data, out_path):
                 p.runs[0].text = new
         elif '类、组别号' in t:
             fill_after_label(p, '类、组别号', f"{_v(B1.get('category'))} / {_v(B1.get('groupNo'))}")
-        elif '厚 度' in t:
-            fill_after_label(p, '厚 度', _v(B1.get('thicknessOrDia') or B1.get('buttThicknessRange')))
-        elif '直 径' in t:
-            fill_after_label(p, '直 径', '/')
-        elif '其 他' in t:
-            fill_after_label(p, '其 他', '/')
+        elif '厚度' in t:
+            fill_after_label(p, '厚度', _v(B1.get('thicknessOrDia') or pqr.get('baseThicknessOrDia')))
+        elif '直径' in t:
+            fill_after_label(p, '直径', _v(pqr.get('baseDiameter','/')))
+        elif '其他' in t:
+            fill_after_label(p, '其他', _v(pqr.get('baseOther','/')))
 
     # 行2 右: 焊后热处理
     ht_p = t2.rows[2].cells[1]
@@ -428,8 +428,8 @@ def fill_template(data, out_path):
             fill_after_label(p, '焊材规格', _v(C.get('depositSize') or C.get('depositSpec')))
         elif '焊缝金属厚度' in t:
             fill_after_label(p, '焊缝金属厚度', _v(C.get('buttWeldMetalRange'),'/'))
-        elif '其 他' in t:
-            fill_after_label(p, '其 他', '/')
+        elif '其他' in t:
+            fill_after_label(p, '其他', '/')
 
     # 行4 右: 电特性
     el_p = t2.rows[4].cells[1]
