@@ -33,9 +33,9 @@ window.KB_RULES = {
     'Fe-3': {
       desc: '低合金耐热钢(Cr-Mo)',
       groups: {
-        '1': { desc:'Cr≤0.50%,Mo≤0.50%', examples:'12CrMoG,15CrMoG', standards:'GB/T 5310, GB/T 9948' },
-        '2': { desc:'Cr 0.50%-2.00%,Mo 0.50%-1.00%', examples:'12Cr1MoVG,12Cr2MoG,15Cr1Mo1G', standards:'GB/T 5310, GB/T 9948' },
-        '3': { desc:'Cr 2.00%-3.00%,Mo 1.00%-1.50%', examples:'—', standards:'GB/T 5310, GB/T 9948' }
+        '1': { desc:'Cr 0.50%-2.00%,Mo 0.50%-1.00%', examples:'12CrMoG,15CrMoG,12Cr1MoVG,15Cr1Mo1G', standards:'GB/T 5310, GB/T 9948' },
+        '2': { desc:'Cr 2.00%-3.00%,Mo 0.50%-1.50%', examples:'12Cr2MoG,12Cr2Mo1R,12Cr2MoG', standards:'GB/T 5310, GB/T 9948' },
+        '3': { desc:'Cr 3.00%-6.00%,Mo 0.50%-1.50%', examples:'—', standards:'GB/T 5310, GB/T 9948' }
       }
     },
     'Fe-4': {
