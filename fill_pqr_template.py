@@ -39,19 +39,26 @@ def _date(s):
 def fill_after_label(para, label, value, replace_all_after=False):
     """在段落里把 'label：___' 中冒号后的空格替换为 value。
     replace_all_after=True 时，把 label 冒号后的全部内容（含示例值）替换为 value。
-    保留 label 及段落第一个 run 的格式。"""
+    保留 label 及段落第一个 run 的格式。
+    当段落没有冒号但以 label 开头时，直接在 label 后追加 ' value'。"""
     if not para.runs:
         para.add_run(_v(label) + '：' + _v(value))
         return
     full = para.text
     if replace_all_after:
-        # 替换 label 冒号后的全部内容
         pattern = re.escape(label) + r'\s*[：:]\s*.*$'
         new_text = f'{label}：{_v(value)}'
     else:
         pattern = re.escape(label) + r'\s*[：:]\s*'
         new_text = re.sub(pattern, f'{label}：{_v(value)}', full, count=1)
     if not re.search(pattern, full):
+        # 无冒号场景:段落以 label 开头 → 在 label 后追加 value
+        if full.strip().startswith(label):
+            first = para.runs[0]
+            for r in para.runs[1:]:
+                r.text = ''
+            first.text = f'{label} {_v(value)}'
+            return True
         return False
     if replace_all_after:
         new_text = re.sub(pattern, f'{label}：{_v(value)}', full, count=1)
