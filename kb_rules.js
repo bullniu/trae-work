@@ -13,65 +13,75 @@
  */
 window.KB_RULES = {
   // ============ 1. 母材分类表(NB/T 47014 表1) ============
-  // 类别号-组别号 含义 + 典型牌号示例
+  // !! 依据:NB/T 47014-2011 表1(2023版有局部调整,待核对) !!
+  // 分类原则:主要考虑焊接接头力学性能,兼顾化学成分和焊接性
   baseMetalCategory: {
     'Fe-1': {
-      desc: '碳钢',
+      desc: '强度钢(按抗拉强度级别分组)',
       groups: {
-        '1': { desc:'碳钢,屈服强度 ≤295 MPa', examples:'Q235,Q245R,20,20G,10,L245', standards:'GB/T 700, GB/T 713.2, GB/T 699, GB/T 5310, GB/T 9948, GB/T 9711' },
-        '2': { desc:'碳钢,屈服强度 >295 MPa', examples:'Q275,35,45,L415,Q255', standards:'GB/T 700, GB/T 699, GB/T 9711' }
+        '1': { desc:'低碳钢,C<0.25%,抗拉40kgf/mm²级', examples:'Q235,20#,Q245R,20G,L245', standards:'GB/T 700, GB/T 713.2, GB/T 699, GB/T 5310, GB/T 9711' },
+        '2': { desc:'碳当量≥0.25%,抗拉50kgf/mm²级', examples:'Q345R,Q345,16Mn,16MnDR', standards:'GB/T 1591, GB/T 713.2, GB/T 3531' },
+        '3': { desc:'低合金高强钢,抗拉55kgf/mm²级', examples:'Q370R,15MnNiNbDR', standards:'GB/T 713.5, GB/T 150.2' },
+        '4': { desc:'低合金高强钢,抗拉60kgf/mm²级', examples:'07MnMoVR,07MnNiVDR,L485', standards:'GB 19189, GB/T 9711' }
       }
     },
     'Fe-2': {
-      desc: '低合金钢',
+      desc: '低合金钢(待核实分组依据)',
       groups: {
-        '1': { desc:'低合金钢,Cr≤0.50%,Mo≤0.20%,Cu≤0.50%,无其他合金', examples:'Q355,Q390,Q370R', standards:'GB/T 1591, GB/T 713.5' },
-        '2': { desc:'低合金钢,Cr>0.50%或Mo>0.20%或含其他合金', examples:'Q420,Q460', standards:'GB/T 1591' },
-        '3': { desc:'低合金钢,沉淀硬化', examples:'—', standards:'GB/T 1591' }
+        '1': { desc:'待核实', examples:'Q355,Q390,Q370R', standards:'GB/T 1591, GB/T 713.5' },
+        '2': { desc:'待核实', examples:'Q420,Q460', standards:'GB/T 1591' }
       }
     },
     'Fe-3': {
-      desc: '低合金耐热钢(Cr-Mo)',
+      desc: '含Mo≥0.3%的强度钢/耐热钢(按抗拉强度级别分组)',
       groups: {
-        '1': { desc:'Cr 0.50%-2.00%,Mo 0.50%-1.00%', examples:'12CrMoG,15CrMoG,12Cr1MoVG,15Cr1Mo1G', standards:'GB/T 5310, GB/T 9948' },
-        '2': { desc:'Cr 2.00%-3.00%,Mo 0.50%-1.50%', examples:'12Cr2MoG,12Cr2Mo1R,12Cr2MoG', standards:'GB/T 5310, GB/T 9948' },
-        '3': { desc:'Cr 3.00%-6.00%,Mo 0.50%-1.50%', examples:'—', standards:'GB/T 5310, GB/T 9948' }
+        '1': { desc:'抗拉40kgf/mm²级', examples:'12CrMoG,15MoG,15CrMoG', standards:'GB/T 5310, GB/T 9948' },
+        '2': { desc:'抗拉50kgf/mm²级', examples:'20MnMo,12SiMoVNb,12Cr1MoVG,15Cr1Mo1G', standards:'GB/T 5310, GB/T 9948' },
+        '3': { desc:'抗拉60kgf/mm²级', examples:'—', standards:'GB/T 5310, GB/T 9948' }
       }
     },
     'Fe-4': {
-      desc: '低合金耐热钢(高Cr)',
+      desc: '耐热钢(按化学成分Cr<2%分类)',
       groups: {
-        '1': { desc:'Cr 3.00%-9.00%,Mo≤1.00%或不含Mo', examples:'10Cr9Mo1VNbN(P91/T91)', standards:'GB/T 5310' },
-        '2': { desc:'Cr 9.00%-12.00%,含V/Nb/N', examples:'—', standards:'GB/T 5310' }
+        '1': { desc:'公称成分含Cr、Mo', examples:'(待核实)', standards:'GB/T 5310' },
+        '2': { desc:'公称成分含Cr、Mo、V', examples:'(待核实)', standards:'GB/T 5310' }
       }
     },
-    'Fe-4A': { desc:'马氏体不锈钢(承压设备简化分类)', groups:{ '1':{ desc:'11-13Cr马氏体', examples:'06Cr13,12Cr13,20Cr13', standards:'GB/T 1220' } } },
-    'Fe-5A': { desc:'马氏体不锈钢', groups:{ '1':{ desc:'410系(11-13Cr)', examples:'06Cr13,12Cr13,20Cr13', standards:'GB/T 1220' } } },
-    'Fe-5B': { desc:'马氏体不锈钢(沉淀硬化)', groups:{ '1':{ desc:'17-4PH等', examples:'05Cr17Ni4Cu4Nb', standards:'GB/T 1220' } } },
-    'Fe-6': { desc:'沉淀硬化不锈钢', groups:{ '1':{ desc:'17-7PH等', examples:'06Cr17Ni7Al', standards:'GB/T 1220' } } },
-    'Fe-7A': {
-      desc: '铁素体不锈钢',
+    'Fe-5A': {
+      desc: '耐热钢(按Cr、Mo含量分类,Cr 2~3%)',
+      groups: { '1': { desc:'Cr 2~3% Cr-Mo钢', examples:'(待核实)', standards:'GB/T 5310' } }
+    },
+    'Fe-5B': {
+      desc: '耐热钢(按含Cr量≥5%分类)',
       groups: {
-        '1': { desc:'11-14Cr铁素体', examples:'06Cr13Al,022Cr12,06Cr13', standards:'GB/T 4238' },
-        '2': { desc:'11-13Cr含Ni铁素体', examples:'022Cr12Ni', standards:'GB/T 4238' }
+        '1': { desc:'含Cr量5%', examples:'1Cr5Mo,06Cr5Mo', standards:'GB/T 9948, GB/T 5310' },
+        '2': { desc:'含Cr量>5%(如9Cr)', examples:'10Cr9Mo1VNbN(P91/T91)', standards:'GB/T 5310' }
       }
     },
-    'Fe-7B': { desc:'铁素体不锈钢(高Cr)', groups:{ '1':{ desc:'14-30Cr铁素体', examples:'06Cr13Al', standards:'GB/T 4238' } } },
+    'Fe-5C': {
+      desc: '耐热钢(按Cr、Mo、V含量分类,Cr≤3%)',
+      groups: { '1': { desc:'Cr≤3%含V', examples:'12Cr2Mo1V,12Cr3Mo1V', standards:'GB/T 5310' } }
+    },
+    'Fe-6': { desc:'马氏体不锈钢(不分组)', groups:{ '1':{ desc:'马氏体不锈钢', examples:'06Cr13,12Cr13,20Cr13', standards:'GB/T 1220' } } },
+    'Fe-7': {
+      desc: '铁素体不锈钢(按Cr含量分组)',
+      groups: {
+        '1': { desc:'Cr13系', examples:'06Cr13,022Cr12,06Cr13Al', standards:'GB/T 4238' },
+        '2': { desc:'Cr17系', examples:'019Cr19Mo2NbTi', standards:'GB/T 4238' }
+      }
+    },
     'Fe-8': {
-      desc: '奥氏体不锈钢',
+      desc: '奥氏体不锈钢(按Cr、Ni配比分组)',
       groups: {
-        '1': { desc:'Cr 16-22%,Ni 8-14%,Mo≤3%', examples:'06Cr19Ni10(304),022Cr19Ni10(304L),06Cr17Ni12Mo2(316)', standards:'GB/T 14976-2025, GB/T 4238' },
-        '2': { desc:'Cr 22-28%,Ni 14-32%,Mo≤3%', examples:'06Cr25Ni20(310),16Cr25Ni20Si2(310s)', standards:'GB/T 14976-2025' }
+        '1': { desc:'18-8型', examples:'06Cr19Ni10(304),022Cr19Ni10(304L),06Cr17Ni12Mo2(316)', standards:'GB/T 14976-2025, GB/T 4238' },
+        '2': { desc:'25-13/25-20型', examples:'06Cr25Ni20(310),16Cr25Ni20Si2(310s)', standards:'GB/T 14976-2025' }
       }
     },
-    'Fe-9A': { desc:'Ni合金钢(低Ni)', groups:{ '1':{ desc:'2.5%Ni钢', examples:'2.5Ni', standards:'—' } } },
-    'Fe-9B': { desc:'Ni合金钢(高Ni)', groups:{ '1':{ desc:'3.5%Ni钢', examples:'3.5Ni', standards:'—' } } },
-    'Fe-10A': { desc:'奥氏体-铁素体双相不锈钢', groups:{ '1':{ desc:'Cr 18-23%,Ni 3-8%', examples:'022Cr19Ni5Mo3Si2N', standards:'GB/T 4238' } } },
-    'Fe-10B': { desc:'奥氏体-铁素体双相不锈钢(高Cr)', groups:{ '1':{ desc:'Cr 23-29%,Ni 4-9%', examples:'022Cr25Ni6Mo2N', standards:'GB/T 4238' } } },
-    'Fe-10H': { desc:'镍基合金(Ni≥35%)', groups:{ '1':{ desc:'Ni基固溶', examples:'NS312(Inconel600),NS334(C-276),NS336(625)', standards:'GB/T 15011' } } },
-    'Fe-10I': { desc:'镍基合金(含Cu)', groups:{ '1':{ desc:'Ni-Cu型', examples:'Monel 400', standards:'GB/T 15011' } } },
-    'Fe-10J': { desc:'镍基合金(沉淀硬化)', groups:{ '1':{ desc:'时效强化型', examples:'—', standards:'GB/T 15011' } } },
-    'Fe-10K': { desc:'镍基合金(特种)', groups:{ '1':{ desc:'—', examples:'—', standards:'—' } } }
+    'Fe-9B': { desc:'含Ni 3%低温钢(不分组)', groups:{ '1':{ desc:'3%Ni低温钢', examples:'10Ni3MoVD,06Ni3MoDG', standards:'GB/T 150.2' } } },
+    'Fe-10H': { desc:'奥氏体-铁素体双相不锈钢', groups:{ '1':{ desc:'双相不锈钢', examples:'022Cr19Ni5Mo3Si2N', standards:'GB/T 4238' } } },
+    'Fe-10I': { desc:'高铬钢(Cr27%)', groups:{ '1':{ desc:'高Cr铁素体', examples:'(待核实)', standards:'GB/T 4238' } } },
+    // 注:以下为2023版可能新增/调整的类别,待核对表1原文确认
+    '_note': 'Fe-7A/7B、Fe-9A、Fe-10A/B/J/K 等细分类别为旧版知识库录入,可能与2023版表1不符,待核实'
   },
 
   // ============ 2. 焊材分类表(NB/T 47014 焊材分类,F-No./A-No.) ============
